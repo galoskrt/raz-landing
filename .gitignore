@@ -3,3 +3,4 @@ tools/_*.png
 __pycache__/
 *.pyc
 .DS_Store
+tools/.deploy-manifest.json
