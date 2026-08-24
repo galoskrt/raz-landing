@@ -1,0 +1,30 @@
+<!doctype html>
+<html dir="rtl" lang="he"><head><meta charset="utf-8">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#14161A;font-family:Heebo,Arial,sans-serif;direction:rtl;padding:24px;color:#F1EDE7}
+h4{font-size:11px;letter-spacing:.12em;color:#8A8580;font-weight:500;margin:0 0 10px}
+.row{display:flex;gap:10px;margin-bottom:26px}
+.c{background:#1B1E23;border:1px solid #2A2E34;border-radius:12px;padding:10px;text-align:center}
+.box{width:84px;height:84px}
+.f{font-size:9.5px;color:#6F6A65;margin-top:4px}
+</style></head><body>
+<div id="out"></div>
+<script src="../assets/lottie_light.min.js"></script>
+<script>
+var ICONS=["01-pricing","04-database","06-filter","02-prep"];
+var STEPS=[0.15,0.3,0.45,0.6,0.75,0.9,0.99];
+var out=document.getElementById("out"),pending=ICONS.length*STEPS.length;
+ICONS.forEach(function(n){
+  var h=document.createElement("h4"); h.textContent=n; out.appendChild(h);
+  var row=document.createElement("div"); row.className="row"; out.appendChild(row);
+  STEPS.forEach(function(s){
+    var c=document.createElement("div"); c.className="c";
+    var b=document.createElement("div"); b.className="box";
+    var f=document.createElement("div"); f.className="f"; f.textContent=Math.round(s*100)+"%";
+    c.appendChild(b); c.appendChild(f); row.appendChild(c);
+    var a=lottie.loadAnimation({container:b,renderer:"svg",loop:false,autoplay:false,path:"../assets/"+n+".json"});
+    a.addEventListener("DOMLoaded",function(){a.goToAndStop(Math.round(a.totalFrames*s),true);pending--;});
+  });
+});
+</script></body></html>

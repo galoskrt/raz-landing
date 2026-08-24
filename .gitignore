@@ -1,0 +1,5 @@
+tools/.ftp.json
+tools/_*.png
+__pycache__/
+*.pyc
+.DS_Store
