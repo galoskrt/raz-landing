@@ -21,13 +21,14 @@ MANIFEST = os.path.join(ROOT, "tools", ".deploy-manifest.json")
 
 SKIP_DIRS = {".git", "tools", "__pycache__", ".github"}
 SKIP_FILES = {".gitignore", "README.md", ".deploy-manifest.json"}
+KEEP_DOTFILES = {".htaccess"}
 
 
 def local_files():
     for base, dirs, names in os.walk(ROOT):
         dirs[:] = [d for d in dirs if d not in SKIP_DIRS and not d.startswith(".")]
         for n in names:
-            if n in SKIP_FILES or n.startswith("."):
+            if n in SKIP_FILES or (n.startswith(".") and n not in KEEP_DOTFILES):
                 continue
             full = os.path.join(base, n)
             rel = os.path.relpath(full, ROOT).replace("\\", "/")
@@ -43,23 +44,31 @@ def sha1(path):
 
 
 def connect(cfg):
-    """cPanel almost always offers explicit FTPS. Fall back to plain FTP only
-    if the server refuses AUTH TLS, and say so out loud."""
-    try:
+    """cPanel here answers plain FTP fine but hangs on the FTPS data channel,
+    so TLS is opt in through the config rather than the default."""
+    if cfg.get("tls"):
         ftp = ftplib.FTP_TLS(timeout=30)
         ftp.connect(cfg["host"], int(cfg.get("port", 21)))
         ftp.login(cfg["user"], cfg["password"])
         ftp.prot_p()
         print("  connected over FTPS")
-    except Exception as e:
-        print("  FTPS refused (%s), falling back to plain FTP" % e)
+    else:
         ftp = ftplib.FTP(timeout=30)
         ftp.connect(cfg["host"], int(cfg.get("port", 21)))
         ftp.login(cfg["user"], cfg["password"])
+        print("  connected over FTP")
     ftp.set_pasv(True)
-    base = cfg.get("dir", "/")
-    if base not in ("", "/"):
-        ftp.cwd(base)
+
+    base = cfg.get("dir", "/").strip("/")
+    if base:
+        for part in base.split("/"):
+            try:
+                ftp.cwd(part)
+            except ftplib.error_perm:
+                ftp.mkd(part)
+                ftp.cwd(part)
+                print("  created remote %s" % part)
+    print("  remote root: %s" % ftp.pwd())
     return ftp
 
 

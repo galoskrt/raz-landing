@@ -54,8 +54,29 @@ def swap(node, mapping, stats):
             swap(v, mapping, stats)
 
 
-def round_floats(node, nd=3):
-    """Lottie ships 8+ decimal places. Three is past sub pixel at any size."""
+DROP_KEYS = {"nm", "mn", "cl", "ln", "tt", "hasMask", "sr"}
+
+
+def strip_cruft(node):
+    """Authoring metadata that no player reads. The host serves everything
+    uncompressed, so every byte here is a byte on the wire."""
+    if isinstance(node, dict):
+        for k in list(node.keys()):
+            if k in DROP_KEYS:
+                del node[k]
+            elif k == "hd" and node[k] is False:
+                del node[k]
+            elif k == "bm" and node[k] == 0:
+                del node[k]
+            else:
+                strip_cruft(node[k])
+    elif isinstance(node, list):
+        for v in node:
+            strip_cruft(v)
+
+
+def round_floats(node, nd=2):
+    """Lottie ships 8+ decimal places. Two is past sub pixel in a 192 box."""
     if isinstance(node, dict):
         for k, v in node.items():
             if isinstance(v, float):
@@ -83,6 +104,7 @@ def build(primary_hex, accent_hex, suffix=""):
         d = json.loads(raw)
         stats = collections.Counter()
         swap(d, mapping, stats)
+        strip_cruft(d)
         round_floats(d)
         out = os.path.join(DST, SLUG[base] + suffix + ".json")
         io.open(out, "w", encoding="utf-8").write(
