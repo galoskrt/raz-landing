@@ -19,7 +19,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CONF = os.path.join(ROOT, "tools", ".ftp.json")
 MANIFEST = os.path.join(ROOT, "tools", ".deploy-manifest.json")
 
-SKIP_DIRS = {".git", "tools", "__pycache__", ".github", "dash"}
+SKIP_DIRS = {".git", "tools", "src", "__pycache__", ".github", "dash"}
 # the dashboard lives on its own short path, away from the marketing URL
 DASH_LOCAL, DASH_REMOTE = "dash", "public_html/raz-leads"
 SKIP_FILES = {".gitignore", "README.md", ".deploy-manifest.json"}

@@ -1,0 +1,146 @@
+<!doctype html>
+<html dir="rtl" lang="he">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#14161A">
+<title>הפרטים התקבלו · רז מאיר כהן</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#14161A; --bone:#FAF8F5; --light:#F5F2EE; --faint:#9A9AA0; --muted:#71757C;
+  --red:#C2151C; --line:rgba(255,255,255,.12);
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth}
+body{font-family:Heebo,system-ui,sans-serif;direction:rtl;background:var(--ink);color:var(--bone);
+  font-size:16px;line-height:1.7;-webkit-font-smoothing:antialiased;overflow-x:hidden;
+  background-image:url(../assets/img/marble-dark.webp);background-size:cover;background-attachment:fixed}
+img,video{max-width:100%;display:block}
+.wrap{max-width:560px;margin:0 auto;padding:0 24px;text-align:center}
+
+header{padding:40px 0 0}
+header svg{margin:0 auto}
+.ok{font-size:12.5px;font-weight:500;letter-spacing:.14em;color:var(--red);margin-top:28px}
+h1{font-size:clamp(27px,7.4vw,34px);font-weight:200;line-height:1.28;margin-top:14px;letter-spacing:-.015em}
+h1 b{font-weight:500}
+.sub{font-size:15px;font-weight:300;color:var(--light);opacity:.72;margin-top:16px;line-height:1.65}
+
+/* the video is the entire point of this page */
+.player{position:relative;width:min(320px,84vw);margin:32px auto 0;aspect-ratio:9/16;
+  border-radius:22px;overflow:hidden;background:#1B1E23;border:1px solid var(--line)}
+.player video,.player img.poster{width:100%;height:100%;object-fit:cover}
+.player .veil{position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(180deg,rgba(5,6,8,.28) 0%,rgba(5,6,8,.38) 55%,rgba(5,6,8,.82) 100%)}
+/* with autoplay the control a viewer needs is sound, not start */
+#sound{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  display:inline-flex;align-items:center;gap:10px;background:var(--bone);color:var(--ink);
+  border:0;border-radius:999px;padding:12px 20px;font:500 15px Heebo,sans-serif;cursor:pointer;
+  box-shadow:0 6px 18px rgba(0,0,0,.34)}
+#sound.off{display:none}
+.player .cap{position:absolute;bottom:14px;left:0;right:0;font-size:12.5px;color:var(--faint);
+  text-align:center;padding:0 20px}
+
+.cta{display:inline-flex;align-items:center;justify-content:center;gap:12px;width:100%;
+  min-height:58px;padding:0 24px;border-radius:18px;color:#fff;font-size:16.5px;font-weight:500;
+  text-decoration:none;margin-top:30px;line-height:1.25;
+  background:linear-gradient(135deg,#D82127 0%,var(--red) 52%,#8F081B 100%);
+  box-shadow:0 14px 34px rgba(194,21,28,.30),0 1px 0 rgba(255,255,255,.18) inset;
+  transition:transform .16s,box-shadow .16s}
+.cta:hover{transform:translateY(-1px);box-shadow:0 18px 42px rgba(194,21,28,.38),0 1px 0 rgba(255,255,255,.22) inset}
+.cta.pulse{animation:lift 1.6s ease 2}
+@keyframes lift{0%,100%{transform:none}50%{transform:translateY(-3px) scale(1.015)}}
+.promise{font-size:13.5px;color:var(--faint);margin-top:16px;font-weight:300;line-height:1.7}
+
+footer{margin-top:56px;border-top:1px solid var(--line);padding:32px 0 44px;text-align:center}
+footer b{font-size:22px;font-weight:300;display:block}
+footer p{font-size:13.5px;color:var(--faint);margin-top:10px;font-weight:300;line-height:1.9}
+footer a{color:var(--faint);text-decoration:none}
+
+@media (prefers-reduced-motion:reduce){.cta.pulse{animation:none}}
+@media (min-width:760px){
+  .wrap{max-width:620px}
+  .player{width:340px}
+}
+</style>
+</head>
+<body>
+
+<header class="wrap">
+  <svg width="28" height="34" viewBox="0 0 70 82" fill="none" aria-hidden="true">
+    <path d="M5 74 L5 33 A30 30 0 0 1 65 33 L65 74" stroke="#FAF8F5" stroke-width="2.8" stroke-linecap="round"/>
+    <path d="M2 79 L68 79" stroke="#C2151C" stroke-width="3.2" stroke-linecap="round"/>
+  </svg>
+  <p class="ok">הפרטים התקבלו</p>
+  <h1>לפני שאתה פותח<br><b>את המדריך.</b></h1>
+  <p class="sub">דקה וחצי איתי, שיסבירו לך למה כתבתי אותו<br>ומה הכי חשוב לקרוא בו.</p>
+</header>
+
+<main class="wrap">
+  <div class="player" id="player">
+    <!-- Raz films this. Swapping it in is one line: point src at the file and
+         delete the poster fallback below. -->
+    <img class="poster" src="../assets/img/raz-navy.webp" alt="רז מאיר כהן" id="poster">
+    <video id="vid" playsinline muted preload="none" hidden></video>
+    <div class="veil"></div>
+    <button id="sound" type="button">
+      <svg width="20" height="18" viewBox="0 0 20 18" fill="none" aria-hidden="true">
+        <path d="M2 6.5h3.2L9.6 3v12L5.2 11.5H2z" fill="#14161A"/>
+        <path d="M13 7l4 4M17 7l-4 4" stroke="#C2151C" stroke-width="1.7" stroke-linecap="round"/>
+      </svg>
+      הפעלת קול
+    </button>
+    <div class="cap" id="cap">שומר מקום · רז מצלם את הסרטון</div>
+  </div>
+
+  <a class="cta" id="go" href="https://wa.me/972544263355?text=%D7%94%D7%99%D7%99%20%D7%A8%D7%96%2C%20%D7%94%D7%A9%D7%90%D7%A8%D7%AA%D7%99%20%D7%A4%D7%A8%D7%98%D7%99%D7%9D%20%D7%91%D7%93%D7%A3.%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A7%D7%91%D7%9C%20%D7%90%D7%AA%20%D7%94%D7%9E%D7%93%D7%A8%D7%99%D7%9A%2090%20%D7%94%D7%99%D7%9E%D7%99%D7%9D%20%D7%94%D7%A8%D7%90%D7%A9%D7%95%D7%A0%D7%99%D7%9D" target="_blank" rel="noopener">
+    <svg width="30" height="12" viewBox="0 0 34 12" fill="none" aria-hidden="true">
+      <path d="M33 6H2M2 6L7 1M2 6L7 11" stroke="currentColor" stroke-width="1.25"
+            stroke-linecap="round" stroke-linejoin="round"/></svg>
+    שלחו לי את המדריך לוואטסאפ
+  </a>
+  <p class="promise">רז שולח את המדריך אישית בוואטסאפ.<br>הוא שלך גם אם לא נעבוד יחד.</p>
+</main>
+
+<footer class="wrap">
+  <b>רז מאיר כהן</b>
+  <p>מתווך נדל&quot;ן · גבעתיים ורמת גן · מקבוצת תום הרוש<br>
+    <a href="tel:0544263355">0544263355</a> · <a href="mailto:raz@tom-harush.co.il">raz@tom-harush.co.il</a></p>
+</footer>
+
+<script>
+(function () {
+  var vid = document.getElementById("vid");
+  var sound = document.getElementById("sound");
+  var poster = document.getElementById("poster");
+  var cap = document.getElementById("cap");
+  var go = document.getElementById("go");
+
+  // Until the file exists there is nothing to play, so the page shows the still
+  // and says so plainly rather than pretending.
+  if (!vid.getAttribute("src")) { sound.classList.add("off"); return; }
+
+  poster.remove();
+  vid.hidden = false;
+  cap.textContent = "";
+
+  /* Muted autoplay is the whole reason the control says sound and not play.
+     Motion holds attention far better than a triangle on a still, and the
+     distance to a real view becomes one tap. */
+  vid.play().catch(function () { sound.textContent = "הפעלה"; });
+
+  sound.addEventListener("click", function () {
+    vid.muted = false;
+    vid.play();
+    sound.classList.add("off");
+  });
+
+  // It is a message, not ambience: when it ends the next step gets the emphasis.
+  vid.addEventListener("ended", function () { go.classList.add("pulse"); });
+})();
+</script>
+</body>
+</html>
