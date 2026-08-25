@@ -1,0 +1,8 @@
+# The dashboard holds real people's details. It never wants to be indexed, and
+# it is not part of the marketing path.
+DirectoryIndex index.html
+Options -Indexes
+RewriteEngine Off
+<IfModule mod_headers.c>
+  Header set X-Robots-Tag "noindex, nofollow, noarchive"
+</IfModule>

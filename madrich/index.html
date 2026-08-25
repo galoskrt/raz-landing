@@ -909,25 +909,56 @@ img{max-width:100%}
 </section>
 <script>
 (function () {
-  var bar = document.querySelector('#rail i');
-  var deepest = 0, sent = {};
+  var API   = "https://raz-leads.tom-harush.workers.dev";
+  var seg   = location.pathname.replace(/\/+$/, "").split("/").pop();
+  var TOKEN = /^[a-f0-9]{8,}$/.test(seg) ? seg : null;
+  var VISIT = Math.random().toString(36).slice(2) + Date.now().toString(36);
+
+  var bar = document.querySelector("#rail i");
+  var deepest = 0, active = 0, idle = 0, sent = "";
+
   function onScroll() {
     var h = document.documentElement.scrollHeight - window.innerHeight;
     var p = h > 0 ? window.scrollY / h : 0;
-    bar.style.width = (p * 100).toFixed(1) + '%';
+    bar.style.width = (p * 100).toFixed(1) + "%";
     var pct = Math.round(p * 100);
     if (pct > deepest) deepest = pct;
-    [25, 50, 75, 95].forEach(function (mark) {
-      if (deepest >= mark && !sent[mark]) { sent[mark] = 1; report(mark); }
-    });
   }
-  // the Worker fills this in once the personal link is live
-  function report(depth) {
-    if (!window.RAZ_TOKEN) return;
-    navigator.sendBeacon('/api/read', JSON.stringify({ t: window.RAZ_TOKEN, depth: depth }));
-  }
-  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener("scroll", onScroll, { passive: true });
   onScroll();
+
+  // Greet by name. The link is personal, so the page should say so.
+  if (TOKEN) {
+    fetch(API + "/guide/" + TOKEN).then(function (r) { return r.json(); }).then(function (d) {
+      if (!d || !d.first_name) return;
+      var el = document.querySelector("[data-lead-name]");
+      if (el) el.textContent = d.first_name;
+    }).catch(function () {});
+  }
+
+  // Depth alone lies: a reader can flick to the bottom in two seconds just to
+  // see how long it is. Count only seconds where the tab is visible AND the
+  // person is doing something, so the number means attention, not elapsed time.
+  ["scroll", "touchstart", "mousemove", "keydown", "click"].forEach(function (e) {
+    window.addEventListener(e, function () { idle = 0; }, { passive: true });
+  });
+  setInterval(function () {
+    if (document.hidden) return;
+    idle += 1;
+    if (idle <= 20) active += 1;
+  }, 1000);
+
+  function beat() {
+    if (!TOKEN) return;
+    var body = JSON.stringify({ t: TOKEN, v: VISIT, depth: deepest, secs: active });
+    if (body === sent) return;          // nothing changed, do not chatter
+    sent = body;
+    if (navigator.sendBeacon) navigator.sendBeacon(API + "/read", body);
+    else fetch(API + "/read", { method: "POST", body: body, keepalive: true });
+  }
+  setInterval(beat, 15000);
+  document.addEventListener("visibilitychange", function () { if (document.hidden) beat(); });
+  window.addEventListener("pagehide", beat);
 })();
 </script>
 

@@ -19,7 +19,9 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CONF = os.path.join(ROOT, "tools", ".ftp.json")
 MANIFEST = os.path.join(ROOT, "tools", ".deploy-manifest.json")
 
-SKIP_DIRS = {".git", "tools", "__pycache__", ".github"}
+SKIP_DIRS = {".git", "tools", "__pycache__", ".github", "dash"}
+# the dashboard lives on its own short path, away from the marketing URL
+DASH_LOCAL, DASH_REMOTE = "dash", "public_html/raz-leads"
 SKIP_FILES = {".gitignore", "README.md", ".deploy-manifest.json"}
 KEEP_DOTFILES = {".htaccess"}
 
@@ -147,6 +149,28 @@ def main():
                     print("  del %s" % p)
                 except ftplib.error_perm as e:
                     print("  could not delete %s (%s)" % (p, e))
+
+    # second target: the dashboard
+    ftp.cwd("/")
+    for part in DASH_REMOTE.split("/"):
+        try:
+            ftp.cwd(part)
+        except ftplib.error_perm:
+            ftp.mkd(part); ftp.cwd(part); print("  created remote %s" % part)
+    for name in sorted(os.listdir(os.path.join(ROOT, DASH_LOCAL))):
+        full = os.path.join(ROOT, DASH_LOCAL, name)
+        if not os.path.isfile(full):
+            continue
+        key = "dash/" + name
+        digest = sha1(full)
+        fresh[key] = digest
+        if manifest.get(key) == digest:
+            skipped += 1
+            continue
+        with open(full, "rb") as fh:
+            ftp.storbinary("STOR " + name, fh)
+        print("  up  %-34s %6.1f KB  -> /raz-leads/" % (key, os.path.getsize(full) / 1024.0))
+        sent += 1
 
     ftp.quit()
     io.open(MANIFEST, "w", encoding="utf-8").write(json.dumps(fresh, indent=1, sort_keys=True))

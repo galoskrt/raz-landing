@@ -1,0 +1,4 @@
+# The personal guide link is /madrich/<token>. Serve the one page for any token
+# and let the page read the token out of the path.
+RewriteEngine On
+RewriteRule ^[a-f0-9]{8,}/?$ index.html [L]
