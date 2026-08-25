@@ -41,7 +41,7 @@ h1,h2{font-weight:200;letter-spacing:-.015em;line-height:1.18}
 h1{font-size:clamp(30px,7.6vw,48px);margin-top:16px}
 h2{font-size:clamp(27px,6.4vw,40px);margin-top:16px}
 h1 b,h2 b{font-weight:500}
-.rule{width:64px;height:2px;background:var(--red);margin:24px 0 0;margin-inline-start:auto}
+.rule{width:64px;height:2px;background:var(--red);margin:24px 0 0}
 .lead{font-size:clamp(16px,4vw,19px);font-weight:300;color:var(--ink2);margin-top:24px;max-width:60ch}
 .dk .lead{color:var(--light);opacity:.82}
 .sm{font-size:13px;color:var(--faint);letter-spacing:.02em}
@@ -72,7 +72,7 @@ h1 b,h2 b{font-weight:500}
   background:linear-gradient(180deg,rgba(11,13,16,.02) 0%,rgba(11,13,16,.18) 55%,rgba(11,13,16,.8) 100%)}
 .portal .man{position:absolute;bottom:2px;left:50%;transform:translateX(-50%);
   width:71%;z-index:2}
-.portal .sill{position:absolute;bottom:-8px;left:-7%;width:114%;height:2.5px;background:var(--red);z-index:3}
+.portal .sill{position:absolute;bottom:-8px;left:0;width:100%;height:2.5px;background:var(--red);z-index:3}
 .heroName{text-align:right;margin-top:34px}
 .heroName b{font-size:clamp(24px,6vw,30px);font-weight:300;display:block;line-height:1.2}
 .heroName .rule{margin-top:14px}
@@ -137,7 +137,7 @@ h1 b,h2 b{font-weight:500}
   transition:height .2s linear}
 .step{display:flex;gap:18px;padding-bottom:38px;position:relative}
 .step:last-child{padding-bottom:0}
-.step .node{flex:none;order:2;width:38px;height:38px;border-radius:50%;background:var(--ink);
+.step .node{flex:none;order:0;width:38px;height:38px;border-radius:50%;background:var(--ink);
   border:1px solid rgba(255,255,255,.16);display:grid;place-items:center;color:var(--light);z-index:2}
 .step .node svg{width:17px;height:17px}
 .step .tx{flex:1;order:1;padding-top:4px}
@@ -155,7 +155,7 @@ h1 b,h2 b{font-weight:500}
 .obj .think b{display:block;margin-top:8px;font-size:17.5px;font-weight:500}
 .obj .ans{padding:20px 22px}
 .obj .ans .lab{display:flex;align-items:center;gap:10px;color:var(--red)}
-.obj .ans .lab i{flex:1;height:1.5px;background:var(--red);opacity:.4;display:block}
+.obj .ans .lab i{flex:0 0 64px;height:1.5px;background:var(--red);opacity:.4;display:block}
 .obj .ans p{margin-top:12px;font-size:15.5px;font-weight:300;line-height:1.68;color:var(--ink2)}
 
 /* ── 07 proof ─────────────────────────────────────────────────────── */
@@ -195,7 +195,7 @@ h1 b,h2 b{font-weight:500}
 .person .close b{font-weight:500}
 
 /* ── 09 group ─────────────────────────────────────────────────────── */
-.thlogo{width:104px;margin-inline-start:auto;margin-bottom:26px}
+.thlogo{width:104px;margin-bottom:26px}
 .stats{display:flex;border:1px solid rgba(255,255,255,.12);border-radius:18px;margin-top:34px;
   background:rgba(255,255,255,.03)}
 .stats div{flex:1;text-align:center;padding:22px 8px;position:relative}
@@ -237,7 +237,7 @@ form .hint{font-size:14.5px;color:var(--muted);font-weight:300;margin-top:8px;li
 
 /* ── footer and sticky ────────────────────────────────────────────── */
 footer{background:var(--ink);color:var(--bone);padding:46px 0 calc(110px + env(safe-area-inset-bottom,0px))}
-footer .mark{width:26px;margin-inline-start:auto;margin-bottom:18px}
+footer .mark{width:26px;margin-bottom:18px}
 footer b{font-size:26px;font-weight:300;display:block}
 footer p{font-size:14px;color:var(--faint);margin-top:12px;font-weight:300;line-height:1.9}
 footer a{color:var(--faint);text-decoration:none}
@@ -318,12 +318,12 @@ footer a{color:var(--faint);text-decoration:none}
         <h1>בגבעתיים לא חסרים מתווכים.<br><b>חסר אחד שינהל לך את המכירה.</b></h1>
         <p class="lead">כל מתווך טוב יפרסם, יביא צלם ויכתוב טקסט.<br>ההבדל מתחיל אחרי זה, כשמגיע הקונה.</p>
         <div class="bullets">
-          <div><span>סינון קונים לפני שהם נכנסים אליך הביתה</span><i></i></div>
-          <div><span>ניהול המשא ומתן, השלב שבו באמת נקבע המחיר</span><i></i></div>
-          <div><span>אדם אחד שמלווה אותך, עם קבוצה בת שש עשרה שנה מאחוריו</span><i></i></div>
+          <div><i></i><span>סינון קונים לפני שהם נכנסים אליך הביתה</span></div>
+          <div><i></i><span>ניהול המשא ומתן, השלב שבו באמת נקבע המחיר</span></div>
+          <div><i></i><span>אדם אחד שמלווה אותך, עם קבוצה בת שש עשרה שנה מאחוריו</span></div>
         </div>
         <a class="cta" href="#form" data-go style="margin-top:34px">
-          {{ARROW}} קבלו את המדריך למכירת נכס בגבעתיים
+          קבלו את המדריך למכירת נכס בגבעתיים {{ARROW}}
         </a>
       </div>
 
@@ -357,11 +357,11 @@ footer a{color:var(--faint);text-decoration:none}
       </div>
       <div class="body">
         <div class="leaks rv">
-          <div class="leak"><p>המחיר נקבע לפי מה שרצית לקבל, ולא לפי מה שנמכר בפועל בסביבה</p><span class="ic">{{leak-1}}</span></div>
-          <div class="leak"><p>כמה מתווכים מפרסמים את אותו נכס במחירים שונים, והקונים רואים את כולם</p><span class="ic">{{leak-2}}</span></div>
-          <div class="leak"><p>נכנסים לדירה אנשים שלא נבדקו ולא באמת יכולים לקנות</p><span class="ic">{{leak-3}}</span></div>
-          <div class="leak"><p>אין מי שמנהל את המשא ומתן ברגע האמת</p><span class="ic">{{leak-4}}</span></div>
-          <div class="leak"><p>ואתה, שרודף בעצמך אחרי קונה, מוריד לעצמך את המחיר עוד לפני שדיברתם עליו</p><span class="ic">{{leak-5}}</span></div>
+          <div class="leak"><span class="ic">{{leak-1}}</span><p>המחיר נקבע לפי מה שרצית לקבל, ולא לפי מה שנמכר בפועל בסביבה</p></div>
+          <div class="leak"><span class="ic">{{leak-2}}</span><p>כמה מתווכים מפרסמים את אותו נכס במחירים שונים, והקונים רואים את כולם</p></div>
+          <div class="leak"><span class="ic">{{leak-3}}</span><p>נכנסים לדירה אנשים שלא נבדקו ולא באמת יכולים לקנות</p></div>
+          <div class="leak"><span class="ic">{{leak-4}}</span><p>אין מי שמנהל את המשא ומתן ברגע האמת</p></div>
+          <div class="leak"><span class="ic">{{leak-5}}</span><p>ואתה, שרודף בעצמך אחרי קונה, מוריד לעצמך את המחיר עוד לפני שדיברתם עליו</p></div>
         </div>
       </div>
     </div>
@@ -381,13 +381,13 @@ footer a{color:var(--faint);text-decoration:none}
         אני יודע מי מחפש מה, ולפעמים אני יכול להביא קונים לנכס עוד לפני שהוא מפורסם.</p>
     </div>
     <div class="grid2">
-      <div class="card rv"><h3>ניהול, לא רק פרסום {{TICK}}</h3>
+      <div class="card rv"><h3>{{TICK}} ניהול, לא רק פרסום</h3>
         <p>ההבדל מתחיל כשהקונה מגיע: סינון, משא ומתן, וטיפול בכל מה שמאיים להפיל את העסקה.</p></div>
-      <div class="card rv"><h3>שליטה במידע {{TICK}}</h3>
+      <div class="card rv"><h3>{{TICK}} שליטה במידע</h3>
         <p>אני מכיר את הקונים באזור ויודע מה הפער האמיתי בין הצדדים, גם כששניהם חושבים שהוא גדול בהרבה.</p></div>
-      <div class="card rv"><h3>אמת בתמחור {{TICK}}</h3>
+      <div class="card rv"><h3>{{TICK}} אמת בתמחור</h3>
         <p>דוח עסקאות מהאזור, כולל האומץ לומר שהמחיר שביקשת אינו ריאלי.</p></div>
-      <div class="card rv"><h3>שקיפות {{TICK}}</h3>
+      <div class="card rv"><h3>{{TICK}} שקיפות</h3>
         <p>אתה יודע בכל רגע כמה פגישות היו, אילו הצעות הגיעו ומה נאמר על הנכס שלך.</p></div>
     </div>
   </div>
@@ -597,10 +597,10 @@ footer a{color:var(--faint);text-decoration:none}
         </div>
         <div class="inside">
           <p class="cap2" style="margin-bottom:6px">מה יש בפנים</p>
-          <div class="row"><p>איך נקבע המחיר באמת, ומי קובע אותו</p><i></i></div>
-          <div class="row"><p>מה קורה לדירה שעומדת, שבוע אחרי שבוע</p><i></i></div>
-          <div class="row"><p>איך מסננים קונה לפני שהוא נכנס הביתה</p><i></i></div>
-          <div class="row"><p>איפה המחיר באמת נסגר, ולמה לא בפרסום</p><i></i></div>
+          <div class="row"><i></i><p>איך נקבע המחיר באמת, ומי קובע אותו</p></div>
+          <div class="row"><i></i><p>מה קורה לדירה שעומדת, שבוע אחרי שבוע</p></div>
+          <div class="row"><i></i><p>איך מסננים קונה לפני שהוא נכנס הביתה</p></div>
+          <div class="row"><i></i><p>איפה המחיר באמת נסגר, ולמה לא בפרסום</p></div>
         </div>
       </div>
 
@@ -618,7 +618,7 @@ footer a{color:var(--faint);text-decoration:none}
             <input type="checkbox" id="fok" required>
             <span>קראתי ואני מאשר את <a href="https://land.tom-harush.co.il/privacy-kadima/" target="_blank" rel="noopener">מדיניות הפרטיות</a></span>
           </label>
-          <button class="cta full" type="submit" style="margin-top:16px">{{ARROW}} שלחו לי את המדריך</button>
+          <button class="cta full" type="submit" style="margin-top:16px">שלחו לי את המדריך {{ARROW}}</button>
           <div class="ferr" id="ferr"></div>
           <p class="promise">רז שולח את המדריך אישית בוואטסאפ.<br>הוא שלך גם אם לא נעבוד יחד.</p>
         </form>
@@ -638,7 +638,7 @@ footer a{color:var(--faint);text-decoration:none}
 </footer>
 
 <div id="sticky"><div class="in">
-  <a class="cta full" href="#form" data-go>{{ARROW}} קבלו את המדריך למכירת נכס בגבעתיים</a>
+  <a class="cta full" href="#form" data-go>קבלו את המדריך למכירת נכס בגבעתיים {{ARROW}}</a>
 </div></div>
 
 <div id="gate" role="status" aria-live="polite">
