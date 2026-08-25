@@ -1,0 +1,8 @@
+<!doctype html><html><head><meta charset="utf-8"></head><body style="margin:0;background:#eee">
+<iframe src="/madrich/" style="width:390px;height:1500px;border:0" id="f"></iframe>
+<div id="o" style="font:18px monospace;padding:8px">…</div>
+<script>
+document.getElementById('f').onload=function(){var d=this.contentDocument;
+document.getElementById('o').textContent='innerWidth='+this.contentWindow.innerWidth+
+' scrollWidth='+d.documentElement.scrollWidth+' fullHeight='+d.documentElement.scrollHeight;};
+</script></body></html>

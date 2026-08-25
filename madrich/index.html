@@ -1,0 +1,919 @@
+<!doctype html>
+<html dir="rtl" lang="he">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#14161A">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@200;300;400;500;700;900&family=Cormorant+Garamond:wght@600&display=swap" rel="stylesheet">
+<meta charset="utf-8">
+<title>90 הימים הראשונים · רז מאיר כהן</title>
+<style>:root{
+  --ink:#14161A; --ink2:#33383F; --muted:#71757C; --faint:#9A9AA0;
+  --bone:#FAF8F5; --stone:#F1EDE7; --line:#E2DCD3; --line2:#CFC7BC;
+  --red:#C2151C; --redd:#A20C22; --redk:#7F0224;
+  --w:#fff;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+@page{size:190.5mm 338.6mm;margin:0}
+html{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+body{font-family:Heebo,sans-serif;direction:rtl;background:var(--bone);color:var(--ink);
+  font-weight:400;font-size:16.5px;line-height:1.72;-webkit-font-smoothing:antialiased}
+
+.pg{width:720px;height:1280px;position:relative;overflow:hidden;background:var(--bone);
+  page-break-after:always;break-after:page;display:flex;flex-direction:column;justify-content:center}
+.pg:last-child{page-break-after:auto}
+.pg.top{justify-content:flex-start}
+.pad{padding:74px 62px}
+.grow{flex:1}
+.bgi{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
+.z{position:relative;z-index:2}
+
+/* depth on dark pages */
+.vig{position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:radial-gradient(130% 78% at 76% 20%, rgba(255,255,255,.06), rgba(255,255,255,0) 58%),
+             linear-gradient(180deg, rgba(0,0,0,.42) 0%, rgba(0,0,0,0) 26%, rgba(0,0,0,.30) 66%, rgba(0,0,0,.86) 100%)}
+.vig.soft{background:radial-gradient(130% 78% at 74% 26%, rgba(255,255,255,.05), rgba(255,255,255,0) 60%),
+             linear-gradient(180deg, rgba(0,0,0,.34) 0%, rgba(0,0,0,0) 30%, rgba(0,0,0,.18) 70%, rgba(0,0,0,.62) 100%)}
+
+/* cover teaser list */
+.tease{margin-top:36px;max-width:402px}
+.tz{display:flex;align-items:flex-start;gap:12px;padding:9px 0}
+.tz+.tz{border-top:1px solid rgba(255,255,255,.13)}
+.tz i{flex:none;width:16px;height:1.5px;background:#C2151C;margin-top:11px;display:block}
+.tz span{font-size:15.5px;line-height:1.45;color:#CFCCC8;font-weight:300}
+.tzcap{font-size:12.5px;letter-spacing:.07em;color:rgba(255,255,255,.45);margin-bottom:13px;display:block;font-weight:500}
+
+/* type */
+.serif,.cvtitle,.toc .p,.pfoot .pn,.eyebrow{font-variant-numeric:lining-nums;font-feature-settings:"lnum" 1,"tnum" 1}
+.serif{font-family:"Cormorant Garamond",Georgia,serif}
+.eyebrow{font-family:"Cormorant Garamond",Georgia,serif;direction:ltr;text-align:right;
+  font-size:14px;font-weight:600;letter-spacing:.34em;text-transform:uppercase;color:var(--red);
+  display:block;margin-bottom:16px}
+.eyebrow.q{color:var(--line2)}
+h1{font-weight:200;font-size:54px;line-height:1.12;letter-spacing:-.015em}
+h2{font-weight:200;font-size:41px;line-height:1.16;letter-spacing:-.012em}
+h3{font-weight:500;font-size:22px;line-height:1.35}
+.hl{font-weight:600;color:var(--red)}
+.hlk{font-weight:600}
+p{margin-bottom:17px;color:var(--ink2)}
+p.lead{font-size:19.5px;line-height:1.68;color:var(--ink);font-weight:300}
+b,strong{font-weight:700;color:var(--ink)}
+.sm{font-size:14.5px;line-height:1.6;color:var(--muted)}
+.rule{width:52px;height:2px;background:var(--red);margin:26px 0}
+.rule.wide{width:100%;height:1px;background:var(--line);margin:34px 0}
+
+/* chapter head */
+.chnum{font-family:"Cormorant Garamond",serif;direction:ltr;text-align:right;display:block;
+  font-size:108px;line-height:.8;font-weight:300;color:rgba(255,255,255,.16);margin-bottom:30px;
+  font-variant-numeric:lining-nums;font-feature-settings:"lnum" 1}
+.days{display:inline-block;font-size:13px;font-weight:500;letter-spacing:.06em;color:var(--redd);
+  background:#fff;border:1px solid #EED6D6;border-radius:999px;padding:6px 16px;margin-bottom:20px}
+
+/* cards */
+.card{background:var(--w);border:1px solid var(--line);border-radius:20px;padding:26px 28px;
+  box-shadow:0 10px 30px rgba(30,24,16,.05)}
+.card+.card{margin-top:14px}
+.card h3{margin-bottom:6px}
+.card p{margin:0;font-size:15.5px;line-height:1.62}
+.soft{background:var(--stone);border:none;box-shadow:none}
+
+/* icon rows */
+.irow{display:flex;gap:18px;align-items:flex-start;padding:20px 0}
+.irow+.irow{border-top:1px solid var(--line)}
+.ic{flex:none;width:46px;height:46px;border-radius:50%;background:var(--w);border:1px solid var(--line);
+  display:flex;align-items:center;justify-content:center}
+.ic svg{width:21px;height:21px;stroke:var(--redd);stroke-width:1.6;fill:none;
+  stroke-linecap:round;stroke-linejoin:round}
+.dk .ic{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.16)}
+.dk .ic svg{stroke:#E8B9BB}
+.itx h3{font-size:19px;margin-bottom:3px}
+.itx p{margin:0;font-size:15px;line-height:1.6;color:var(--muted)}
+
+/* numbered */
+.nrow{display:flex;gap:18px;align-items:flex-start;padding:18px 0}
+.nrow+.nrow{border-top:1px solid var(--line)}
+.nn{flex:none;width:34px;height:34px;border-radius:50%;background:var(--ink);color:#fff;
+  font-size:14px;font-weight:500;display:flex;align-items:center;justify-content:center;margin-top:2px}
+.nn.r{background:var(--red)}
+
+/* stats */
+.stats{display:flex;background:var(--w);border:1px solid var(--line);border-radius:20px;
+  box-shadow:0 12px 34px rgba(30,24,16,.07);overflow:hidden}
+.stats div{flex:1;padding:24px 10px;text-align:center;border-left:1px solid var(--line)}
+.stats div:last-child{border-left:none}
+.stats .n{font-size:34px;font-weight:200;color:var(--ink);line-height:1.1;display:block}
+.stats .n em{font-style:normal;color:var(--red);font-weight:400}
+.stats .l{font-size:12.5px;color:var(--muted);line-height:1.4;display:block;margin-top:6px}
+
+/* table */
+table{width:100%;border-collapse:collapse;font-size:15px}
+th{background:var(--ink);color:#fff;font-weight:500;font-size:14px;padding:13px 16px;text-align:right}
+td{padding:13px 16px;border-bottom:1px solid var(--line);color:var(--ink2);vertical-align:top}
+tr:last-child td{border-bottom:none}
+tr:nth-child(even) td{background:rgba(241,237,231,.55)}
+td.k{font-weight:500;color:var(--ink)}
+td.num{font-weight:500;color:var(--ink);direction:ltr;text-align:right;white-space:nowrap}
+.tw{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--w)}
+
+/* vs */
+.vs{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.vs .h{font-size:13px;font-weight:500;letter-spacing:.04em;padding:11px 0;text-align:center;border-radius:10px}
+.vs .a .h{background:#F0E5E5;color:var(--redk)}
+.vs .b .h{background:var(--ink);color:#fff}
+.vs .bd{background:var(--w);border:1px solid var(--line);border-radius:14px;padding:18px;margin-top:10px}
+.vs .bd p{font-size:14.5px;line-height:1.6;margin-bottom:11px}
+.vs .bd p:last-child{margin-bottom:0}
+.vs .big{font-size:27px;font-weight:200;color:var(--ink);display:block;line-height:1.2;direction:ltr;text-align:right}
+.vs .cap{font-size:12.5px;color:var(--muted);display:block;margin-top:2px}
+
+/* quote */
+.quote{font-family:Heebo,sans-serif;font-weight:200;font-size:27px;line-height:1.5;
+  color:var(--ink);text-align:center;padding:0 10px}
+.qat{font-size:13.5px;color:var(--muted);text-align:center;margin-top:16px;letter-spacing:.04em}
+
+/* dark */
+.dk{color:#EDEAE6}
+.dk h1,.dk h2,.dk h3,.dk b,.dk strong{color:#fff}
+.dk p{color:#BFBDBA}
+.dk p.lead{color:#E8E5E1}
+.dk .quote{color:#fff}
+.dk .rule{background:#E8B9BB}
+.dk .eyebrow{color:#E8B9BB}
+.dk .card{background:rgba(255,255,255,.055);border-color:rgba(255,255,255,.12);box-shadow:none}
+.dk .irow+.irow,.dk .nrow+.nrow,.dk .chk+.chk{border-top-color:rgba(255,255,255,.12)}
+.dk .itx p{color:#B4B2AF}
+.dk .nn{background:#fff;color:var(--ink)}
+.dk .sm{color:#A8A6A3}
+.dk .box{border-color:rgba(255,255,255,.3)}
+.dk .chk span{color:#DCDAD7}
+.dk .qat{color:rgba(255,255,255,.55)}
+
+/* checklist */
+.chk{display:flex;gap:15px;align-items:flex-start;padding:15px 0}
+.chk+.chk{border-top:1px solid var(--line)}
+.box{flex:none;width:24px;height:24px;border:1.6px solid var(--line2);border-radius:7px;margin-top:3px}
+.chk span{font-size:16px;line-height:1.55;color:var(--ink2)}
+
+/* cover */
+.cvtitle{font-family:"Cormorant Garamond",serif;direction:ltr;font-size:158px;line-height:.8;
+  font-weight:300;color:#fff;letter-spacing:-.03em}
+.cvhe{font-weight:200;font-size:48px;line-height:1.12;color:#fff;letter-spacing:-.015em}
+.spine{position:absolute;top:0;bottom:0;right:0;width:7px;background:linear-gradient(180deg,var(--red),var(--redk));z-index:4}
+
+/* toc */
+.toc{display:flex;align-items:center;gap:16px;padding:17px 0}
+.toc+.toc{border-top:1px solid var(--line)}
+.toc .tl{flex:none;max-width:76%}
+.toc .t{font-size:18.5px;font-weight:500;color:var(--ink);display:block;line-height:1.3}
+.toc .s{font-size:13.5px;color:var(--muted);display:block;line-height:1.45;margin-top:1px}
+.toc .d{flex:1;border-bottom:1px dotted var(--line2)}
+.toc .p{font-family:"Cormorant Garamond",serif;font-size:20px;color:var(--muted);direction:ltr;flex:none}
+
+/* footer */
+.pfoot{position:absolute;bottom:34px;right:62px;left:62px;display:flex;justify-content:space-between;
+  align-items:center;font-size:11.5px;color:var(--faint);letter-spacing:.03em;z-index:3}
+.pfoot .pn{font-family:"Cormorant Garamond",serif;font-size:16px;color:var(--muted);direction:ltr}
+.dk .pfoot{color:rgba(255,255,255,.4)}
+.dk .pfoot .pn{color:rgba(255,255,255,.55)}
+.nb{white-space:nowrap;direction:ltr;unicode-bidi:embed;display:inline-block}
+
+/* ============ web overrides ============ */
+html{scroll-behavior:smooth}
+html,body{overflow-x:hidden;max-width:100%}
+body{background:var(--bone);font-size:17px}
+img{max-width:100%}
+
+.pg{width:100%;height:auto;min-height:0;overflow:hidden;
+    page-break-after:auto;break-after:auto;justify-content:flex-start}
+.pad{max-width:760px;margin:0 auto;padding:78px 46px}
+.grow{flex:0}
+
+/* dark bands run edge to edge, their content stays in the column */
+.pg.dk{background:var(--ink)}
+.bgi{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+
+/* the cover becomes a real hero */
+#cover{min-height:min(100svh,900px);justify-content:flex-end}
+#cover .pad{padding-bottom:64px}
+#cover .cvraz{position:absolute;bottom:0;left:50%;transform:translateX(-330px);
+    height:min(78vh,760px);width:auto;z-index:2}
+
+/* a thin progress rail, the only new element on the page */
+#rail{position:fixed;top:0;right:0;left:0;height:3px;background:transparent;z-index:60}
+#rail i{display:block;height:100%;width:0;background:var(--red);transition:width .12s linear}
+
+.tease{max-width:min(402px,100%)}
+
+/* the personal greeting */
+#hello{background:var(--ink);color:var(--bone);text-align:center;padding:30px 24px 34px}
+#hello .k{font-family:"Cormorant Garamond",Georgia,serif;direction:ltr;font-size:13px;
+    letter-spacing:.34em;color:var(--red);display:block;margin-bottom:12px}
+#hello h2{font-size:26px;font-weight:200;line-height:1.35;color:var(--bone);margin:0}
+#hello h2 b{font-weight:500}
+#hello p{font-size:14.5px;color:#9A9AA0;margin:10px 0 0;font-weight:300}
+
+/* closing action back to Raz */
+#back{background:var(--ink);text-align:center;padding:64px 24px 78px}
+#back .k{font-family:"Cormorant Garamond",Georgia,serif;direction:ltr;font-size:13px;
+    letter-spacing:.34em;color:var(--red);display:block;margin-bottom:14px}
+#back h2{font-size:28px;font-weight:200;color:var(--bone);line-height:1.4;margin:0 0 10px}
+#back h2 b{font-weight:500}
+#back p{font-size:15px;color:#9A9AA0;font-weight:300;margin:0 auto 26px;max-width:420px}
+#back a{display:inline-flex;align-items:center;justify-content:center;gap:12px;
+    min-width:300px;padding:17px 30px;border-radius:18px;text-decoration:none;
+    color:#fff;font-size:16.5px;font-weight:500;
+    background:linear-gradient(135deg,#D82127 0%,#C2151C 52%,#8F081B 100%);
+    box-shadow:0 12px 30px rgba(194,21,28,.32),0 2px 0 rgba(255,255,255,.16) inset}
+#back svg{flex:none}
+
+@media (max-width:820px){
+  body{font-size:16px}
+  .pad{padding:56px 24px}
+  /* the guide was drawn on a 720 sheet, so a few blocks carry inline widths
+     up to 470px. max-width always beats an inline width. */
+  .pad *{max-width:100%}
+  /* and a print type scale is not a phone type scale */
+  .cvtitle{font-size:104px}
+  .cvhe{font-size:31px}
+  h1{font-size:29px;line-height:1.28}
+  h2{font-size:23px;line-height:1.34}
+  h3{font-size:18px}
+  .stats .n{font-size:25px}
+  .vs .big,.quote{font-size:19.5px;line-height:1.6}
+  [style*="font-size:52px"]{font-size:31px !important}
+  [style*="font-size:27px"]{font-size:20px !important}
+  .tease{margin-top:24px}
+  #cover .pad{padding-bottom:clamp(300px,48vh,470px)}
+  #cover .cvraz{transform:translateX(-34%);height:min(50vh,440px)}
+  #hello h2{font-size:22px}
+  #back h2{font-size:23px}
+  #back a{min-width:0;width:100%}
+}
+</style>
+</head>
+<body>
+<div id="rail"><i></i></div>
+<section id="hello">
+  <span class="k">YOUR COPY</span>
+  <h2>היי <b data-lead-name>דנה</b>, זה המדריך שלך.</h2>
+  <p>שבעה פרקים קצרים. אפשר לקרוא ברצף או לחזור אליו מתי שנוח.</p>
+</section>
+
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><clipPath id="archClip" clipPathUnits="objectBoundingBox"><path d="M0,1 L0,0.29 A0.5,0.263 0 0 1 1,0.29 L1,1 Z"/></clipPath></defs></svg>
+
+
+<!-- ============ 1 COVER ============ -->
+<div class="pg dk" id="cover">
+  <img class="bgi" src="../assets/guide/m_dark.jpg">
+  <div class="vig"></div>
+  <div class="spine"></div>
+  <img class="cvraz" src="../assets/guide/raz_beige.png">
+  <div style="position:absolute;bottom:0;right:0;left:0;height:330px;z-index:3;pointer-events:none;
+       background:linear-gradient(180deg, rgba(8,10,13,0) 0%, rgba(8,10,13,.42) 52%, rgba(8,10,13,.93) 100%)"></div>
+
+  <div class="pad z" style="position:absolute;top:0;right:0;left:0;z-index:4;padding-top:86px">
+    <span class="eyebrow">Givatayim &nbsp;·&nbsp; Seller Guide</span>
+    <div style="display:flex;align-items:flex-start;gap:20px;margin-top:6px">
+      <span class="cvtitle">90</span>
+      <span style="display:block;padding-top:26px">
+        <span class="cvhe" style="display:block">הימים</span>
+        <span class="cvhe" style="display:block">הראשונים</span>
+      </span>
+    </div>
+    <div class="rule" style="width:78px;height:2px;margin:30px 0 24px"></div>
+    <p style="font-size:19px;line-height:1.6;font-weight:300;color:#D6D3CF;max-width:446px">
+      מה קורה לדירה שלך בשלושת החודשים הראשונים בשוק,<br>
+      <b style="font-weight:500;color:#fff">ואיך לא לבזבז אותם.</b>
+    </p>
+
+    <div class="tease">
+      <span class="tzcap">מה יש בפנים</span>
+      <div class="tz"><i></i><span>איך נקבע המחיר באמת, ומי קובע אותו</span></div>
+      <div class="tz"><i></i><span>מה קורה לדירה שעומדת, שבוע אחרי שבוע</span></div>
+      <div class="tz"><i></i><span>איך מסננים קונה לפני שהוא נכנס הביתה</span></div>
+      <div class="tz"><i></i><span>איפה המחיר באמת נסגר, ולמה לא בפרסום</span></div>
+    </div>
+  </div>
+
+  <div class="z" style="position:absolute;bottom:70px;right:62px;z-index:5;text-align:right">
+    <div style="font-size:27px;font-weight:300;color:#fff;letter-spacing:-.01em">רז מאיר כהן</div>
+    <div style="width:42px;height:2px;background:#C2151C;margin:11px 0 9px"></div>
+    <div style="font-size:14px;color:#A9A6A2;letter-spacing:.03em">מתווך נדל"ן · מקבוצת תום הרוש</div>
+  </div>
+</div>
+
+
+<!-- ============ 2 LETTER ============ -->
+<div class="pg">
+  <img class="bgi" src="../assets/guide/m_wash.jpg">
+  <img src="../assets/guide/m_cream.jpg" style="position:absolute;top:0;left:0;width:400px;height:760px;object-fit:cover;clip-path:url(#archClip);z-index:1;opacity:.92">
+
+  <div class="pad z">
+    <span class="eyebrow">A Word Before We Start</span>
+    <h2>למה בכלל<br>כתבתי לך את זה</h2>
+    <div class="rule"></div>
+    <p class="lead">אני רז. אני גר בגבעתיים, אשתי גננת בעיר, ואני מוכר כאן דירות.</p>
+    <p>כתבתי את המדריך הזה כי אני מנהל את אותה שיחה שוב ושוב. בעל דירה יושב מולי אחרי חמישה חודשים בשוק ואחרי שתי הורדות מחיר, ושואל אותי מה השתבש. כמעט תמיד התשובה לא נמצאת בחודש החמישי. <b>היא נמצאת בשבוע הראשון.</b></p>
+    <p>בעמודים הבאים כתבתי בדיוק את מה שאני אומר לכל בעל דירה שאני יושב מולו. בלי לשמור קלפים ובלי לשמור את החלק המעניין לפגישה.</p>
+    <p>אם תקרא ותמכור לבד, מצוין. אם תקרא ותבחר מתווך אחר, גם טוב, ובלבד שתדע מה לדרוש ממנו. הדבר היחיד שלא הייתי רוצה הוא שתגלה את כל זה בדיעבד, אחרי שכבר שילמת עליו.</p>
+    <p>המדריך הזה לא ינסה למכור לך כלום. הוא יסביר לך איך השוק שאתה עומד להיכנס אליו באמת עובד.</p>
+
+    <div class="rule wide"></div>
+    <div style="display:flex;align-items:center;gap:16px">
+      <div>
+        <div style="font-size:20px;font-weight:500">רז מאיר כהן</div>
+        <div class="sm" style="margin-top:2px">גבעתיים ורמת גן · מקבוצת תום הרוש</div>
+      </div>
+    </div>
+  </div>
+  <div class="pfoot"><span>90 הימים הראשונים</span><span class="pn">02</span></div>
+</div>
+
+
+<!-- ============ 3 TOC ============ -->
+<div class="pg">
+  <div class="pad z">
+    <span class="eyebrow">Contents</span>
+    <h2>מה יש כאן</h2>
+    <div class="rule"></div>
+    <p class="sm" style="margin-bottom:34px">שבעה פרקים לפי סדר הימים, ובסוף צ'קליסט קצר שתוכל למלא על הדירה שלך.</p>
+
+    <div class="toc"><span class="tl"><span class="t">החלון</span><span class="s">למה המחיר הסופי נקבע בשבוע הראשון</span></span><span class="d"></span><span class="p">04</span></div>
+
+    <div class="toc"><span class="tl"><span class="t">המחיר</span><span class="s">ימים 1 עד 7 · שלושה מספרים על השולחן, ורק אחד קובע</span></span><span class="d"></span><span class="p">07</span></div>
+
+    <div class="toc"><span class="tl"><span class="t">ההכנה</span><span class="s">ימים 1 עד 14 · קונה לא קונה דירה, הוא קונה ודאות</span></span><span class="d"></span><span class="p">10</span></div>
+
+    <div class="toc"><span class="tl"><span class="t">החשיפה</span><span class="s">ימים 7 עד 30 · למה חמישה מתווכים זה לא חמש הזדמנויות</span></span><span class="d"></span><span class="p">12</span></div>
+
+    <div class="toc"><span class="tl"><span class="t">הסינון</span><span class="s">ימים 14 עד 60 · מי בכלל נכנס אליך הביתה</span></span><span class="d"></span><span class="p">15</span></div>
+
+    <div class="toc"><span class="tl"><span class="t">המשא ומתן</span><span class="s">ימים 30 עד 90 · השלב שבו המחיר באמת נסגר</span></span><span class="d"></span><span class="p">17</span></div>
+
+    <div class="toc"><span class="tl"><span class="t">אחרי 90 יום</span><span class="s">איך מאבחנים נכס שנתקע, ומה עושים</span></span><span class="d"></span><span class="p">19</span></div>
+
+    <div class="toc"><span class="tl"><span class="t">צ'קליסט</span><span class="s">שמונה שאלות על הדירה שלך</span></span><span class="d"></span><span class="p">20</span></div>
+
+    <div class="rule wide"></div>
+    <div class="card soft">
+      <p style="font-size:16px;line-height:1.66"><b>איך לקרוא את זה.</b> אם הדירה שלך עדיין לא בשוק, תקרא לפי הסדר. אם היא כבר בשוק כמה חודשים, תתחיל מהצ'קליסט בעמוד 20 ואז תחזור לפרק שהוא מפנה אליו.</p>
+    </div>
+  </div>
+  <div class="pfoot"><span>90 הימים הראשונים</span><span class="pn">03</span></div>
+</div>
+
+
+<!-- ============ 4 THE WINDOW ============ -->
+<div class="pg">
+  <img class="bgi" src="../assets/guide/m_wash.jpg">
+  <div class="pad z">
+    <span class="eyebrow">The Window</span>
+    <h2>המחיר שלך לא נקבע ביום שחתמת.<br>הוא נקבע <span class="hl">בשבוע הראשון</span>.</h2>
+    <div class="rule"></div>
+    <p class="lead">רוב בעלי הדירות חושבים שהמכירה היא רגע. יום אחד מגיע קונה, מסכימים על מספר, וזהו.</p>
+    <p>בפועל המכירה היא תהליך שיש לו שעון, והשעון מתחיל לרוץ ברגע שהנכס עולה לאוויר. בשבועיים הראשונים הדירה שלך מקבלת את מירב תשומת הלב שהיא תקבל אי פעם. כל מי שמחפש דירה כמו שלך בגבעתיים באותו רגע, רואה אותה. <b>זה החלון.</b></p>
+    <p>מה שקורה בתוך החלון קובע כמעט הכול. אם המחיר נכון, הנכס מוכן, והפניות מנוהלות, נוצר עניין אמיתי, ואיתו לחץ קונים שדוחף את המחיר כלפי מעלה. אם אחד מהשלושה לא במקום, החלון נסגר, והנכס עובר למצב שקשה מאוד לחזור ממנו.</p>
+
+    <div class="stats" style="margin:32px 0">
+      <div><span class="n"><em>14</em></span><span class="l">הימים שבהם הנכס<br>מקבל את רוב הפניות</span></div>
+      <div><span class="n">1</span><span class="l">חלון אחד.<br>הוא לא נפתח פעמיים</span></div>
+      <div><span class="n">90</span><span class="l">הימים שאחריהם<br>השאלה מתחלפת</span></div>
+    </div>
+
+    <div class="card">
+      <h3>הטעות היקרה ביותר</h3>
+      <p>הטעות הכי יקרה בשוק אינה מחיר גבוה מדי. היא <b>מחיר גבוה מדי בשבוע הראשון</b>. את המחיר תמיד אפשר להוריד אחר כך. את תשומת הלב שכבר בזבזת אי אפשר להחזיר.</p>
+    </div>
+  </div>
+  <div class="pfoot"><span>90 הימים הראשונים · החלון</span><span class="pn">04</span></div>
+</div>
+
+
+<!-- ============ 5 WEEK BY WEEK ============ -->
+<div class="pg">
+  <div class="pad z">
+    <span class="eyebrow">Week By Week</span>
+    <h2>מה קורה לדירה,<br>שבוע אחרי שבוע</h2>
+    <div class="rule"></div>
+    <p>זה לא ניחוש ולא הפחדה. זה הדפוס שאני רואה שוב ושוב בכל נכס שנשאר בשוק יותר מדי זמן.</p>
+
+    <div class="tw" style="margin:26px 0">
+      <table>
+        <tr><th style="width:118px">שבוע בשוק</th><th>מה קורה בשטח</th></tr>
+        <tr><td class="k">1 עד 2</td><td>הנכס חדש. כל מי שמחפש בגבעתיים רואה אותו ומגיב. זה החלון, וזה שיא העניין.</td></tr>
+        <tr><td class="k">3 עד 4</td><td>מי שרצה, כבר ראה. הפניות מתמעטות בחדות. מגיעים בעיקר סקרנים ושכנים.</td></tr>
+        <tr><td class="k">5 עד 8</td><td>הנכס כבר לא חדש. קונים רציניים מזהים אותו ברשימות וזוכרים שהוא עדיין שם.</td></tr>
+        <tr><td class="k">9 עד 12</td><td>מתחילה שאלה חדשה. לא כמה הוא שווה, אלא מה לא בסדר בו.</td></tr>
+        <tr><td class="k">אחרי 90 יום</td><td>הנכס מסומן כתקוע. מי שמגיע עכשיו מגיע בעיקר כדי לנצל את זה.</td></tr>
+      </table>
+    </div>
+
+    <div class="card" style="background:#14161A;border:none">
+      <h3 style="color:#fff;margin-bottom:8px">שים לב לשורה האחרונה</h3>
+      <p style="color:#C3C1BE">ברגע שהשאלה בשוק מתחלפת מ"כמה הוא שווה" ל"למה הוא לא נמכר", אתה כבר לא מנהל משא ומתן על ערך. אתה מנהל משא ומתן על ההנחה. <b style="color:#fff">וכל שבוע נוסף מחליש לך את הצד.</b></p>
+    </div>
+
+    <p class="sm" style="margin-top:26px">שלושת הפרקים הבאים עוסקים בדיוק בשלושת הדברים שקובעים אם החלון יעבוד לטובתך: המחיר, ההכנה והחשיפה.</p>
+  </div>
+  <div class="pfoot"><span>90 הימים הראשונים · החלון</span><span class="pn">05</span></div>
+</div>
+
+
+<!-- ============ 6 CHAPTER 1 OPENER ============ -->
+<div class="pg dk">
+  <img class="bgi" src="../assets/guide/m_dark.jpg">
+  <div class="vig soft"></div>
+  <div class="pad z">
+    <span class="chnum">01</span>
+    <span class="days" style="background:rgba(255,255,255,.09);border-color:rgba(255,255,255,.2);color:#E8B9BB">ימים 1 עד 7</span>
+    <h1 style="font-size:52px">המחיר</h1>
+    <div class="rule" style="width:64px"></div>
+    <p class="lead" style="max-width:470px">שלושה מספרים מונחים על השולחן שלך. רק אחד מהם מעניין את מי שעומד לקנות.</p>
+  </div>
+  <div class="pfoot"><span>פרק ראשון</span><span class="pn">06</span></div>
+</div>
+
+
+<!-- ============ 7 CH1 CONTENT ============ -->
+<div class="pg">
+  <div class="pad z">
+    <span class="eyebrow">The Three Numbers</span>
+    <h2>שלושה מספרים,<br>ורק אחד <span class="hl">קובע</span></h2>
+    <div class="rule"></div>
+
+    <div class="nrow"><div class="nn">1</div><div class="itx">
+      <h3>מה אתה צריך לקבל</h3>
+      <p>המספר הזה נולד מהמשכנתא, מהדירה הבאה ומהתוכניות שלך. הוא אמיתי לחלוטין עבורך, והוא לא מעניין את השוק אפילו במעט.</p></div></div>
+
+    <div class="nrow"><div class="nn">2</div><div class="itx">
+      <h3>מה שמאי היה אומר</h3>
+      <p>הערכה מקצועית ונכונה, אבל סטטית. היא מתארת שווי ליום שבו נכתבה, לא את המחיר שקונה בשר ודם מוכן לשלם מחר בבוקר.</p></div></div>
+
+    <div class="nrow"><div class="nn r">3</div><div class="itx">
+      <h3>מה שילמו בפועל על דירות כמו שלך</h3>
+      <p>עסקאות שנסגרו בסביבה שלך בחודשים האחרונים. זה המספר היחיד שקובע, כי הוא היחיד שמישהו כבר הוציא עליו כסף.</p></div></div>
+
+    <div class="rule wide"></div>
+
+    <h3 style="margin-bottom:14px">איך אני מגיע למספר השלישי</h3>
+    <p>דוח עסקאות אמיתיות מהאזור, השוואה מול מה שמוצע כרגע באותם רחובות, והתאמה לפי מה שבאמת מבדיל בין דירה לדירה: קומה, מעלית, חניה, כיווני אוויר, מצב תחזוקה ורעש. שתי דירות באותו בניין יכולות להיות רחוקות זו מזו במאות אלפי שקלים, וזה לא נראה בטבלה.</p>
+
+    <div class="card soft">
+      <h3>ואז מגיע החלק הלא נעים</h3>
+      <p>לפעמים המספר שיוצא נמוך ממה שקיווית. התפקיד שלי הוא לומר לך את זה <b>לפני</b> שהנכס עולה לאוויר, ולא אחרי חמישה חודשים. מתווך שמסכים לכל מחיר שתנקוב לא עושה לך טובה. הוא פשוט רוצה את הבלעדיות, ואת המחיר הוא יתקן אחר כך על חשבונך.</p>
+    </div>
+  </div>
+  <div class="pfoot"><span>90 הימים הראשונים · המחיר</span><span class="pn">07</span></div>
+</div>
+
+
+<!-- ============ 8 CASE STUDY ============ -->
+<div class="pg">
+  <img class="bgi" src="../assets/guide/m_wash.jpg">
+  <div class="pad z">
+    <span class="eyebrow">Two Routes</span>
+    <h2>אותה דירה בדיוק.<br>שני מסלולים.</h2>
+    <div class="rule"></div>
+    <p class="sm" style="margin-bottom:20px">כדי להראות כמה זה עולה בפועל, לקחתי דירה טיפוסית בגבעתיים והרצתי אותה בשני מסלולים. אותו בניין, אותה קומה, אותו מטרז'. ההבדל היחיד ביניהן הוא המחיר שבו יצאו לשוק.</p>
+
+    <div class="card soft" style="padding:18px 22px;margin-bottom:22px">
+      <p style="font-size:15px"><b>הנכס:</b> ארבעה חדרים, 92 מ"ר, קומה שלישית, מעלית ומרפסת שמש.
+      <b>שווי שוק ריאלי לפי עסקאות באזור:</b> <span class="nb">3,850,000 ₪</span></p>
+    </div>
+
+    <div class="vs">
+      <div class="a">
+        <div class="h">יצאה במחיר שאיתו התחילו</div>
+        <div class="bd">
+          <span class="big">4,150,000 ₪</span><span class="cap">מחיר פרסום</span>
+          <div style="height:14px"></div>
+          <p>שלושה שבועות של פניות, ואז שקט.</p>
+          <p>שתי הורדות מחיר, בחודש השני ובחודש הרביעי. כל הורדה שידרה לשוק שיש עוד לאן לרדת.</p>
+          <p>חמישה חודשים בשוק. הקונה שסגר בסוף ידע בדיוק כמה זמן היא עומדת.</p>
+          <div style="height:6px"></div>
+          <span class="big" style="color:#A20C22">3,620,000 ₪</span><span class="cap">מחיר סגירה בפועל</span>
+        </div>
+      </div>
+      <div class="b">
+        <div class="h">יצאה במחיר שהשוק מכיר</div>
+        <div class="bd">
+          <span class="big">3,895,000 ₪</span><span class="cap">מחיר פרסום</span>
+          <div style="height:14px"></div>
+          <p>אחד עשר ביקורים בשבועיים הראשונים, כולם קונים שנבדקו מראש.</p>
+          <p>שני מציעים באותו שבוע. ברגע שיש שניים, המחיר מפסיק לרדת ומתחיל לעלות.</p>
+          <p>ארבעים ואחד ימים מהפרסום ועד החתימה.</p>
+          <div style="height:6px"></div>
+          <span class="big" style="color:#14161A">3,900,000 ₪</span><span class="cap">מחיר סגירה בפועל</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="background:#14161A;border:none;margin-top:20px">
+      <p style="color:#C3C1BE;font-size:16px">ההפרש בין שני המסלולים הוא <b style="color:#fff"><span class="nb">280,000 ₪</span></b> ועוד ארבעה חודשים מהחיים שלך. שים לב שהדירה שנמכרה ביותר היא בדיוק זו שביקשה פחות.</p>
+    </div>
+  </div>
+  <div class="pfoot"><span>90 הימים הראשונים · המחיר</span><span class="pn">08</span></div>
+</div>
+
+
+<!-- ============ 9 CH2 OPENER ============ -->
+<div class="pg dk">
+  <img class="bgi" src="../assets/guide/m_dark.jpg">
+  <div class="vig soft"></div>
+  <div class="pad z">
+    <span class="chnum">02</span>
+    <span class="days" style="background:rgba(255,255,255,.09);border-color:rgba(255,255,255,.2);color:#E8B9BB">ימים 1 עד 14</span>
+    <h1 style="font-size:52px">ההכנה</h1>
+    <div class="rule" style="width:64px"></div>
+    <p class="lead" style="max-width:470px">קונה לא קונה דירה. הוא קונה ודאות. כל דבר שהוא לא יודע, הוא מתמחר כסיכון ומוריד לך אותו מהמחיר.</p>
+  </div>
+  <div class="pfoot"><span>פרק שני</span><span class="pn">09</span></div>
+</div>
+
+
+<!-- ============ 10 CH2 CONTENT ============ -->
+<div class="pg">
+  <div class="pad z">
+    <span class="eyebrow">The Property File</span>
+    <h2>תיק נכס מסודר<br>שווה כסף</h2>
+    <div class="rule"></div>
+    <p>כשקונה שואל שאלה ולא מקבל תשובה במקום, קורים שני דברים. הוא מאבד ביטחון, והוא מרוויח זמן. שני אלה עולים לך במחיר. תיק נכס מוכן מראש עונה על השאלות לפני שנשאלו.</p>
+
+    <div class="irow"><div class="ic"><svg viewBox="0 0 24 24"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
+      <div class="itx"><h3>נסח טאבו מעודכן</h3><p>רישום נקי, בעלויות, הערות אזהרה ומשכנתאות. כל הפתעה שמתגלה בשלב עורכי הדין עולה זמן ולפעמים את העסקה כולה.</p></div></div>
+
+    <div class="irow"><div class="ic"><svg viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+      <div class="itx"><h3>תוכניות ומדידה אמיתית</h3><p>כמה מטרים יש באמת, ומה נבנה כדין. הפער בין מה שרשום למה שקיים הוא אחת הסיבות הנפוצות לביטול עסקה.</p></div></div>
+
+    <div class="irow"><div class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></div>
+      <div class="itx"><h3>ארנונה, ועד בית והיטלים</h3><p>העלות החודשית האמיתית של הדירה, כולל מה שצפוי בבניין בשנים הקרובות. קונה שמגלה את זה לבד מניח את הגרוע ביותר.</p></div></div>
+
+    <div class="irow"><div class="ic"><svg viewBox="0 0 24 24"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg></div>
+      <div class="itx"><h3>צילום מקצועי, לא בטלפון</h3><p>התמונות הן הרושם הראשון, והן קובעות אם בכלל ילחצו. צלם מקצועי, שעות אור נכונות, ודירה מסודרת מראש.</p></div></div>
+
+    <div class="irow"><div class="ic"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+      <div class="itx"><h3>סיפור, לא מפרט טכני</h3><p>מי הדירה הזו מתאימה לו ולמה. משפחה עם ילדים קטנים, זוג שמתחיל, או מישהו שרוצה לרדת בקומות. מי שרואה את עצמו בפנים משלם יותר.</p></div></div>
+
+    <div class="card soft" style="margin-top:26px">
+      <p><b>כלל פשוט לבדיקה עצמית.</b> אם קונה ישאל אותך עכשיו שלוש שאלות על הבניין, על ההוצאות ועל מה שמתוכנן ברחוב, יש לך תשובה מיידית לכולן? אם לא, אתה עוד לא מוכן לצאת לשוק.</p>
+    </div>
+  </div>
+  <div class="pfoot"><span>90 הימים הראשונים · ההכנה</span><span class="pn">10</span></div>
+</div>
+
+
+<!-- ============ 11 CH3 OPENER ============ -->
+<div class="pg dk">
+  <img class="bgi" src="../assets/guide/m_dark.jpg">
+  <div class="vig soft"></div>
+  <div class="pad z">
+    <span class="chnum">03</span>
+    <span class="days" style="background:rgba(255,255,255,.09);border-color:rgba(255,255,255,.2);color:#E8B9BB">ימים 7 עד 30</span>
+    <h1 style="font-size:52px">החשיפה</h1>
+    <div class="rule" style="width:64px"></div>
+    <p class="lead" style="max-width:470px">כאן נמצאת ההחלטה שהכי הרבה בעלי דירות טועים בה, ומתוך כוונה טובה לגמרי.</p>
+  </div>
+  <div class="pfoot"><span>פרק שלישי</span><span class="pn">11</span></div>
+</div>
+
+
+<!-- ============ 12 FIVE BROKERS ============ -->
+<div class="pg">
+  <div class="pad z">
+    <span class="eyebrow">Five Prices</span>
+    <h2>חמישה מתווכים זה לא<br>חמש הזדמנויות.<br>זה <span class="hl">חמישה מחירים</span>.</h2>
+    <div class="rule"></div>
+    <p>ההיגיון נשמע נכון. יותר אנשים שמנסים, יותר סיכוי למכור. בשטח קורה בדיוק ההפך, וזה עובד כך:</p>
+
+    <div class="nrow"><div class="nn">1</div><div class="itx"><h3>אותה דירה מופיעה בכמה מחירים</h3>
+      <p>כל מתווך מפרסם בנוסח משלו ולעיתים בסכום מעט שונה. קונה שמחפש ברצינות רואה את כולם, ומיד מבין שהמחיר גמיש.</p></div></div>
+
+    <div class="nrow"><div class="nn">2</div><div class="itx"><h3>אף אחד לא באמת עובד עליה</h3>
+      <p>כשחמישה מתחרים על אותו נכס בלי התחייבות, אף אחד לא ישקיע בצלם, בתיק נכס או בפנייה יזומה לקונים. הם ימתינו שמישהו אחר יביא קונה.</p></div></div>
+
+    <div class="nrow"><div class="nn">3</div><div class="itx"><h3>הנכס נראה נואש</h3>
+      <p>דירה שמופיעה בכל מקום ובכל צורה משדרת שהמוכר לחוץ. זו הנחת פתיחה שקשה מאוד לתקן אחר כך במשא ומתן.</p></div></div>
+
+    <div class="nrow"><div class="nn">4</div><div class="itx"><h3>אין מי שמנהל</h3>
+      <p>אין מי שאוסף את כל הפניות למקום אחד, משווה בין הצעות, ומזהה שיש כרגע שני קונים באותו שבוע. וזו בדיוק הנקודה שבה נוצר המחיר הטוב.</p></div></div>
+
+    <div class="rule wide"></div>
+
+    <h3 style="margin-bottom:12px">מה שאני מציע במקום</h3>
+    <p><b>בלעדיות עם דלת פתוחה.</b> אחד מנהל את המכירה, ובאותה נשימה פותח את הנכס לכל מתווך אחר באזור. מי שמביא קונה רציני מתקבל בברכה ומקבל את חלקו. אתה מקבל את כל החשיפה של השוק, בלי חמשת המחירים ובלי הבלגן.</p>
+
+    <div class="card soft">
+      <p><b>וגם אם לא תבחר בי.</b> תבחר אחד. מישהו שאתה סומך עליו, שמתחייב לך בכתב על מה שהוא עושה, ושפותח את הדלת לכל השאר. זו העצה שהייתי נותן גם לאח שלי.</p>
+    </div>
+  </div>
+  <div class="pfoot"><span>90 הימים הראשונים · החשיפה</span><span class="pn">12</span></div>
+</div>
+
+
+<!-- ============ 13 EXPOSURE ORDER ============ -->
+<div class="pg">
+  <img class="bgi" src="../assets/guide/m_wash.jpg">
+  <div class="pad z">
+    <span class="eyebrow">Order Of Exposure</span>
+    <h2>הסדר שבו מוציאים<br>נכס לשוק</h2>
+    <div class="rule"></div>
+    <p>חשיפה היא לא כפתור אחד שלוחצים עליו. יש לה סדר, וכשעושים אותו נכון, הנכס נכנס לשוק כשכבר יש עליו עניין.</p>
+
+    <div class="irow"><div class="ic"><svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+      <div class="itx"><h3>קודם המאגר, ורק אחר כך הפרסום</h3><p>לפני שהנכס עולה לאוויר, פנייה יזומה לקונים שכבר מחפשים בדיוק דירה כזו באזור. חלק מהעסקאות נסגרות כאן, לפני שהשוק בכלל ראה את הנכס.</p></div></div>
+
+    <div class="irow"><div class="ic"><svg viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+      <div class="itx"><h3>מתווכי האזור, ביום הראשון</h3><p>גבעתיים ורמת גן עובדות יחד. שיתוף פעולה פתוח מהיום הראשון מכפיל את מספר הקונים שמגיעים, בלי להכפיל את מספר המחירים.</p></div></div>
+
+    <div class="irow"><div class="ic"><svg viewBox="0 0 24 24"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg></div>
+      <div class="itx"><h3>פרסום פומבי, בבת אחת</h3><p>כל הפלטפורמות באותו יום, באותו מחיר ובאותו נוסח. כניסה חזקה אחת שווה יותר משלוש כניסות חלשות.</p></div></div>
+
+    <div class="irow"><div class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+      <div class="itx"><h3>ריכוז הביקורים לחלון אחד</h3><p>כשקונים מגיעים באותם ימים ורואים אחד את השני, נוצר עניין אמיתי. כשהביקורים מפוזרים על פני חודשיים, כל קונה מרגיש שהוא היחיד.</p></div></div>
+
+    <div class="card" style="background:#14161A;border:none;margin-top:24px">
+      <h3 style="color:#fff;margin-bottom:8px">מה שקורה כשעושים את זה הפוך</h3>
+      <p style="color:#C3C1BE">מפרסמים קודם, בלי תיק ובלי תמונות טובות, ואז מנסים לתקן. אבל הקונים הרציניים כבר ראו את הגרסה הראשונה, והם לא חוזרים לראות אם השתפרה.</p>
+    </div>
+  </div>
+  <div class="pfoot"><span>90 הימים הראשונים · החשיפה</span><span class="pn">13</span></div>
+</div>
+
+
+<!-- ============ 14 CH4 OPENER ============ -->
+<div class="pg dk">
+  <img class="bgi" src="../assets/guide/m_dark.jpg">
+  <div class="vig soft"></div>
+  <div class="pad z">
+    <span class="chnum">04</span>
+    <span class="days" style="background:rgba(255,255,255,.09);border-color:rgba(255,255,255,.2);color:#E8B9BB">ימים 14 עד 60</span>
+    <h1 style="font-size:52px">הסינון</h1>
+    <div class="rule" style="width:64px"></div>
+    <p class="lead" style="max-width:470px">יש שאלות שאתה לא יכול לשאול אדם זר שעומד בדלת שלך. אני כן, וזה מקובל לגמרי.</p>
+  </div>
+  <div class="pfoot"><span>פרק רביעי</span><span class="pn">14</span></div>
+</div>
+
+
+<!-- ============ 15 CH4 CONTENT ============ -->
+<div class="pg">
+  <div class="pad z">
+    <span class="eyebrow">Who Walks In</span>
+    <h2>מי בכלל נכנס<br>אליך הביתה</h2>
+    <div class="rule"></div>
+    <p>כל ביקור עולה לך משהו. זמן, פרטיות, ובעיקר אנרגיה. וגרוע מזה: קונה שלא באמת יכול לקנות עדיין ייתן הצעה, ותשקול אותה, ותבזבז עליה שבועיים.</p>
+    <p>לפני שמתאמים ביקור, יש ארבע שאלות שחייבים לדעת עליהן את התשובה:</p>
+
+    <div class="irow"><div class="ic"><svg viewBox="0 0 24 24"><path d="M22 3H2l8 9.46V19l4 2v-8.54L22 3z"/></svg></div>
+      <div class="itx"><h3>מה התקציב האמיתי</h3><p>לא מה שנוח להגיד בטלפון. מה הבנק אישר, ומה ההון העצמי בפועל.</p></div></div>
+
+    <div class="irow"><div class="ic"><svg viewBox="0 0 24 24"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg></div>
+      <div class="itx"><h3>מאיפה מגיע המימון</h3><p>אישור עקרוני קיים, הון עצמי, או תלות בהורים שעדיין לא אמרו כן.</p></div></div>
+
+    <div class="irow"><div class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+      <div class="itx"><h3>מה לוח הזמנים שלו</h3><p>קונה שצריך להיכנס בעוד חודשיים וקונה שמחפש בנחת לשנה הבאה הם שני עולמות. זה משפיע ישירות על המחיר שהוא מוכן לשלם.</p></div></div>
+
+    <div class="irow"><div class="ic"><svg viewBox="0 0 24 24"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
+      <div class="itx"><h3>האם הוא תלוי במכירת נכס אחר</h3><p>השאלה הכי חשובה מכולן, וזו שהכי פחות שואלים. קונה שתלוי במכירה שעוד לא קרתה הוא לא קונה. הוא אופציה.</p></div></div>
+
+    <div class="rule wide"></div>
+
+    <div class="card soft">
+      <h3>למה אתה לא יכול לשאול את זה בעצמך</h3>
+      <p>כשאתה שואל אדם על התקציב שלו בדלת של הבית שלך, זה נשמע חשדני ומעליב, ורוב האנשים פשוט לא יענו בכנות. כשמתווך שואל את אותן שאלות בשיחת טלפון מקדימה, זה חלק מהתהליך. <b>אותה שאלה בדיוק, תוצאה הפוכה לגמרי.</b></p>
+    </div>
+  </div>
+  <div class="pfoot"><span>90 הימים הראשונים · הסינון</span><span class="pn">15</span></div>
+</div>
+
+
+<!-- ============ 16 CH5 OPENER ============ -->
+<div class="pg dk">
+  <img class="bgi" src="../assets/guide/m_dark.jpg">
+  <div class="vig soft"></div>
+  <div class="pad z">
+    <span class="chnum">05</span>
+    <span class="days" style="background:rgba(255,255,255,.09);border-color:rgba(255,255,255,.2);color:#E8B9BB">ימים 30 עד 90</span>
+    <h1 style="font-size:52px">המשא ומתן</h1>
+    <div class="rule" style="width:64px"></div>
+    <p class="lead" style="max-width:470px">כל מתווך טוב יביא צלם ויכתוב טקסט. ההבדל מתחיל בדיוק כאן, ברגע שהקונה אומר שהוא מעוניין.</p>
+  </div>
+  <div class="pfoot"><span>פרק חמישי</span><span class="pn">16</span></div>
+</div>
+
+
+<!-- ============ 17 CH5 CONTENT ============ -->
+<div class="pg">
+  <div class="pad z">
+    <span class="eyebrow">Where Price Is Decided</span>
+    <h2>המחיר לא נסגר בפרסום.<br>הוא נסגר <span class="hl">בשיחה</span>.</h2>
+    <div class="rule"></div>
+    <p>ברגע שיש הצעה על השולחן, מתחיל משחק אחר לגמרי. וזה השלב היחיד בתהליך שבו הפער בין ניהול טוב לניהול גרוע נמדד ישירות בשקלים.</p>
+
+    <div class="card">
+      <h3>הפער כמעט תמיד קטן משנדמה</h3>
+      <p>בעל דירה חושב שהקונה רחוק ממנו במאתיים אלף. הקונה חושב בדיוק אותו דבר על הצד השני. שניהם טועים, אבל אף אחד מהם לא יגלה את זה, כי אף אחד לא רוצה לזוז ראשון. מי שיושב באמצע ומכיר את שני הצדדים יודע מה הפער האמיתי.</p>
+    </div>
+
+    <div class="card">
+      <h3>מי שרודף, משלם</h3>
+      <p>ברגע שאתה מתקשר בעצמך לקונה כדי לשאול מה קורה, הורדת לעצמך את המחיר עוד לפני שדיברתם עליו. הצד שמגלה יותר עניין הוא הצד שמשלם על זה. לכן צריך מישהו אחר שיחזיק את הקשר.</p>
+    </div>
+
+    <div class="card">
+      <h3>עסקאות נופלות אחרי שהן נסגרות</h3>
+      <p>הרגע המסוכן ביותר הוא דווקא אחרי לחיצת היד. משכנתא שמתעכבת, בן משפחה שמכניס ספק, בדק בית שמעלה משהו, או פער בלוחות הזמנים. רוב מה שאני עושה בשלב הזה זה לכבות שריפות לפני שאתה בכלל שומע עליהן.</p>
+    </div>
+
+    <div class="rule wide"></div>
+
+    <h3 style="margin-bottom:12px">ומה שאתה צריך לדרוש בשלב הזה</h3>
+    <p>סיכום כתוב אחרי כל ביקור, גם כשאין חדשות טובות. שיחת המשך עם הקונה למחרת, ולא כעבור שבוע. וכל הצעה שמגיעה אליך מסודרת, עם מי נתן אותה, מה המימון שלו ומה לוח הזמנים. <b>שקיפות היא לא מחווה. היא חלק מהעבודה.</b></p>
+  </div>
+  <div class="pfoot"><span>90 הימים הראשונים · המשא ומתן</span><span class="pn">17</span></div>
+</div>
+
+
+<!-- ============ 18 AFTER 90 ============ -->
+<div class="pg">
+  <img class="bgi" src="../assets/guide/m_wash.jpg">
+  <div class="pad z">
+    <span class="eyebrow">After Ninety</span>
+    <h2>ואם כבר עברו<br>תשעים יום?</h2>
+    <div class="rule"></div>
+    <p class="lead">אז אל תוריד מחיר. עוד לא.</p>
+    <p>הורדת מחיר היא התגובה האינסטינקטיבית, והיא גם הכי יקרה. היא מודה בפני השוק שהמחיר לא היה אמיתי, ומזמינה את כולם לחכות להורדה הבאה. לפני שנוגעים במחיר, עושים אבחון.</p>
+
+    <div class="tw" style="margin:24px 0">
+      <table>
+        <tr><th style="width:180px">מה שקורה</th><th>מה זה אומר</th></tr>
+        <tr><td class="k">הרבה צפיות, מעט פניות</td><td>המחיר גבוה מדי ביחס למה שרואים בתמונות. בעיה של מחיר.</td></tr>
+        <tr><td class="k">הרבה פניות, מעט ביקורים</td><td>משהו בפרסום לא ברור או לא מדויק. בעיה של הצגה.</td></tr>
+        <tr><td class="k">הרבה ביקורים, אפס הצעות</td><td>הדירה לא נראית כמו התמונות, או שיש בה משהו שלא סופר. בעיה של הכנה.</td></tr>
+        <tr><td class="k">הצעות שנופלות בסוף</td><td>קונים לא מסוננים. בעיה של ניהול.</td></tr>
+        <tr><td class="k">שקט מוחלט</td><td>הנכס סומן כתקוע. צריך להוריד אותו ולבנות כניסה מחדש.</td></tr>
+      </table>
+    </div>
+
+    <div class="card soft">
+      <h3>שים לב</h3>
+      <p>בארבע מתוך חמש השורות, <b>הבעיה אינה המחיר</b>. זו בדיוק הסיבה שהורדת מחיר אוטומטית היא הפתרון הגרוע ביותר. היא עולה לך כסף ולא פותרת את מה שבאמת תקוע.</p>
+    </div>
+  </div>
+  <div class="pfoot"><span>90 הימים הראשונים · אחרי 90 יום</span><span class="pn">18</span></div>
+</div>
+
+
+<!-- ============ 19 CHECKLIST ============ -->
+<div class="pg dk">
+  <img class="bgi" src="../assets/guide/m_dark.jpg">
+  <div class="vig soft"></div>
+  <div class="pad z">
+    <span class="eyebrow">Self Check</span>
+    <h2>שמונה שאלות<br>על הדירה שלך</h2>
+    <div class="rule"></div>
+    <p style="margin-bottom:26px">סמן לעצמך כמה מאלה נכונים לגביך עכשיו. זה לוקח דקה, והוא שווה יותר מכל שיחת ייעוץ.</p>
+
+    <div class="chk"><div class="box"></div><span>המחיר שלי נקבע לפי מה שאני צריך לקבל, ולא לפי עסקאות שנסגרו בסביבה.</span></div>
+    <div class="chk"><div class="box"></div><span>הדירה בשוק יותר משישה שבועות.</span></div>
+    <div class="chk"><div class="box"></div><span>יותר ממתווך אחד מפרסם אותה, ואני לא בטוח באיזה מחיר כל אחד.</span></div>
+    <div class="chk"><div class="box"></div><span>כבר הורדתי את המחיר לפחות פעם אחת.</span></div>
+    <div class="chk"><div class="box"></div><span>אין לי נסח טאבו עדכני ותוכניות בהישג יד.</span></div>
+    <div class="chk"><div class="box"></div><span>אני לא יודע מה התקציב או המימון של מי שמגיע לראות.</span></div>
+    <div class="chk"><div class="box"></div><span>אני מוצא את עצמי מתקשר לקונים כדי לשאול מה קורה.</span></div>
+    <div class="chk"><div class="box"></div><span>אין לי סיכום כתוב של מה שנאמר בביקורים האחרונים.</span></div>
+
+    <div class="card" style="margin-top:28px">
+      <h3>איך לקרוא את התוצאה</h3>
+      <p style="margin-top:6px"><b style="color:#fff">אפס עד שניים.</b> אתה בסדר גמור. תמשיך.</p>
+      <p style="margin-top:6px"><b style="color:#fff">שלושה עד ארבעה.</b> יש דליפה אחת או שתיים. עוד אפשר לתקן בלי לגעת במחיר.</p>
+      <p style="margin-top:6px"><b style="color:#fff">חמישה ומעלה.</b> הנכס בדרך להיתקע, ואם כבר עברו שלושה חודשים הוא כנראה כבר שם. כאן צריך לעצור ולבנות מחדש, לא להוריד מחיר.</p>
+    </div>
+  </div>
+  <div class="pfoot"><span>90 הימים הראשונים · צ'קליסט</span><span class="pn">19</span></div>
+</div>
+
+
+<!-- ============ 20 WHO I AM ============ -->
+<div class="pg top">
+  <img class="bgi" src="../assets/guide/m_wash.jpg">
+  <img src="../assets/guide/raz_navy.png" style="position:absolute;bottom:0;left:-56px;height:560px;z-index:1;opacity:1">
+  <div class="pad z">
+    <span class="eyebrow">Behind The Name</span>
+    <h2>החלפתי מגרש.<br>את ההרגלים<br>הבאתי איתי.</h2>
+    <div class="rule"></div>
+    <p>עד לפני שנתיים הייתי כדורגלן מקצועי. חתמתי חוזה ראשון בגיל עשרים ואחת, ובמשך שנים חייתי בעולם שבו מודדים אותך מחדש כל שבוע, בלי תירוצים ובלי מקום להסתתר. <b>משם הבאתי איתי שלושה דברים: דיוק, משמעת, ועמידה בלחץ.</b></p>
+    <p>היום אני גר בגבעתיים, אשתי גננת בעיר, ואני עושה את אותו הדבר בשוק אחר. אני מכיר את הרחובות, את הבניינים ואת האנשים, ולפעמים אני יודע מי מחפש מה עוד לפני שהנכס מפורסם.</p>
+    <p>אני לא הוותיק ביותר בעיר ואני לא מתיימר להיות. מה שאני כן מביא זו שיטה שלא משתנה מנכס לנכס, ודיווח שמגיע אליך בזמן, גם כשאין חדשות טובות.</p>
+
+    <div class="rule wide" style="margin:30px 0 26px"></div>
+    <p class="quote" style="text-align:right;padding:0;font-size:24px;max-width:420px">אני רואה בכל נכס אחריות אישית. השם שלי והאמינות שלי חשובים לי יותר מכל צ'ק.</p>
+  </div>
+  <div class="pfoot"><span>90 הימים הראשונים</span><span class="pn">20</span></div>
+</div>
+
+
+<!-- ============ 21 THE GROUP ============ -->
+<div class="pg">
+  <div class="pad z">
+    <span class="eyebrow">The Group</span>
+    <h2>ומאחוריי, קבוצה<br>שנמצאת פה<br><span class="hl">שש עשרה שנה</span></h2>
+    <div class="rule"></div>
+    <p class="lead">אני לא עובד לבד.</p>
+    <p>אני תחת קבוצת תום הרוש, שנמצאת בשוק שש עשרה שנה. יש בה תיווך יד שנייה, שיווק פרויקטים יד ראשונה, שיווק נכסי יוקרה והתחדשות עירונית, גם כאן בגבעתיים. אנחנו נוגעים בכל האלמנטים, ולכן יודעים לתת את כל המעטפת שבעל נכס צריך.</p>
+
+    <div class="irow"><div class="ic"><svg viewBox="0 0 24 24"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg></div>
+      <div class="itx"><h3>מחלקת שיווק</h3><p>שמלווה גם נכסי יד שנייה, ולא רק פרויקטים חדשים.</p></div></div>
+
+    <div class="irow"><div class="ic"><svg viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+      <div class="itx"><h3>מחלקת התחדשות עירונית</h3><p>שיודעת להעריך נכס ישן ולהסביר לקונה מה צפוי לו בשנים הקרובות. בגבעתיים זה כמעט תמיד רלוונטי.</p></div></div>
+
+    <div class="irow"><div class="ic"><svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+      <div class="itx"><h3>מאגר לקוחות אזורי</h3><p>שנבנה לאורך שנים. זה המאגר שאליו פונים עוד לפני שהנכס עולה לפרסום.</p></div></div>
+
+    <div class="irow"><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 2 14.9 8.6 22 9.3l-5.3 4.7L18.2 21 12 17.3 5.8 21l1.5-7L2 9.3l7.1-.7z"/></svg></div>
+      <div class="itx"><h3>שיווק נכסי יוקרה</h3><p>מחלקה ייעודית לנכסים בפלח העליון של השוק, שמגיעה לקהל קונים אחר לגמרי.</p></div></div>
+
+    <div class="rule wide"></div>
+    <div class="card soft">
+      <p style="font-size:16.5px;line-height:1.7">כשאתה עובד איתי אתה מקבל אדם אחד שמלווה אותך מההתחלה ועד המסירה, <b>ומאחוריו קבוצה שלמה</b> שיודעת לפתור את מה שאדם אחד לא יכול לפתור לבד.</p>
+    </div>
+  </div>
+  <div class="pfoot"><span>90 הימים הראשונים</span><span class="pn">21</span></div>
+</div>
+
+
+<!-- ============ 22 CLOSING ============ -->
+<div class="pg dk">
+  <img class="bgi" src="../assets/guide/m_dark.jpg">
+  <div class="vig soft"></div>
+  <div class="pad z" style="display:flex;flex-direction:column;height:100%">
+    <span class="eyebrow">One Last Thing</span>
+    <h2>עכשיו אתה יודע<br>מה לדרוש</h2>
+    <div class="rule"></div>
+    <p class="lead">וזו הייתה כל המטרה.</p>
+    <p>אם קראת עד כאן, אתה כבר יודע יותר מרוב האנשים שמוכרים דירה בפעם הראשונה. אתה יודע איך נקבע מחיר, למה החלון הראשון קריטי, מה לדרוש ממי שמנהל לך את המכירה, ומתי לא להוריד מחיר.</p>
+    <p>אם משהו כאן נגע במשהו שקורה לך עכשיו, אני זמין לשיחה. בלי מחויבות ובלי מכירה. נעבור על הדירה שלך, אגיד לך מה אני חושב על המחיר, וגם אם התשובה תהיה שאתה לא צריך אותי, זה מה שאגיד לך.</p>
+
+    <div class="rule wide" style="border-color:rgba(255,255,255,.14);background:rgba(255,255,255,.14);margin:34px 0"></div>
+
+    <p class="quote">המטרה שלי היא לא רק למכור לך את הדירה,<br>אלא לגרום לך להגיד בסוף התהליך:<br><b style="font-weight:400;color:#fff">עשינו את הבחירה הנכונה.</b></p>
+    <div class="qat">רז מאיר כהן</div>
+
+    <div style="margin-top:auto">
+      <div class="card" style="text-align:center;padding:30px">
+        <div style="font-size:22px;font-weight:400;color:#fff;margin-bottom:6px">רז מאיר כהן</div>
+        <div class="sm" style="margin-bottom:18px">תיווך ושיווק נדל"ן · גבעתיים ורמת גן · מקבוצת תום הרוש</div>
+        <div style="font-size:15px;color:#E8E5E1;line-height:2">
+          טלפון <a href="tel:+972544263355" class="nb" style="color:#E8E5E1;text-decoration:none">0544263355</a><br>
+          <a href="https://tom-harush.co.il/raz-meir-cohen/" class="nb" style="color:#E8B9BB;text-decoration:none">tom-harush.co.il/raz-meir-cohen</a>
+        </div>
+      </div>
+      <p class="sm" style="text-align:center;margin-top:20px;font-size:11.5px;line-height:1.6">
+        מספר רישיון תיווך להשלמה. המדריך הזה הוא מידע כללי ואינו מהווה ייעוץ משפטי,
+        מיסויי או שמאי, ואינו תחליף לבדיקה פרטנית של הנכס שלך.
+      </p>
+    </div>
+  </div>
+</div>
+
+<section id="back">
+  <span class="k">ONE MORE THING</span>
+  <h2>עלתה לך שאלה תוך כדי?<br><b>פשוט תכתוב לי.</b></h2>
+  <p>אני קורא הכל בעצמי.</p>
+  <a href="https://wa.me/972544263355" target="_blank" rel="noopener">
+    <svg width="30" height="12" viewBox="0 0 34 12" fill="none" aria-hidden="true">
+      <path d="M33 6H2M2 6L7 1M2 6L7 11" stroke="#fff" stroke-width="1.25"
+            stroke-linecap="round" stroke-linejoin="round"/></svg>
+    לכתוב לרז בוואטסאפ
+  </a>
+</section>
+<script>
+(function () {
+  var bar = document.querySelector('#rail i');
+  var deepest = 0, sent = {};
+  function onScroll() {
+    var h = document.documentElement.scrollHeight - window.innerHeight;
+    var p = h > 0 ? window.scrollY / h : 0;
+    bar.style.width = (p * 100).toFixed(1) + '%';
+    var pct = Math.round(p * 100);
+    if (pct > deepest) deepest = pct;
+    [25, 50, 75, 95].forEach(function (mark) {
+      if (deepest >= mark && !sent[mark]) { sent[mark] = 1; report(mark); }
+    });
+  }
+  // the Worker fills this in once the personal link is live
+  function report(depth) {
+    if (!window.RAZ_TOKEN) return;
+    navigator.sendBeacon('/api/read', JSON.stringify({ t: window.RAZ_TOKEN, depth: depth }));
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+})();
+</script>
+
+</body>
+</html>
