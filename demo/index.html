@@ -1,0 +1,129 @@
+<!doctype html>
+<html dir="rtl" lang="he">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#14161A">
+<title>מעבר אחרי הטופס · הדגמה</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@200;300;400;500&family=Cormorant+Garamond:wght@600&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#14161A;--ink2:#33383F;--bone:#FAF8F5;--stone:#F1EDE7;--line:#E2DCD3;
+      --muted:#71757C;--faint:#9A9AA0;--red:#C2151C}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Heebo,system-ui,sans-serif;direction:rtl;background:var(--bone);color:var(--ink);
+     min-height:100svh;display:flex;align-items:center;justify-content:center;padding:24px}
+
+.card{width:100%;max-width:420px;background:#fff;border:1px solid var(--line);
+      border-radius:22px;padding:30px 26px 28px}
+.k{font-family:"Cormorant Garamond",serif;direction:ltr;text-align:right;font-size:13px;
+   letter-spacing:.34em;color:var(--red);display:block;margin-bottom:12px}
+h1{font-size:25px;font-weight:200;line-height:1.3;margin-bottom:8px}
+h1 b{font-weight:500}
+.sub{font-size:14.5px;color:var(--ink2);font-weight:300;margin-bottom:22px;line-height:1.6}
+.f{width:100%;height:52px;border:1px solid var(--line);border-radius:12px;background:var(--stone);
+   padding:0 16px;font:400 15px Heebo,sans-serif;color:var(--ink);margin-bottom:10px;text-align:right}
+.f::placeholder{color:var(--muted)}
+.f:focus{outline:none;border-color:var(--ink);background:#fff}
+.go{width:100%;height:58px;border:0;border-radius:18px;color:#fff;cursor:pointer;
+    font:500 16.5px Heebo,sans-serif;margin-top:12px;
+    display:flex;align-items:center;justify-content:center;gap:12px;
+    background:linear-gradient(135deg,#D82127 0%,#C2151C 52%,#8F081B 100%);
+    box-shadow:0 12px 30px rgba(194,21,28,.30),0 2px 0 rgba(255,255,255,.16) inset}
+.go:active{transform:translateY(1px)}
+.note{font-size:12.5px;color:var(--faint);text-align:center;margin-top:14px;line-height:1.6}
+
+/* ── the interstitial. Present in the DOM from the start, so it costs no load ── */
+#gate{position:fixed;inset:0;z-index:99;background:var(--ink);color:var(--bone);
+      display:flex;flex-direction:column;align-items:center;justify-content:center;
+      gap:0;opacity:0;visibility:hidden;transition:opacity .16s ease}
+#gate.on{opacity:1;visibility:visible}
+#gate svg{margin-bottom:26px;opacity:.9}
+#gate .t{font-size:21px;font-weight:500;letter-spacing:-.01em}
+#gate .s{font-size:14.5px;font-weight:300;color:var(--faint);margin-top:9px;text-align:center;
+         max-width:280px;line-height:1.6}
+#bar{width:190px;height:2.5px;background:rgba(255,255,255,.14);border-radius:2px;
+     margin-top:30px;overflow:hidden}
+#bar i{display:block;height:100%;width:0;background:var(--red);border-radius:2px}
+#bar.run i{width:100%;transition:width 1350ms cubic-bezier(.3,.7,.4,1)}
+.again{position:fixed;bottom:18px;left:0;right:0;text-align:center;font-size:12.5px;
+       color:var(--faint);z-index:100;display:none}
+.again.on{display:block}
+</style>
+</head>
+<body>
+
+<div class="card">
+  <span class="k">DEMO</span>
+  <h1>לאן לשלוח<br><b>את המדריך?</b></h1>
+  <p class="sub">זו הדגמה של המעבר בלבד. מלא משהו ולחץ, כדי להרגיש את הקצב בנייד.</p>
+  <input class="f" id="n" placeholder="שם מלא" autocomplete="name">
+  <input class="f" id="p" placeholder="טלפון" inputmode="tel" autocomplete="tel">
+  <button class="go" id="go">
+    <svg width="30" height="12" viewBox="0 0 34 12" fill="none" aria-hidden="true">
+      <path d="M33 6H2M2 6L7 1M2 6L7 11" stroke="#fff" stroke-width="1.25"
+            stroke-linecap="round" stroke-linejoin="round"/></svg>
+    שלחו לי את המדריך
+  </button>
+  <p class="note">רז שולח את המדריך אישית בוואטסאפ.<br>הוא שלך גם אם לא נעבוד יחד.</p>
+</div>
+
+<div id="gate" role="status" aria-live="polite">
+  <svg width="30" height="36" viewBox="0 0 70 82" fill="none" aria-hidden="true">
+    <path d="M5 74 L5 33 A30 30 0 0 1 65 33 L65 74" stroke="#FAF8F5" stroke-width="2.8" stroke-linecap="round"/>
+    <path d="M2 79 L68 79" stroke="#C2151C" stroke-width="3.2" stroke-linecap="round"/>
+  </svg>
+  <div class="t">הפרטים התקבלו.</div>
+  <div class="s">רז הקליט לך משהו קצר לפני שאתה פותח את המדריך.</div>
+  <div id="bar"><i></i></div>
+</div>
+<div class="again" id="again">ההדגמה נעצרת כאן. רענן כדי לנסות שוב.</div>
+
+<script>
+(function () {
+  var NEXT = '/raz-meir-cohen/';   // in production: the thank-you page
+  var HOLD = 1400;                 // how long the gate is shown
+  var SAFETY = 2600;               // never trap anyone, whatever happens
+
+  var gate = document.getElementById('gate');
+  var bar  = document.getElementById('bar');
+  var go   = document.getElementById('go');
+  var warmed = false;
+
+  // Warm the next page the moment they start typing, so the jump costs nothing.
+  function warm() {
+    if (warmed) return;
+    warmed = true;
+    var l = document.createElement('link');
+    l.rel = 'prefetch'; l.href = NEXT; l.as = 'document';
+    document.head.appendChild(l);
+  }
+  document.getElementById('n').addEventListener('focus', warm, { once: true });
+  document.getElementById('p').addEventListener('focus', warm, { once: true });
+
+  var jumped = false;
+  function jump() {
+    if (jumped) return;
+    jumped = true;
+    document.getElementById('again').classList.add('on');
+    // in production: location.replace(NEXT)
+  }
+
+  go.addEventListener('click', function () {
+    // 1. the gate is already in the DOM, so it paints on this frame
+    gate.classList.add('on');
+    requestAnimationFrame(function () { bar.classList.add('run'); });
+
+    // 2. the lead goes out with keepalive, so it completes even mid navigation
+    //    fetch(WORKER, {method:'POST', body:..., keepalive:true});
+
+    // 3. move on, and a hard safety net behind it
+    setTimeout(jump, HOLD);
+    setTimeout(jump, SAFETY);
+  });
+})();
+</script>
+</body>
+</html>

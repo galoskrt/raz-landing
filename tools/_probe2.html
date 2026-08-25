@@ -1,8 +1,16 @@
-<!doctype html><html><head><meta charset="utf-8"></head><body style="margin:0;background:#eee">
-<iframe src="/madrich/" style="width:390px;height:1500px;border:0" id="f"></iframe>
-<div id="o" style="font:18px monospace;padding:8px">…</div>
+<!doctype html><html><head><meta charset="utf-8"></head><body style="margin:0">
+<iframe src="https://tom-harush.co.il/raz-meir-cohen/madrich/" style="width:390px;height:900px;border:0" id="f"></iframe>
+<pre id="o" style="font:15px monospace;padding:10px;white-space:pre-wrap">…</pre>
 <script>
-document.getElementById('f').onload=function(){var d=this.contentDocument;
-document.getElementById('o').textContent='innerWidth='+this.contentWindow.innerWidth+
-' scrollWidth='+d.documentElement.scrollWidth+' fullHeight='+d.documentElement.scrollHeight;};
+document.getElementById('f').onload=function(){
+  var d=this.contentDocument,L=[];
+  d.querySelectorAll('img[src*="raz_"]').forEach(function(img,i){
+    var pg=img.closest('.pg'), pad=pg.querySelector('.pad');
+    var it=img.offsetTop, pb=pad.offsetTop+pad.offsetHeight;
+    L.push('cutout #'+i+'  padBottom='+pb+'  imgTop='+it+
+           '  -> '+(it>=pb-4 ? 'CLEAR' : 'OVERLAP by '+(pb-it)+'px'));
+  });
+  L.push('horizontal overflow: '+(d.documentElement.scrollWidth>390?'YES':'none'));
+  document.getElementById('o').textContent=L.join('\n');
+};
 </script></body></html>

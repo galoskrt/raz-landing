@@ -49,9 +49,25 @@ img{max-width:100%}
 
 /* the cover becomes a real hero */
 #cover{min-height:min(100svh,900px);justify-content:flex-end}
-#cover .pad{padding-bottom:64px}
-#cover .cvraz{position:absolute;bottom:0;left:50%;transform:translateX(-330px);
-    height:min(78vh,760px);width:auto;z-index:2}
+
+/* Raz was cut out for a 720x1280 sheet and pinned by absolute offsets, which on
+   a fluid page drop him straight onto the copy. Reserving space with padding is
+   fragile here, so he leaves the overlay entirely and joins the page flow. The
+   page is already a flex column, so order puts him last whatever the markup says. */
+/* Some pages pin their whole copy block with an inline absolute style, which
+   is fine on a fixed sheet and useless on a fluid page: nothing else can flow
+   around it. Put those blocks back in the flow. */
+.pg .pad[style*="absolute"]{position:static !important;inset:auto !important}
+
+.pg img[src*="raz_"]{
+  /* relative, not static: the marble .bgi is positioned, and a static element
+     paints underneath every positioned one in the same stacking context. */
+  position:relative !important;z-index:2;
+  align-self:center;flex:0 0 auto;
+  display:block;margin:26px auto 0;
+  inset:auto !important;transform:none !important;
+  height:auto !important;width:auto;
+  max-height:min(52vh,500px);max-width:78%}
 
 /* a thin progress rail, the only new element on the page */
 #rail{position:fixed;top:0;right:0;left:0;height:3px;background:transparent;z-index:60}
@@ -98,8 +114,8 @@ img{max-width:100%}
   [style*="font-size:52px"]{font-size:31px !important}
   [style*="font-size:27px"]{font-size:20px !important}
   .tease{margin-top:24px}
-  #cover .pad{padding-bottom:clamp(300px,48vh,470px)}
-  #cover .cvraz{transform:translateX(-34%);height:min(50vh,440px)}
+  #cover{min-height:0}
+  .pg img[src*="raz_"]{max-height:min(44vh,400px);max-width:90%}
   #hello h2{font-size:22px}
   #back h2{font-size:23px}
   #back a{min-width:0;width:100%}
@@ -153,6 +169,24 @@ SCRIPT = u"""<script>
 """
 
 
+def move_cutouts_to_page_end(html):
+    """Each Raz cutout is authored near the top of its page and pinned by
+    absolute offsets. Put it last in the markup instead, so it simply follows
+    the copy no matter how the page reflows."""
+    parts = html.split('<div class="pg')
+    out = [parts[0]]
+    for chunk in parts[1:]:
+        m = re.search(r'<img[^>]*raz_[^>]*>', chunk)
+        if m:
+            tag = m.group(0)
+            chunk = chunk[:m.start()] + chunk[m.end():]
+            close = chunk.rfind('</div>')
+            if close != -1:
+                chunk = chunk[:close] + tag + chunk[close:]
+        out.append(chunk)
+    return '<div class="pg'.join(out)
+
+
 def build():
     src = io.open(os.path.join(SRC_DIR, "guide.html"), encoding="utf-8").read()
     style = io.open(os.path.join(SRC_DIR, "guidestyle.css"), encoding="utf-8").read()
@@ -169,6 +203,8 @@ def build():
     src = src.replace('<div class="pg dk">', '<div class="pg dk" id="cover">', 1)
     src = re.sub(r'(<img src="\.\./assets/guide/raz_beige\.png")([^>]*)>',
                  r'<img class="cvraz" src="../assets/guide/raz_beige.png">', src, count=1)
+
+    src = move_cutouts_to_page_end(src)
 
     src = src.replace("<body>", "<body>\n" + HELLO, 1)
     src = src.replace("</body>", BACK + SCRIPT + "\n</body>", 1)

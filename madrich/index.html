@@ -196,9 +196,25 @@ img{max-width:100%}
 
 /* the cover becomes a real hero */
 #cover{min-height:min(100svh,900px);justify-content:flex-end}
-#cover .pad{padding-bottom:64px}
-#cover .cvraz{position:absolute;bottom:0;left:50%;transform:translateX(-330px);
-    height:min(78vh,760px);width:auto;z-index:2}
+
+/* Raz was cut out for a 720x1280 sheet and pinned by absolute offsets, which on
+   a fluid page drop him straight onto the copy. Reserving space with padding is
+   fragile here, so he leaves the overlay entirely and joins the page flow. The
+   page is already a flex column, so order puts him last whatever the markup says. */
+/* Some pages pin their whole copy block with an inline absolute style, which
+   is fine on a fixed sheet and useless on a fluid page: nothing else can flow
+   around it. Put those blocks back in the flow. */
+.pg .pad[style*="absolute"]{position:static !important;inset:auto !important}
+
+.pg img[src*="raz_"]{
+  /* relative, not static: the marble .bgi is positioned, and a static element
+     paints underneath every positioned one in the same stacking context. */
+  position:relative !important;z-index:2;
+  align-self:center;flex:0 0 auto;
+  display:block;margin:26px auto 0;
+  inset:auto !important;transform:none !important;
+  height:auto !important;width:auto;
+  max-height:min(52vh,500px);max-width:78%}
 
 /* a thin progress rail, the only new element on the page */
 #rail{position:fixed;top:0;right:0;left:0;height:3px;background:transparent;z-index:60}
@@ -245,8 +261,8 @@ img{max-width:100%}
   [style*="font-size:52px"]{font-size:31px !important}
   [style*="font-size:27px"]{font-size:20px !important}
   .tease{margin-top:24px}
-  #cover .pad{padding-bottom:clamp(300px,48vh,470px)}
-  #cover .cvraz{transform:translateX(-34%);height:min(50vh,440px)}
+  #cover{min-height:0}
+  .pg img[src*="raz_"]{max-height:min(44vh,400px);max-width:90%}
   #hello h2{font-size:22px}
   #back h2{font-size:23px}
   #back a{min-width:0;width:100%}
@@ -270,7 +286,7 @@ img{max-width:100%}
   <img class="bgi" src="../assets/guide/m_dark.jpg">
   <div class="vig"></div>
   <div class="spine"></div>
-  <img class="cvraz" src="../assets/guide/raz_beige.png">
+  
   <div style="position:absolute;bottom:0;right:0;left:0;height:330px;z-index:3;pointer-events:none;
        background:linear-gradient(180deg, rgba(8,10,13,0) 0%, rgba(8,10,13,.42) 52%, rgba(8,10,13,.93) 100%)"></div>
 
@@ -303,7 +319,7 @@ img{max-width:100%}
     <div style="width:42px;height:2px;background:#C2151C;margin:11px 0 9px"></div>
     <div style="font-size:14px;color:#A9A6A2;letter-spacing:.03em">מתווך נדל"ן · מקבוצת תום הרוש</div>
   </div>
-</div>
+<img class="cvraz" src="../assets/guide/raz_beige.png"></div>
 
 
 <!-- ============ 2 LETTER ============ -->
@@ -800,7 +816,7 @@ img{max-width:100%}
 <!-- ============ 20 WHO I AM ============ -->
 <div class="pg top">
   <img class="bgi" src="../assets/guide/m_wash.jpg">
-  <img src="../assets/guide/raz_navy.png" style="position:absolute;bottom:0;left:-56px;height:560px;z-index:1;opacity:1">
+  
   <div class="pad z">
     <span class="eyebrow">Behind The Name</span>
     <h2>החלפתי מגרש.<br>את ההרגלים<br>הבאתי איתי.</h2>
@@ -813,7 +829,7 @@ img{max-width:100%}
     <p class="quote" style="text-align:right;padding:0;font-size:24px;max-width:420px">אני רואה בכל נכס אחריות אישית. השם שלי והאמינות שלי חשובים לי יותר מכל צ'ק.</p>
   </div>
   <div class="pfoot"><span>90 הימים הראשונים</span><span class="pn">20</span></div>
-</div>
+<img src="../assets/guide/raz_navy.png" style="position:absolute;bottom:0;left:-56px;height:560px;z-index:1;opacity:1"></div>
 
 
 <!-- ============ 21 THE GROUP ============ -->
