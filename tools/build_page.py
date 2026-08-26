@@ -38,6 +38,15 @@ CHEV_R = ('<svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidd
           '<path d="M7 4l5 5-5 5" stroke="currentColor" stroke-width="1.5" '
           'stroke-linecap="round" stroke-linejoin="round"/></svg>')
 
+CLOSE = ('<svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">'
+         '<path d="M2.5 2.5l11 11M13.5 2.5l-11 11" stroke="currentColor" stroke-width="1.5" '
+         'stroke-linecap="round"/></svg>')
+
+PLAY = ('<span class="play" aria-hidden="true">'
+        '<svg width="15" height="17" viewBox="0 0 15 17" fill="none">'
+        '<path d="M13.4 7.63a1 1 0 0 1 0 1.74l-10 5.77A1 1 0 0 1 2 14.27V2.73a1 1 0 0 1 '
+        '1.5-.87l9.9 5.77z" fill="#fff"/></svg></span>')
+
 MARK_LIGHT = ('<svg width="30" height="36" viewBox="0 0 70 82" fill="none" aria-hidden="true">'
               '<path d="M5 74 L5 33 A30 30 0 0 1 65 33 L65 74" stroke="#FAF8F5" '
               'stroke-width="2.8" stroke-linecap="round"/>'
@@ -48,7 +57,7 @@ MARK_LIGHT = ('<svg width="30" height="36" viewBox="0 0 70 82" fill="none" aria-
 def build():
     s = io.open(SRC, encoding="utf-8").read()
 
-    for name in ("ARROW", "TICK", "STARS", "CHEV_L", "CHEV_R", "MARK_LIGHT"):
+    for name in ("ARROW", "TICK", "STARS", "CHEV_L", "CHEV_R", "MARK_LIGHT", "PLAY", "CLOSE"):
         s = s.replace("{{%s}}" % name, globals()[name])
 
     missing = []

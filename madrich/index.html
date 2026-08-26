@@ -227,7 +227,9 @@ img{max-width:100%}
 #hello .k{font-family:"Cormorant Garamond",Georgia,serif;direction:ltr;font-size:13px;
     letter-spacing:.34em;color:var(--red);display:block;margin-bottom:12px}
 #hello h2{font-size:26px;font-weight:200;line-height:1.35;color:var(--bone);margin:0}
-#hello h2 b{font-weight:500}
+/* b,strong forces the ink colour for the chapter pages, which on the two
+   dark screens painted the text in exactly its own background. */
+#hello h2 b,#back h2 b{font-weight:500;color:inherit}
 #hello p{font-size:14.5px;color:#9A9AA0;margin:10px 0 0;font-weight:300}
 
 /* closing action back to Raz */
@@ -272,9 +274,9 @@ img{max-width:100%}
 <body>
 <div id="rail"><i></i></div>
 <section id="hello">
-  <span class="k">YOUR COPY</span>
-  <h2>היי <b data-lead-name>דנה</b>, זה המדריך שלך.</h2>
-  <p>שבעה פרקים קצרים. אפשר לקרוא ברצף או לחזור אליו מתי שנוח.</p>
+  <span class="k">YOUR PRIVATE GUIDE</span>
+  <h2>היי <b data-lead-name>דנה</b>, זה המדריך האישי שלך.</h2>
+  <p>שבעה פרקים קצרים. אפשר לקרוא ברצף או לחזור אליו מתי&nbsp;שנוח.</p>
 </section>
 
 
@@ -901,10 +903,10 @@ img{max-width:100%}
   <h2>עלתה לך שאלה תוך כדי?<br><b>פשוט תכתוב לי.</b></h2>
   <p>אני קורא הכל בעצמי.</p>
   <a href="https://wa.me/972544263355" target="_blank" rel="noopener">
+    לכתוב לרז בוואטסאפ
     <svg width="30" height="12" viewBox="0 0 34 12" fill="none" aria-hidden="true">
       <path d="M33 6H2M2 6L7 1M2 6L7 11" stroke="#fff" stroke-width="1.25"
             stroke-linecap="round" stroke-linejoin="round"/></svg>
-    לכתוב לרז בוואטסאפ
   </a>
 </section>
 <script>
