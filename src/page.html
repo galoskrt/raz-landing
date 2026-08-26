@@ -59,7 +59,7 @@ h1 b,h2 b{font-weight:500}
 .cta.full{width:100%}
 
 /* ── 01 hero ──────────────────────────────────────────────────────── */
-#hero{color:var(--bone);min-height:100svh;display:flex;align-items:center}
+#hero{color:var(--bone);min-height:100vh;min-height:100svh;display:flex;align-items:center}
 #hero .lead{color:var(--light);opacity:.8}
 #hero .scrim{position:absolute;inset:0;z-index:1;
   background:linear-gradient(180deg,rgba(8,10,13,.72) 0%,rgba(8,10,13,.42) 48%,rgba(8,10,13,.80) 100%)}
@@ -244,7 +244,7 @@ footer a{color:var(--faint);text-decoration:none}
 
 #sticky{position:fixed;bottom:0;left:0;right:0;z-index:30;padding:12px var(--pad)
   calc(12px + env(safe-area-inset-bottom,0px));background:rgba(20,22,26,.92);
-  backdrop-filter:blur(12px);border-top:1px solid rgba(255,255,255,.1);
+  -webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-top:1px solid rgba(255,255,255,.1);
   transform:translateY(120%);transition:transform .3s cubic-bezier(.3,.7,.4,1)}
 #sticky.on{transform:translateY(0)}
 #sticky .in{max-width:var(--col);margin:0 auto}
@@ -731,7 +731,7 @@ const DEALS = [
   const gate = document.getElementById("gate");
   const bar  = document.getElementById("bar");
   const err  = document.getElementById("ferr");
-  let warmed = false, jumped = false;
+  let warmed = false, jumped = false, sent = false;
 
   function warm() {
     if (warmed) return; warmed = true;
@@ -766,9 +766,12 @@ const DEALS = [
         address: document.getElementById("faddr").value.trim(),
         utm_campaign: q.get("utm_campaign"), utm_content: q.get("utm_content"),
       }),
-    }).catch(() => {});
+    }).then(() => { sent = true; }, () => { sent = true; });
 
-    setTimeout(jump, HOLD);
+    /* Safari only learned keepalive in 16.4, so on an older iPhone navigating
+       away can cancel the request in flight. Hold the gate until the lead is
+       acknowledged, and release it regardless at SAFETY so nobody is stuck. */
+    setTimeout(() => { if (sent) jump(); }, HOLD);
     setTimeout(jump, SAFETY);
   });
 })();
