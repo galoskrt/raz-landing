@@ -7,7 +7,6 @@
   --muted:#6E6A64; --was:#A29B92;
   --red:#C2151C; --redsoft:#F6E7E7;
 }
-:root:not([data-theme="light"]){ }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
     --ink:#F2EFEA; --ink2:#C6C1B9;
@@ -28,46 +27,36 @@ body{margin:0;background:var(--paper);color:var(--ink);
   direction:rtl;font-size:16px;line-height:1.7;-webkit-font-smoothing:antialiased}
 .wrap{max-width:820px;margin:0 auto;padding:44px 22px 80px}
 
-/* ── masthead ─────────────────────────────────────────────── */
 .eyebrow{font-family:"Cormorant Garamond",Georgia,serif;direction:ltr;text-align:right;
   font-size:13px;font-weight:600;letter-spacing:.32em;color:var(--red);text-transform:uppercase}
 h1{font-size:clamp(28px,6vw,40px);font-weight:200;letter-spacing:-.015em;line-height:1.2;
   margin:14px 0 0;text-wrap:balance}
 h1 b{font-weight:500}
 .sub{color:var(--ink2);margin-top:16px;max-width:62ch}
-.tally{display:flex;flex-wrap:wrap;gap:0;margin-top:30px;
+.tally{display:flex;flex-wrap:wrap;margin-top:30px;
   border:1px solid var(--rule);border-radius:12px;background:var(--panel);overflow:hidden}
-.tally div{flex:1 1 130px;padding:16px 18px;border-inline-start:1px solid var(--rule)}
+.tally div{flex:1 1 128px;padding:16px 18px;border-inline-start:1px solid var(--rule)}
 .tally div:first-child{border-inline-start:0}
-.tally b{display:block;font-size:26px;font-weight:200;line-height:1;
-  font-variant-numeric:tabular-nums}
+.tally b{display:block;font-size:26px;font-weight:200;line-height:1;font-variant-numeric:tabular-nums}
 .tally span{display:block;font-size:12.5px;color:var(--muted);margin-top:7px}
 
-/* ── file sections ────────────────────────────────────────── */
 h2{font-size:22px;font-weight:500;margin:52px 0 0;letter-spacing:-.01em}
 h2 .n{font-size:13px;color:var(--muted);font-weight:300;margin-inline-start:10px}
 .file{height:2px;background:var(--red);width:52px;margin-top:12px;border-radius:2px}
-h3{font-size:13px;font-weight:500;letter-spacing:.06em;color:var(--muted);
-  margin:34px 0 0;text-transform:none}
+h3{font-size:13px;font-weight:500;letter-spacing:.06em;color:var(--muted);margin:34px 0 0}
 
-/* ── one change ───────────────────────────────────────────── */
-.row{display:grid;grid-template-columns:44px 1fr;gap:14px;
+.row{display:grid;grid-template-columns:1fr;gap:0;
   padding:20px 0 22px;border-top:1px solid var(--rule)}
 .row:first-of-type{border-top:0}
-.tag{font-size:12px;font-weight:500;color:var(--red);background:var(--redsoft);
-  border-radius:7px;padding:4px 0;text-align:center;height:fit-content;
-  font-variant-numeric:tabular-nums;letter-spacing:.02em}
 .where{font-size:12.5px;color:var(--muted);margin-bottom:9px}
 .was{color:var(--was);text-decoration:line-through;text-decoration-thickness:1px;
-  text-decoration-color:color-mix(in srgb,var(--was) 55%,transparent);
   font-size:15px;line-height:1.65}
 .now{color:var(--ink);font-size:15.5px;line-height:1.7;margin-top:9px;
   border-inline-start:2px solid var(--red);padding-inline-start:12px;font-weight:400}
-.gone{color:var(--was);font-size:15px;font-style:normal}
-.gone b{color:var(--red);font-weight:500;font-style:normal}
+.gone{color:var(--was);font-size:15px}
+.gone b{color:var(--red);font-weight:500}
 .note{font-size:13px;color:var(--muted);margin-top:9px}
 
-/* ── numbers table for the worked example ─────────────────── */
 .tbl{width:100%;border-collapse:collapse;margin-top:12px;font-size:14.5px}
 .tbl th{text-align:right;font-weight:500;color:var(--muted);font-size:12.5px;
   padding:0 0 8px;border-bottom:1px solid var(--rule)}
@@ -76,30 +65,25 @@ h3{font-size:13px;font-weight:500;letter-spacing:.06em;color:var(--muted);
 .tbl .old{color:var(--was);text-decoration:line-through}
 .tbl .new{color:var(--ink);font-weight:400}
 
-/* ── closing ──────────────────────────────────────────────── */
 .end{margin-top:56px;padding:24px 22px;background:var(--panel);
   border:1px solid var(--rule);border-radius:14px}
 .end b{font-weight:500}
 .end p{margin:0 0 12px}
 .end p:last-child{margin-bottom:0}
-@media (max-width:520px){
-  .row{grid-template-columns:38px 1fr;gap:11px}
-  .wrap{padding:34px 17px 64px}
-}
+@media (max-width:520px){.wrap{padding:34px 17px 64px}}
 </style>
 
 <div class="wrap">
 
-<p class="eyebrow">Copy Change Log</p>
-<h1>כל שינוי ניסוח,<br><b>לאימות שלך.</b></h1>
-<p class="sub">כל מקום שנגעתי בו אחרי שתי שיחות התיקונים עם רז, מהקטן ביותר עד הגדול ביותר.
-המספר בכל שורה הוא מספר הסעיף מהרשימה שאישרת, כדי שתוכל להצליב.
-הכל כבר באוויר.</p>
+<p class="eyebrow">Before And After</p>
+<h1>הגרסה הראשונה,<br><b>מול מה שיש עכשיו.</b></h1>
+<p class="sub">כל מה שהשתנה מאז שהתחלנו את סבב התיקונים, בלי תחנות הביניים.
+המחוק הוא מה שרז ראה בפעם הראשונה. מה שמתחתיו הוא מה שעומד עכשיו באוויר.</p>
 
 <div class="tally">
-  <div><b>95</b><span>שינויי ניסוח</span></div>
-  <div><b>49</b><span>סעיפים שאושרו</span></div>
-  <div><b>4</b><span>קבצים</span></div>
+  <div><b>70</b><span>שינויים</span></div>
+  <div><b>44</b><span>מהם דירה לנכס</span></div>
+  <div><b>3</b><span>באגים שנסגרו</span></div>
   <div><b>0</b><span>שגיאות בבדיקה</span></div>
 </div>
 
@@ -107,224 +91,215 @@ h3{font-size:13px;font-weight:500;letter-spacing:.06em;color:var(--muted);
 <h2>דף הנחיתה<span class="n">tom-harush.co.il/raz-meir-cohen</span></h2>
 <div class="file"></div>
 
-<h3>הכותרות והמסגרת</h3>
+<h3>כותרות</h3>
 
-<div class="row"><span class="tag">03</span><div>
-  <div class="where">כותרת סקשן 02</div>
+<div class="row">
+  <div class="where">כותרת הסקשן השני</div>
   <div class="was">אם הדירה בשוק כבר כמה שבועות, יש לזה סיבה.</div>
-  <div class="now">אם הדירה בשוק מעל תשעים ימים, יש לזה סיבה.</div>
-</div></div>
+  <div class="now">אם הנכס בשוק מעל תשעים ימים, יש לזה סיבה.</div>
+  <div class="note">במובייל היא נשברת לשלוש שורות, שלוש מילים בכל אחת. בדסקטופ נשארה כפי שהייתה.</div>
+</div>
 
-<div class="row"><span class="tag">04</span><div>
-  <div class="where">הפס השחור מתחת לחמש הדליפות</div>
-  <div class="was">כל שבוע שהנכס עומד מחליש אותו. וזה כמעט תמיד ניתן לתיקון.</div>
-  <div class="now">אף אחת מהחמש האלה לא קשורה לדירה עצמה. כולן קשורות לאופן שבו היא מנוהלת.</div>
-  <div class="note">המשפט החדש מחזיר את הקורא לכותרת הראשית: לא חסרים מתווכים, חסר אחד שינהל.</div>
-</div></div>
-
-<div class="row"><span class="tag">05</span><div>
+<div class="row">
   <div class="where">כותרת סקשן ההתנגדויות</div>
   <div class="was">ארבעה דברים שמונעים מדירות בגבעתיים להימכר.</div>
   <div class="now">בטח חשבת את אחת מהמחשבות האלו.</div>
-</div></div>
+</div>
 
-<div class="row"><span class="tag">05</span><div>
-  <div class="where">התווית בכל כרטיסיית התנגדות</div>
-  <div class="was">מה מונע מהם למכור</div>
-  <div class="now">הגישה שלי</div>
-</div></div>
-
-<div class="row"><span class="tag">07</span><div>
+<div class="row">
   <div class="where">כותרת סקשן הביקורות</div>
   <div class="was">מה לקוחות אומרים אחרי שזה נגמר.</div>
   <div class="now">מה הלקוחות שלי אומרים.</div>
-</div></div>
+</div>
 
-<div class="row"><span class="tag">02</span><div>
-  <div class="where">כותרת אנגלית, סקשן 02</div>
-  <div class="was">Why It Sits</div>
-  <div class="now">Time On Market</div>
-  <div class="note">Sits לבד הוא סלנג מקצועי וקוטע. זה המונח המקובל.</div>
-</div></div>
-
-<div class="row"><span class="tag">02</span><div>
-  <div class="where">כותרת אנגלית, סקשן ההתנגדויות</div>
-  <div class="was">What Blocks A Sale</div>
-  <div class="now">Straight Answers</div>
-  <div class="note">הסקשן כבר לא טוען שהוא מונה את מה שמונע מכירה, אז הכותרת נגררה אחריו.</div>
-</div></div>
-
-<h3>ההתנגדויות</h3>
-
-<div class="row"><span class="tag">44</span><div>
-  <div class="where">כרטיסייה שנייה, מה שבעל הנכס חושב</div>
-  <div class="was">"מתווך בעסקה יוריד לי את ההצעות."</div>
-  <div class="now">"עם מתווך אני נשאר עם פחות כסף ביד."</div>
-  <div class="note">המילים של רז עצמו מהשיחה.</div>
-</div></div>
-
-<div class="row"><span class="tag">ד</span><div>
-  <div class="where">כרטיסייה שלישית</div>
-  <div class="gone">הכרטיסייה <b>"אני לא משלם שכר טרחה"</b> הוסרה במלואה. נשארו שלוש התנגדויות במקום ארבע.</div>
-</div></div>
-
-<div class="row"><span class="tag">30</span><div>
-  <div class="where">כרטיסיית הבלעדיות</div>
-  <div class="was">גם אם לא תבחר בי, תבחר אחד, ותוודא שהוא פותח את הדלת לכל השאר.</div>
-  <div class="now">תבחרו מתווך אחד, ותוודאו שהוא פותח את הדלת לכל השאר.</div>
-</div></div>
-
-<div class="row"><span class="tag">06</span><div>
-  <div class="where">כרטיסיית "אני אמכור לבד"</div>
-  <div class="was">השאלה היחידה היא כמה זמן אתה נותן לזה.</div>
-  <div class="now">השאלה היחידה היא כמה זמן וכמה אנרגיה שווה להשקיע בזה.</div>
-</div></div>
-
-<div class="row"><span class="tag">28</span><div>
-  <div class="where">אותה כרטיסייה, ההמשך</div>
-  <div class="was">אתה לא יכול לשאול קונה זר את השאלות שצריך לשאול לפני שהוא נכנס אליך הביתה. אני כן, וזה מקובל.</div>
-  <div class="now">יש שאלות שאי אפשר לשאול קונה זר, או שלא נעים לשאול אותן. אני כן שואל, וזה מקובל לגמרי.</div>
-</div></div>
-
-<div class="row"><span class="tag">28</span><div>
-  <div class="where">כרטיסיית שכר הטרחה, המענה</div>
-  <div class="was">מי שלא מוכן לשלם על עסקה שטובה לו, לא ישלם גם את המחיר שאתה מבקש.</div>
-  <div class="now">מי שלא מוכן לשלם לך על עסקה שטובה לו, לא ישלם לך גם את המחיר שביקשת.</div>
-</div></div>
-
-<h3>הכרטיסים והשלבים</h3>
-
-<div class="row"><span class="tag">15</span><div>
-  <div class="where">כרטיס "אמת בתמחור"</div>
-  <div class="was">דוח עסקאות מהאזור, כולל האומץ לומר שהמחיר שביקשת אינו ריאלי.</div>
-  <div class="now">דוח עסקאות מהאזור, ומה שהמספרים אומרים על המחיר שביקשת. גם כשזה לא מה שרצית לשמוע.</div>
-  <div class="note">בלי "אומץ", ובלי לרמוז על שמאות.</div>
-</div></div>
-
-<div class="row"><span class="tag">12</span><div>
-  <div class="where">שלב רביעי בציר הזמן</div>
-  <div class="was">חשיפה, קודם למאגר · עוד לפני פרסום פומבי, פנייה יזומה לקונים שכבר מחפשים נכס כמו שלך.</div>
-  <div class="now">אלפי לקוחות, לפני הפרסום · פנייה יזומה למאגר הקבוצה עוד לפני שהנכס עולה לפרסום פומבי.</div>
-</div></div>
-
-<div class="row"><span class="tag">09</span><div>
-  <div class="where">כרטיסי הנכסים שנמכרו</div>
-  <div class="gone">שורת <b>מחיר הסגירה הוסרה מהכרטיס</b>. נשארו המפרט המלא ומספר הימים למכירה.</div>
-  <div class="note">גם המטרז' לדוגמה עבר מ־92 מ״ר ל־95 מ״ר, שזה גודל שקיים בגבעתיים.</div>
-</div></div>
-
-<div class="row"><span class="tag">17</span><div>
-  <div class="where">סדר הנכסים ברצועה</div>
-  <div class="now">שתי עסקאות בגבעתיים ואז אחת ברמת גן. גבעתיים במרכז הבמה, רמת גן כנגיעה.</div>
-</div></div>
-
-<h3>מאחורי השם</h3>
-
-<div class="row"><span class="tag">01</span><div>
-  <div class="where">הפסקה הראשונה</div>
-  <div class="was">חתמתי חוזה ראשון בגיל עשרים ואחת</div>
-  <div class="now">חתמתי חוזה ראשון בגיל תשע עשרה</div>
-</div></div>
-
-<div class="row"><span class="tag">13</span><div>
-  <div class="where">הפסקה השנייה, ארבעה "אני" הפכו לאחד</div>
-  <div class="was">היום אני גר בגבעתיים, אשתי גננת בעיר, ואני עושה את אותו הדבר בשוק אחר. אני לא הוותיק ביותר בעיר ואני לא מתיימר להיות. מה שאני כן מביא זו שיטה שלא משתנה מנכס לנכס.</div>
-  <div class="now">היום אני גר בגבעתיים, אשתי גננת בעיר, ואותה משמעת עברה איתי לשוק אחר. מה שאני מביא זו שיטה שלא משתנה מנכס לנכס.</div>
-  <div class="note">ה"לא הוותיק" ירד כי הוא כבר יושב ככותרת של סקשן 03. הנוסח שלך יחליף את זה כשיגיע.</div>
-</div></div>
-
-<h3>הקבוצה</h3>
-
-<div class="row"><span class="tag">10</span><div>
-  <div class="where">פסקת הפתיחה</div>
-  <div class="was">אני לא עובד לבד. אני תחת קבוצת תום הרוש, שנמצאת בשוק שש עשרה שנה. יש בה תיווך יד שנייה, שיווק פרויקטים יד ראשונה, שיווק נכסי יוקרה והתחדשות עירונית, גם כאן בגבעתיים.</div>
-  <div class="now">אני נמצא תחת המעטפת של קבוצת תום הרוש, שנמצאת בשוק שש עשרה שנה. הקבוצה מונה חברת תיווך ליד שנייה, חברת שיווק לפרויקטים יד ראשונה, וחברה להתחדשות עירונית שפועלת גם בגבעתיים וברמת גן. מאחורי כל נכס שאני מלווה עומדת המעטפת הזאת במלואה.</div>
-</div></div>
-
-<div class="row"><span class="tag">11</span><div>
-  <div class="where">שורת המספרים</div>
-  <div class="gone"><b>"מאות עסקאות בגבעתיים" הוסר לגמרי.</b> לא נכנס מספר בלי גב.</div>
-  <div class="was">4 תחומי פעילות</div>
-  <div class="now">3 חברות בקבוצה</div>
-</div></div>
-
-<div class="row"><span class="tag">38</span><div>
-  <div class="where">שלוש הכותרות מתחת</div>
-  <div class="was">מחלקת שיווק &nbsp;·&nbsp; מחלקת התחדשות עירונית</div>
-  <div class="now">חברת שיווק &nbsp;·&nbsp; חברה להתחדשות עירונית</div>
-</div></div>
-
-<div class="row"><span class="tag">12</span><div>
-  <div class="where">הכותרת הרביעית</div>
-  <div class="was">מאגר לקוחות אזורי</div>
-  <div class="now">מאגר של אלפי לקוחות</div>
-</div></div>
-
-<div class="row"><span class="tag">38</span><div>
-  <div class="where">הכותרת החמישית</div>
-  <div class="gone">הבלוק <b>"שיווק נכסי יוקרה"</b> הוסר במלואו, גם הכותרת וגם הטקסט.</div>
-</div></div>
-
-<h3>הביקורות</h3>
-
-<div class="row"><span class="tag">08</span><div>
-  <div class="where">שתי ביקורות שאינן לקוחות אמיתיים</div>
-  <div class="gone"><b>עמרי כהן</b> ו<b>יובל בקר</b> הוסרו. נשארו שלוש: אפרת צורי, עמית הוד, גל נ.</div>
-  <div class="note">ממתין לרשימה שלך כדי להחזיר את המספר לחמש.</div>
-</div></div>
-
-<h3>הטופס והתחתית</h3>
-
-<div class="row"><span class="tag">28</span><div>
+<div class="row">
   <div class="where">כותרת סקשן המדריך</div>
   <div class="was">לפני שאתה מוריד מחיר, תקרא את זה.</div>
   <div class="now">לפני שמורידים מחיר, כדאי לקרוא את זה.</div>
-</div></div>
+</div>
 
-<div class="row"><span class="tag">28</span><div>
-  <div class="where">תיבת האישור בטופס</div>
-  <div class="was">קראתי ואני מאשר את מדיניות הפרטיות</div>
-  <div class="now">קראתי את מדיניות הפרטיות</div>
-  <div class="note">הסימון עצמו הוא האישור, אז אין צורך בפועל שמגדיר מין.</div>
-</div></div>
+<div class="row">
+  <div class="where">שתי כותרות באנגלית</div>
+  <div class="was">Why It Sits &nbsp;·&nbsp; What Blocks A Sale</div>
+  <div class="now">Time On Market &nbsp;·&nbsp; Straight Answers</div>
+</div>
 
-<div class="row"><span class="tag">42</span><div>
-  <div class="where">תחתית הדף</div>
-  <div class="was">מספר רישיון תיווך להשלמה</div>
-  <div class="now">מספר רישיון תיווך 3254083</div>
-</div></div>
+<h3>הפס השחור, אחרי חמש הדליפות</h3>
 
-<div class="row"><span class="tag">28</span><div>
-  <div class="where">מסך המעבר אחרי שליחת הטופס</div>
-  <div class="was">רז הקליט לך משהו קצר לפני שאתה פותח את המדריך.</div>
-  <div class="now">רז הקליט משהו קצר, לפני פתיחת המדריך.</div>
-</div></div>
+<div class="row">
+  <div class="was">כל שבוע שהנכס עומד מחליש אותו. וזה כמעט תמיד ניתן לתיקון.</div>
+  <div class="now">אף אחת מהחמש האלה לא קשורה לנכס עצמו. כולן קשורות לאופן שבו הוא מנוהל.</div>
+  <div class="note">רז לא הסכים להתחייב שכל שבוע מחליש נכס. המשפט החדש מחזיר לכותרת הראשית.</div>
+</div>
 
-<h3>ניסוח כוללני, שאר הדף</h3>
+<h3>ההתנגדויות</h3>
 
-<div class="row"><span class="tag">28</span><div>
-  <div class="where">דליפה חמישית</div>
-  <div class="was">ואתה, שרודף בעצמך אחרי קונה, מוריד לעצמך את המחיר עוד לפני שדיברתם עליו</div>
-  <div class="now">והרדיפה אחרי הקונה מורידה לך את המחיר עוד לפני שדיברתם עליו</div>
-</div></div>
+<div class="row">
+  <div class="where">התווית מעל כל מחשבה</div>
+  <div class="was">מה בעלי נכסים חושבים</div>
+  <div class="now">מחשבות נפוצות</div>
+</div>
 
-<div class="row"><span class="tag">28</span><div>
+<div class="row">
+  <div class="where">התווית מעל כל מענה</div>
+  <div class="was">מה מונע מהם למכור</div>
+  <div class="now">הגישה שלי</div>
+</div>
+
+<div class="row">
+  <div class="where">המחשבה הראשונה</div>
+  <div class="was">"אני לא נותן בלעדיות. שכולם ינסו."</div>
+  <div class="now">"אני לא אתן בלעדיות. שכולם ינסו."</div>
+</div>
+
+<div class="row">
+  <div class="where">המחשבה השנייה</div>
+  <div class="was">"מתווך בעסקה יוריד לי את ההצעות."</div>
+  <div class="now">"עם מתווך אני אשאר עם פחות כסף ביד."</div>
+</div>
+
+<div class="row">
+  <div class="where">המענה לה</div>
+  <div class="was">מי שלא מוכן לשלם על עסקה שטובה לו, לא ישלם גם את המחיר שאתה מבקש.</div>
+  <div class="now">מי שלא מוכן לשלם לך על עסקה שטובה לו, לא ישלם לך גם את המחיר שביקשת.</div>
+</div>
+
+<div class="row">
+  <div class="where">כרטיסיית הבלעדיות</div>
+  <div class="was">גם אם לא תבחר בי, תבחר אחד, ותוודא שהוא פותח את הדלת לכל השאר.</div>
+  <div class="now">תבחרו מתווך אחד, ותוודאו שהוא פותח את הדלת לכל השאר.</div>
+</div>
+
+<div class="row">
+  <div class="where">כרטיסיית "אני אמכור לבד"</div>
+  <div class="was">השאלה היחידה היא כמה זמן אתה נותן לזה. ומה שכדאי לדעת: אתה לא יכול לשאול קונה זר את השאלות שצריך לשאול לפני שהוא נכנס אליך הביתה. אני כן, וזה מקובל.</div>
+  <div class="now">השאלה היחידה היא כמה זמן וכמה אנרגיה שווה להשקיע בזה. ומה שכדאי לדעת: יש שאלות שאי אפשר לשאול קונה זר, או שלא נעים לשאול אותן. אני כן שואל, וזה מקובל לגמרי.</div>
+</div>
+
+<div class="row">
+  <div class="where">הכרטיסייה הרביעית</div>
+  <div class="gone">הכרטיסייה <b>"אני לא משלם שכר טרחה"</b> הוסרה. נשארו שלוש התנגדויות במקום ארבע.</div>
+</div>
+
+<h3>הכרטיסים והשלבים</h3>
+
+<div class="row">
+  <div class="where">כרטיס "אמת בתמחור"</div>
+  <div class="was">דוח עסקאות מהאזור, כולל האומץ לומר שהמחיר שביקשת אינו ריאלי.</div>
+  <div class="now">דוח עסקאות מהאזור, ומה שהמספרים אומרים על המחיר שביקשת. גם כשזה לא מה שרצית לשמוע.</div>
+</div>
+
+<div class="row">
   <div class="where">כרטיס השקיפות</div>
-  <div class="was">אתה יודע בכל רגע כמה פגישות היו</div>
-  <div class="now">בכל רגע ידוע לך כמה פגישות היו</div>
-</div></div>
+  <div class="was">אתה יודע בכל רגע כמה פגישות היו, אילו הצעות הגיעו ומה נאמר על הנכס שלך.</div>
+  <div class="now">בכל רגע ידוע לך כמה פגישות היו, אילו הצעות הגיעו ומה נאמר על הנכס שלך.</div>
+</div>
 
-<div class="row"><span class="tag">28</span><div>
-  <div class="where">משפט הפתיחה של הנכסים שנמכרו</div>
-  <div class="was">שים לב לזמן, לא רק למחיר.</div>
-  <div class="now">שווה לשים לב לזמן, לא רק למחיר.</div>
-</div></div>
+<div class="row">
+  <div class="where">השלב הרביעי בציר הזמן</div>
+  <div class="was">חשיפה, קודם למאגר · עוד לפני פרסום פומבי, פנייה יזומה לקונים שכבר מחפשים נכס כמו שלך.</div>
+  <div class="now">אלפי לקוחות, לפני הפרסום · פנייה יזומה למאגר הקבוצה עוד לפני שהנכס עולה לפרסום פומבי.</div>
+</div>
 
-<div class="row"><span class="tag">28</span><div>
+<div class="row">
   <div class="where">משפט הפתיחה של ציר הזמן</div>
   <div class="was">אחרי כל אחד מהם אתה יודע בדיוק איפה הנכס שלך עומד.</div>
   <div class="now">אחרי כל אחד מהם ידוע לך בדיוק איפה הנכס שלך עומד.</div>
-</div></div>
+</div>
+
+<div class="row">
+  <div class="where">הדליפה החמישית</div>
+  <div class="was">ואתה, שרודף בעצמך אחרי קונה, מוריד לעצמך את המחיר עוד לפני שדיברתם עליו</div>
+  <div class="now">והרדיפה אחרי הקונה מורידה לך את המחיר עוד לפני שדיברתם עליו</div>
+</div>
+
+<h3>הנכסים שנמכרו</h3>
+
+<div class="row">
+  <div class="where">כל כרטיס נכס</div>
+  <div class="gone">שורת <b>מחיר הסגירה הוסרה</b>. נשארו המפרט המלא ומספר הימים למכירה. המטרז' לדוגמה עבר מ־92 מ״ר ל־95 מ״ר, גודל שקיים בגבעתיים.</div>
+</div>
+
+<div class="row">
+  <div class="where">משפט הפתיחה</div>
+  <div class="was">כל נכס כאן נוהל מהיום הראשון ועד המסירה. שים לב לזמן, לא רק למחיר.</div>
+  <div class="now">כל נכס כאן נוהל מהיום הראשון ועד המסירה. שווה לשים לב לזמן, לא רק למחיר.</div>
+</div>
+
+<h3>מאחורי השם</h3>
+
+<div class="row">
+  <div class="was">חתמתי חוזה ראשון בגיל עשרים ואחת</div>
+  <div class="now">חתמתי חוזה ראשון בגיל תשע עשרה</div>
+</div>
+
+<div class="row">
+  <div class="where">הפסקה השנייה, ארבעה "אני" הפכו לאחד</div>
+  <div class="was">היום אני גר בגבעתיים, אשתי גננת בעיר, ואני עושה את אותו הדבר בשוק אחר. אני לא הוותיק ביותר בעיר ואני לא מתיימר להיות. מה שאני כן מביא זו שיטה שלא משתנה מנכס לנכס.</div>
+  <div class="now">היום אני גר בגבעתיים, אשתי גננת בעיר, ואותה משמעת עברה איתי לשוק אחר. מה שאני מביא זו שיטה שלא משתנה מנכס לנכס.</div>
+</div>
+
+<h3>הקבוצה</h3>
+
+<div class="row">
+  <div class="where">פסקת הפתיחה</div>
+  <div class="was">אני לא עובד לבד. אני תחת קבוצת תום הרוש, שנמצאת בשוק שש עשרה שנה. יש בה תיווך יד שנייה, שיווק פרויקטים יד ראשונה, שיווק נכסי יוקרה והתחדשות עירונית, גם כאן בגבעתיים.</div>
+  <div class="now">אני נמצא תחת המעטפת של קבוצת תום הרוש, שנמצאת בשוק שש עשרה שנה. הקבוצה מונה חברת תיווך ליד שנייה, חברת שיווק לפרויקטים יד ראשונה, וחברה להתחדשות עירונית שפועלת גם בגבעתיים וברמת גן. מאחורי כל נכס שאני מלווה עומדת המעטפת הזאת במלואה.</div>
+</div>
+
+<div class="row">
+  <div class="where">שורת המספרים</div>
+  <div class="gone"><b>"מאות עסקאות בגבעתיים" הוסר.</b> לא נכנס מספר בלי גב. "4 תחומי פעילות" הפך ל"3 חברות בקבוצה".</div>
+</div>
+
+<div class="row">
+  <div class="where">שלוש הכותרות</div>
+  <div class="was">מחלקת שיווק &nbsp;·&nbsp; מחלקת התחדשות עירונית &nbsp;·&nbsp; מאגר לקוחות אזורי</div>
+  <div class="now">חברת שיווק &nbsp;·&nbsp; חברה להתחדשות עירונית &nbsp;·&nbsp; מאגר של אלפי לקוחות</div>
+</div>
+
+<div class="row">
+  <div class="where">הכותרת הרביעית</div>
+  <div class="gone">הבלוק <b>"שיווק נכסי יוקרה"</b> הוסר במלואו.</div>
+</div>
+
+<h3>הביקורות</h3>
+
+<div class="row">
+  <div class="gone"><b>עמרי כהן</b> ו<b>יובל בקר</b> הוסרו, כי הם לא לקוחות אמיתיים. נשארו שלוש. ממתין לרשימה שלך כדי להחזיר לחמש.</div>
+</div>
+
+<h3>הטופס והתחתית</h3>
+
+<div class="row">
+  <div class="where">מתחת לכותרת הטופס</div>
+  <div class="was">משאירים פרטים, ורז שולח את ״90 הימים הראשונים״ אישית בוואטסאפ.</div>
+  <div class="now">משאירים פרטים, ואני שולח לך אישית את ״90 הימים הראשונים״ בוואטסאפ.</div>
+</div>
+
+<div class="row">
+  <div class="where">מתחת לכפתור</div>
+  <div class="was">רז שולח את המדריך אישית בוואטסאפ. הוא שלך גם אם לא נעבוד יחד.</div>
+  <div class="now">אני שולח לך את המדריך אישית בוואטסאפ. הוא שלך גם אם לא נעבוד יחד.</div>
+</div>
+
+<div class="row">
+  <div class="where">תיבת האישור</div>
+  <div class="was">קראתי ואני מאשר את מדיניות הפרטיות</div>
+  <div class="now">קראתי את מדיניות הפרטיות</div>
+</div>
+
+<div class="row">
+  <div class="where">תחתית הדף</div>
+  <div class="was">מספר רישיון תיווך להשלמה</div>
+  <div class="now">מספר רישיון תיווך 3254083</div>
+</div>
+
+<div class="row">
+  <div class="where">מסך המעבר אחרי שליחת הטופס</div>
+  <div class="was">רז הקליט לך משהו קצר לפני שאתה פותח את המדריך.</div>
+  <div class="now">רז הקליט משהו קצר, לפני פתיחת המדריך.</div>
+</div>
 
 <!-- ═══════════ המדריך ═══════════ -->
 <h2>המדריך<span class="n">90 הימים הראשונים</span></h2>
@@ -332,62 +307,75 @@ h3{font-size:13px;font-weight:500;letter-spacing:.06em;color:var(--muted);
 
 <h3>הכריכה והמסגרת</h3>
 
-<div class="row"><span class="tag">48</span><div>
+<div class="row">
   <div class="where">האנגלית בראש הכריכה</div>
   <div class="was">Givatayim · Seller Guide</div>
   <div class="now">Raz Meir Cohen · Seller Guide</div>
-</div></div>
+</div>
 
-<div class="row"><span class="tag">40</span><div>
+<div class="row">
+  <div class="where">כותרת תוכן העניינים</div>
+  <div class="was">מה יש כאן</div>
+  <div class="now">מה מחכה לך במדריך</div>
+</div>
+
+<div class="row">
   <div class="where">כותרת אנגלית, פרק המשא ומתן</div>
   <div class="was">Where Price Is Decided</div>
-  <div class="now">Where The Price Is Decided</div>
-</div></div>
+  <div class="now">The Real Price</div>
+</div>
 
-<div class="row"><span class="tag">42</span><div>
+<div class="row">
   <div class="where">תחתית העמוד האחרון</div>
   <div class="was">מספר רישיון תיווך להשלמה.</div>
   <div class="now">מספר רישיון תיווך 3254083.</div>
-</div></div>
+</div>
 
-<h3>פרק החלון ושבוע אחרי שבוע</h3>
+<h3>פרק החלון</h3>
 
-<div class="row"><span class="tag">19</span><div>
+<div class="row">
+  <div class="where">עמוד 03, הקופסה התחתונה</div>
+  <div class="was">הטעות היקרה ביותר · הטעות הכי יקרה בשוק אינה מחיר גבוה מדי. היא מחיר גבוה מדי בשבוע הראשון.</div>
+  <div class="now">הטעות הכי יקרה בשוק · היא מחיר גבוה מדי בשבוע הראשון.</div>
+</div>
+
+<div class="row">
   <div class="where">סוף עמוד החלון</div>
   <div class="was">החלון נסגר, והנכס עובר למצב שקשה מאוד לחזור ממנו.</div>
   <div class="now">החלון נסגר, והנכס עובר למצב שדורש עבודה כדי לחזור ממנו.</div>
-</div></div>
+</div>
 
-<div class="row"><span class="tag">21</span><div>
-  <div class="where">שורת שבועות 3 עד 4</div>
+<h3>עמוד 04, שבוע אחרי שבוע</h3>
+
+<div class="row">
+  <div class="where">שבועות 3 עד 4</div>
   <div class="was">מי שרצה, כבר ראה. הפניות מתמעטות בחדות. מגיעים בעיקר סקרנים ושכנים.</div>
   <div class="now">מי שרצה, כבר ראה. הפניות מתמעטות.</div>
-  <div class="note">גם "בחדות" וגם השכנים ירדו. רז אמר שזה פשוט לא מה שקורה בשטח.</div>
-</div></div>
+  <div class="note">רז אמר שמעולם לא באו שכנים לראות נכס שהוא מפרסם.</div>
+</div>
 
-<div class="row"><span class="tag">23</span><div>
-  <div class="where">השורה הרביעית בטבלה</div>
+<div class="row">
+  <div class="where">השורה הרביעית</div>
   <div class="was">9 עד 12 · מתחילה שאלה חדשה. לא כמה הוא שווה, אלא מה לא בסדר בו.</div>
   <div class="now">מהחודש השלישי · האסטרטגיה הנוכחית עשויה להשתנות. צריך להבין מה יקדם אותנו הכי הרבה.</div>
-  <div class="note">לא הצהרה על הנכס אלא על האסטרטגיה. אין תאריך שאפשר להחזיק בו את רז, ויש מסר שרז מנהל שיווק ולא רק ממתין.</div>
-</div></div>
+  <div class="note">אין תאריך שאפשר להחזיק בו את רז, ויש אמירה שהוא מנהל שיווק ולא ממתין.</div>
+</div>
 
-<div class="row"><span class="tag">24</span><div>
-  <div class="where">השורה האחרונה בטבלה</div>
+<div class="row">
+  <div class="where">השורה האחרונה</div>
   <div class="was">הנכס מסומן כתקוע. מי שמגיע עכשיו מגיע בעיקר כדי לנצל את זה.</div>
   <div class="now">הנכס כבר ותיק בשוק. מתעניינים מזהים נכס שעומד על המדף, כשהפרסום לא מדויק. זה עשוי להזיק.</div>
-</div></div>
+</div>
 
-<div class="row"><span class="tag">28</span><div>
-  <div class="where">משפט הסיום של הטבלה</div>
-  <div class="was">אתה כבר לא מנהל משא ומתן על ערך. אתה מנהל משא ומתן על ההנחה.</div>
-  <div class="now">זה כבר לא משא ומתן על ערך. זה משא ומתן על ההנחה.</div>
-</div></div>
+<div class="row">
+  <div class="where">הקופסה השחורה מתחת לטבלה</div>
+  <div class="was">שים לב לשורה האחרונה · ברגע שהשאלה בשוק מתחלפת מ"כמה הוא שווה" ל"למה הוא לא נמכר", אתה כבר לא מנהל משא ומתן על ערך. אתה מנהל משא ומתן על ההנחה. וכל שבוע נוסף מחליש לך את הצד.</div>
+  <div class="now">שווה לשים לב לשורה האחרונה · ברגע שהשאלה בשוק מתחלפת מ"כמה הנכס שווה" ל"למה הוא משנה מחיר כל הזמן", זה כבר לא משא ומתן על ערך. זה משא ומתן על ההנחה. וכל שינוי לא מבוקר עלול להחליש לך את הצד.</div>
+</div>
 
 <h3>פרק המחיר, הדוגמה המספרית</h3>
 
-<div class="row"><span class="tag">41</span><div>
-  <div class="where">כל המספרים הוחלפו למספרים שנתת</div>
+<div class="row">
   <table class="tbl">
     <thead><tr><th>&nbsp;</th><th>היה</th><th>עכשיו</th></tr></thead>
     <tbody>
@@ -400,234 +388,185 @@ h3{font-size:13px;font-weight:500;letter-spacing:.06em;color:var(--muted);
       <tr><td>ההפרש בין המסלולים</td><td class="old">280,000</td><td class="new">120,000</td></tr>
     </tbody>
   </table>
-  <div class="note">שתי הורדות המחיר בחודש השני והרביעי נשארו, וכך גם ארבעת החודשים שההפרש עולה בזמן.</div>
-</div></div>
-
-<div class="row"><span class="tag">28</span><div>
-  <div class="where">משפט הסיכום מתחת להשוואה</div>
-  <div class="was">שים לב שהדירה שנמכרה ביותר היא בדיוק זו שביקשה פחות.</div>
-  <div class="now">הדירה שנמכרה ביותר היא בדיוק זו שביקשה פחות.</div>
-</div></div>
+</div>
 
 <h3>פרק החשיפה</h3>
 
-<div class="row"><span class="tag">29</span><div>
-  <div class="where">סעיף חמישי חדש, מודגש כמו האחרים</div>
-  <div class="now"><b>אין שיתוף פעולה.</b> במקום שכל המתווכים באזור יעבדו יחד על הדירה, עם אחד שמנהל את התהליך, נוצר מצב שכולם נלחמים אחד בשני על מי יביא את הקונה. מי שמרוויח מהמלחמה הזאת הוא הקונה, לא המוכר.</div>
-  <div class="note">הרעיון של החבר של רז, בניסוח שרז חידד בשיחה.</div>
-</div></div>
+<div class="row">
+  <div class="where">סעיף חמישי חדש, מודגש באדום</div>
+  <div class="now"><b>אין שיתוף פעולה.</b> במקום שכל המתווכים באזור יעבדו יחד על הנכס, עם אחד שמנהל את התהליך, נוצר מצב שכולם נלחמים אחד בשני על מי יביא את הקונה. מי שמרוויח מהמלחמה הזאת הוא הקונה, לא המוכר.</div>
+  <div class="note">הרעיון של החבר של רז, בניסוח שרז חידד.</div>
+</div>
 
-<div class="row"><span class="tag">30</span><div>
+<div class="row">
   <div class="where">התיבה שסוגרת את הפרק</div>
   <div class="was">וגם אם לא תבחר בי. תבחר אחד. מישהו שאתה סומך עליו, שמתחייב לך בכתב על מה שהוא עושה.</div>
   <div class="now">תבחרו מתווך אחד. מישהו שסומכים עליו, שמתחייב בכתב על מה שהוא עושה.</div>
-</div></div>
+</div>
 
-<div class="row"><span class="tag">31</span><div>
+<div class="row">
   <div class="where">סדר החשיפה</div>
-  <div class="was">מאגר &nbsp;←&nbsp; מתווכי האזור &nbsp;←&nbsp; פרסום פומבי</div>
-  <div class="now">מאגר &nbsp;←&nbsp; פרסום פומבי &nbsp;←&nbsp; מתווכי האזור</div>
-  <div class="note">והכותרת השתנתה בהתאם, מ"מתווכי האזור, ביום הראשון" ל"מתווכי האזור, מיד אחרי".</div>
-</div></div>
-
-<div class="row"><span class="tag">28</span><div>
-  <div class="where">פסקת הבלעדיות עם דלת פתוחה</div>
-  <div class="was">אתה מקבל את כל החשיפה של השוק, בלי חמשת המחירים ובלי הבלגן.</div>
-  <div class="now">כך מגיעה כל החשיפה של השוק, בלי חמשת המחירים ובלי הבלגן.</div>
-</div></div>
+  <div class="was">מאגר ← מתווכי האזור ← פרסום פומבי</div>
+  <div class="now">מאגר ← פרסום פומבי ← מתווכי האזור</div>
+  <div class="note">והכותרת בהתאם: "מתווכי האזור, ביום הראשון" הפכה ל"מתווכי האזור, מיד אחרי".</div>
+</div>
 
 <h3>פרק הסינון</h3>
 
-<div class="row"><span class="tag">32</span><div>
-  <div class="where">משפט הפתיחה של הפרק</div>
+<div class="row">
+  <div class="where">משפט הפתיחה</div>
   <div class="was">יש שאלות שאתה לא יכול לשאול אדם זר שעומד בדלת שלך. אני כן, וזה מקובל לגמרי.</div>
   <div class="now">יש שאלות שאי אפשר לשאול את הקונה, או שלא נעים לשאול. אני כן שואל, וזה קורה עוד הרבה לפני הפגישה.</div>
-</div></div>
+</div>
 
-<div class="row"><span class="tag">32</span><div>
-  <div class="where">כותרת פנימית</div>
-  <div class="was">למה אתה לא יכול לשאול את זה בעצמך</div>
-  <div class="now">למה השאלות האלה לא עובדות מהצד שלך</div>
-</div></div>
-
-<div class="row"><span class="tag">32</span><div>
-  <div class="where">הפסקה שמתחתיה</div>
-  <div class="was">כשאתה שואל אדם על התקציב שלו בדלת של הבית שלך, זה נשמע חשדני ומעליב.</div>
-  <div class="now">שאלה על תקציב, שנשאלת בדלת של הבית, נשמעת חשדנית ומעליבה.</div>
-</div></div>
-
-<div class="row"><span class="tag">28</span><div>
-  <div class="where">פתיחת עמוד "מי בכלל נכנס"</div>
-  <div class="was">קונה שלא באמת יכול לקנות עדיין ייתן הצעה, ותשקול אותה, ותבזבז עליה שבועיים.</div>
-  <div class="now">קונה שלא באמת יכול לקנות עדיין ייתן הצעה, ואותה הצעה תגזול ממך שבועיים של שיקולים.</div>
-</div></div>
-
-<h3>פרק המשא ומתן</h3>
-
-<div class="row"><span class="tag">28</span><div>
-  <div class="where">"מי שרודף, משלם"</div>
-  <div class="was">ברגע שאתה מתקשר בעצמך לקונה כדי לשאול מה קורה, הורדת לעצמך את המחיר.</div>
-  <div class="now">שיחת טלפון שלך לקונה, רק כדי לשאול מה קורה, מורידה לך את המחיר.</div>
-</div></div>
-
-<div class="row"><span class="tag">28</span><div>
-  <div class="where">"עסקאות נופלות אחרי שהן נסגרות"</div>
-  <div class="was">לכבות שריפות לפני שאתה בכלל שומע עליהן.</div>
-  <div class="now">לכבות שריפות לפני שהן בכלל מגיעות אליך.</div>
-</div></div>
-
-<div class="row"><span class="tag">28</span><div>
-  <div class="where">כותרת פנימית</div>
-  <div class="was">ומה שאתה צריך לדרוש בשלב הזה</div>
-  <div class="now">ומה שצריך לדרוש בשלב הזה</div>
-</div></div>
+<div class="row">
+  <div class="where">כותרת פנימית והפסקה שמתחתיה</div>
+  <div class="was">למה אתה לא יכול לשאול את זה בעצמך · כשאתה שואל אדם על התקציב שלו בדלת של הבית שלך, זה נשמע חשדני ומעליב.</div>
+  <div class="now">למה השאלות האלה לא עובדות מהצד שלך · שאלה על תקציב, שנשאלת בדלת של הבית, נשמעת חשדנית ומעליבה.</div>
+</div>
 
 <h3>אחרי תשעים יום</h3>
 
-<div class="row"><span class="tag">33</span><div>
+<div class="row">
   <div class="where">המשפט הראשון בעמוד</div>
   <div class="was">אז אל תוריד מחיר. עוד לא.</div>
   <div class="now">לפני שרצים להוריד מחיר, כדאי לבדוק אם הבעיה היא באמת המחיר.</div>
-  <div class="note">מהוראה לאבחון. שתי השורות שמתחת, שרז אמר עליהן "פיקס", לא נגעתי בהן.</div>
-</div></div>
+</div>
 
-<div class="row"><span class="tag">24</span><div>
+<div class="row">
   <div class="where">שורת "שקט מוחלט" בטבלת האבחון</div>
   <div class="was">הנכס סומן כתקוע. צריך להוריד אותו ולבנות כניסה מחדש.</div>
   <div class="now">אם הנכס כבר ותיק בשוק, מוטב לחשב מסלול מחדש.</div>
-</div></div>
+</div>
+
+<div class="row">
+  <div class="where">כותרת הסיכום</div>
+  <div class="was">שים לב</div>
+  <div class="now">שווה לשים לב</div>
+</div>
 
 <h3>הצ'קליסט</h3>
 
-<div class="row"><span class="tag">35</span><div>
-  <div class="where">שאלה שנייה מתוך שמונה</div>
+<div class="row">
+  <div class="where">שאלה שנייה</div>
   <div class="was">הדירה בשוק יותר משישה שבועות.</div>
-  <div class="now">הדירה בשוק יותר מתשעים ימים.</div>
-</div></div>
+  <div class="now">הנכס בשוק יותר מתשעים ימים.</div>
+</div>
 
-<div class="row"><span class="tag">36</span><div>
-  <div class="where">שאלה שביעית מתוך שמונה</div>
+<div class="row">
+  <div class="where">שאלה שביעית</div>
   <div class="was">אני מוצא את עצמי מתקשר לקונים כדי לשאול מה קורה.</div>
-  <div class="now">אני לא יודע מה קרה עם מי שכבר ראה את הדירה, ולא נעים לי לברר.</div>
-</div></div>
+  <div class="now">אני לא יודע מה קרה עם מי שכבר ראה את הנכס, ולא נעים לי לברר.</div>
+  <div class="note">רז אמר שמוכר פרטי דווקא נמנע מלהתקשר, וזו הבעיה עצמה.</div>
+</div>
 
-<div class="row"><span class="tag">34</span><div>
+<div class="row">
   <div class="where">תוצאה של חמישה ומעלה</div>
-  <div class="was">כאן צריך לעצור ולבנות מחדש, לא להוריד מחיר.</div>
+  <div class="was">הנכס בדרך להיתקע, ואם כבר עברו שלושה חודשים הוא כנראה כבר שם. כאן צריך לעצור ולבנות מחדש, לא להוריד מחיר.</div>
   <div class="now">סיכוי מסוים שהנכס בדרך להיתקע, ואם כבר עברו שלושה חודשים, כאן צריך לעצור ולבנות מסלול מדויק ויציב להמשך.</div>
-</div></div>
+</div>
 
-<div class="row"><span class="tag">28</span><div>
+<div class="row">
   <div class="where">שתי שורות נוספות באותו עמוד</div>
   <div class="was">סמן לעצמך כמה מאלה נכונים &nbsp;·&nbsp; אפס עד שניים. אתה בסדר גמור. תמשיך.</div>
   <div class="now">כדאי לסמן כמה מאלה נכונים &nbsp;·&nbsp; אפס עד שניים. הכל בסדר גמור. אפשר להמשיך.</div>
-</div></div>
+</div>
 
 <h3>מאחורי השם והקבוצה</h3>
 
-<div class="row"><span class="tag">01</span><div>
-  <div class="where">הפסקה הראשונה</div>
-  <div class="was">בגיל עשרים ואחת</div>
-  <div class="now">בגיל תשע עשרה</div>
-</div></div>
+<div class="row">
+  <div class="gone">הגיל תוקן לתשע עשרה, ושתי הפסקאות שאחריו הוחלפו כך שהן <b>זהות מילה במילה לדף הנחיתה</b>.</div>
+</div>
 
-<div class="row"><span class="tag">13</span><div>
-  <div class="where">שתי הפסקאות שאחריה</div>
-  <div class="gone">הוחלפו כך שהן <b>זהות מילה במילה לדף הנחיתה</b>. הפסקה על "אני לא הוותיק ביותר" ירדה, והפסקה על הכרת הרחובות ירדה כי היא כבר מופיעה בעמוד הפתיחה של המדריך.</div>
-</div></div>
-
-<div class="row"><span class="tag">38</span><div>
+<div class="row">
   <div class="where">פסקת הקבוצה</div>
-  <div class="gone">הוחלפה <b>בטקסט הזהה לדף הנחיתה</b>, כולל שלוש הכותרות, הסרת נכסי היוקרה, ומאגר אלפי הלקוחות.</div>
-</div></div>
+  <div class="was">אני לא עובד לבד. אני תחת קבוצת תום הרוש. יש בה תיווך יד שנייה, שיווק פרויקטים, שיווק נכסי יוקרה והתחדשות עירונית.</div>
+  <div class="now">אני נמצא תחת המעטפת של קבוצת תום הרוש. הקבוצה נמצאת בשוק שש עשרה שנה, ומונה חברת תיווך ליד שנייה, חברת שיווק לפרויקטים יד ראשונה, וחברה להתחדשות עירונית שפועלת גם בגבעתיים וברמת גן.</div>
+</div>
 
-<div class="row"><span class="tag">37</span><div>
-  <div class="where">המשפט שסוגר את עמוד הקבוצה</div>
-  <div class="was">ומאחוריו קבוצה שלמה שיודעת לפתור את מה שאדם אחד לא יכול לפתור לבד.</div>
-  <div class="now">ומאחוריו קבוצה שלמה.</div>
-</div></div>
-
-<div class="row"><span class="tag">28</span><div>
-  <div class="where">פתיחת אותו משפט</div>
-  <div class="was">כשאתה עובד איתי אתה מקבל אדם אחד שמלווה אותך</div>
-  <div class="now">בעבודה איתי יש אדם אחד שמלווה אותך</div>
-</div></div>
+<div class="row">
+  <div class="where">המשפט שסוגר את העמוד</div>
+  <div class="was">כשאתה עובד איתי אתה מקבל אדם אחד שמלווה אותך מההתחלה ועד המסירה, ומאחוריו קבוצה שלמה שיודעת לפתור את מה שאדם אחד לא יכול לפתור לבד.</div>
+  <div class="now">בעבודה איתי יש אדם אחד שמלווה אותך מההתחלה ועד המסירה, ומאחוריו קבוצה שלמה.</div>
+  <div class="note">רז אמר שהסיפא הורידה ממנו.</div>
+</div>
 
 <h3>עמוד הסיום</h3>
 
-<div class="row"><span class="tag">39</span><div>
+<div class="row">
   <div class="where">הקריאה לפעולה</div>
   <div class="was">אני זמין לשיחה. בלי מחויבות ובלי מכירה. נעבור על הדירה שלך, אגיד לך מה אני חושב על המחיר, וגם אם התשובה תהיה שאתה לא צריך אותי, זה מה שאגיד לך.</div>
   <div class="now">אני זמין לשיחה ללא מחויבות. נעבור על הנכס שלך ואייעץ בשמחה.</div>
-</div></div>
+</div>
 
-<div class="row"><span class="tag">28</span><div>
+<div class="row">
   <div class="where">כותרת העמוד והפסקה שמתחתיה</div>
-  <div class="was">עכשיו אתה יודע מה לדרוש &nbsp;·&nbsp; אתה כבר יודע יותר מרוב האנשים, אתה יודע איך נקבע מחיר.</div>
-  <div class="now">עכשיו ידוע לך מה לדרוש &nbsp;·&nbsp; ידוע לך יותר מאשר לרוב האנשים. איך נקבע מחיר.</div>
-</div></div>
+  <div class="was">עכשיו אתה יודע מה לדרוש · אתה כבר יודע יותר מרוב האנשים. אתה יודע איך נקבע מחיר.</div>
+  <div class="now">עכשיו ידוע לך מה לדרוש · ידוע לך יותר מאשר לרוב האנשים. איך נקבע מחיר.</div>
+</div>
 
 <h3>ניסוח כוללני, שאר המדריך</h3>
 
-<div class="row"><span class="tag">28</span><div>
-  <div class="where">עמוד הפתיחה, למה כתבתי לך את זה</div>
+<div class="row">
+  <div class="where">עמוד הפתיחה</div>
   <div class="was">אם תקרא ותמכור לבד, מצוין. אם תקרא ותבחר מתווך אחר, גם טוב, ובלבד שתדע מה לדרוש ממנו. הדבר היחיד שלא הייתי רוצה הוא שתגלה את כל זה בדיעבד.</div>
   <div class="now">אם אחרי הקריאה תבוא ההחלטה למכור לבד, מצוין. אם תבוא ההחלטה לבחור מתווך אחר, גם טוב, ובלבד שיהיה ברור מה לדרוש ממנו. הדבר היחיד שלא הייתי רוצה הוא שכל זה יתגלה בדיעבד.</div>
-</div></div>
+</div>
 
-<div class="row"><span class="tag">28</span><div>
-  <div class="where">אותו עמוד, משפט הסיום</div>
-  <div class="was">הוא יסביר לך איך השוק שאתה עומד להיכנס אליו באמת עובד.</div>
-  <div class="now">הוא יסביר לך איך השוק הזה באמת עובד.</div>
-</div></div>
-
-<div class="row"><span class="tag">28</span><div>
-  <div class="where">עמוד תוכן העניינים</div>
-  <div class="was">צ'קליסט קצר שתוכל למלא &nbsp;·&nbsp; תקרא לפי הסדר &nbsp;·&nbsp; תתחיל מהצ'קליסט ואז תחזור</div>
-  <div class="now">צ'קליסט קצר שאפשר למלא &nbsp;·&nbsp; כדאי לקרוא לפי הסדר &nbsp;·&nbsp; עדיף להתחיל מהצ'קליסט ומשם לחזור</div>
-</div></div>
-
-<div class="row"><span class="tag">28</span><div>
-  <div class="where">פרק המחיר, שלושת המספרים</div>
-  <div class="was">מה אתה צריך לקבל &nbsp;·&nbsp; מתווך שמסכים לכל מחיר שתנקוב לא עושה לך טובה.</div>
-  <div class="now">כמה צריך לקבל &nbsp;·&nbsp; מתווך שמסכים לכל מחיר לא עושה לך טובה.</div>
-</div></div>
-
-<div class="row"><span class="tag">28</span><div>
-  <div class="where">פרק ההכנה, כלל הבדיקה העצמית</div>
-  <div class="was">אם לא, אתה עוד לא מוכן לצאת לשוק.</div>
-  <div class="now">אם לא, הנכס עוד לא מוכן לצאת לשוק.</div>
-</div></div>
-
-<div class="row"><span class="tag">28</span><div>
-  <div class="where">המסך האחרון, יש לך שאלה</div>
-  <div class="was">פשוט תכתוב לי.</div>
-  <div class="now">אפשר פשוט לכתוב לי.</div>
-</div></div>
+<div class="row">
+  <div class="where">עוד שמונה מקומות</div>
+  <div class="was">הוא יסביר לך איך השוק שאתה עומד להיכנס אליו · צ'קליסט שתוכל למלא · תקרא לפי הסדר · מה אתה צריך לקבל · מחיר שתנקוב · אתה עוד לא מוכן לצאת לשוק · אתה מקבל את כל החשיפה · ומה שאתה צריך לדרוש · פשוט תכתוב לי</div>
+  <div class="now">הוא יסביר לך איך השוק הזה · צ'קליסט שאפשר למלא · כדאי לקרוא לפי הסדר · כמה צריך לקבל · מתווך שמסכים לכל מחיר · הנכס עוד לא מוכן לצאת לשוק · כך מגיעה כל החשיפה · ומה שצריך לדרוש · אפשר פשוט לכתוב לי</div>
+</div>
 
 <!-- ═══════════ דף התודה ═══════════ -->
 <h2>דף התודה</h2>
 <div class="file"></div>
 
-<div class="row"><span class="tag">28</span><div>
-  <div class="where">הכותרת הראשית</div>
+<div class="row">
+  <div class="where">הכותרת</div>
   <div class="was">לפני שאתה פותח את המדריך.</div>
   <div class="now">לפני שפותחים את המדריך.</div>
-</div></div>
+</div>
 
-<!-- ═══════════ הדשבורד ═══════════ -->
-<h2>הדשבורד<span class="n">tom-harush.co.il/raz-leads</span></h2>
+<div class="row">
+  <div class="where">מתחת לכפתור</div>
+  <div class="was">רז שולח את המדריך אישית בוואטסאפ.</div>
+  <div class="now">אני שולח לך את המדריך אישית בוואטסאפ.</div>
+</div>
+
+<!-- ═══════════ מה שאינו ניסוח ═══════════ -->
+<h2>מה שאינו ניסוח</h2>
 <div class="file"></div>
 
-<div class="row"><span class="tag">48</span><div>
-  <div class="where">שורת הפרטים בכל כרטיס ליד</div>
-  <div class="now">מופיע עכשיו <b>פלאייר</b> או <b>כרטיס ביקור</b> לצד השם, לפי הקוד שממנו הליד הגיע. ליד שהגיע מכל מקור אחר לא מקבל תווית.</div>
-</div></div>
+<div class="row">
+  <div class="where">חוק ברזל</div>
+  <div class="gone"><b>44 מופעים של "דירה" הפכו ל"נכס"</b>, כל אחד עם התאמת המין של המשפט שלו. המופע היחיד שנשאר הוא "דירוג" בתוך ביקורת אמיתית, שאין לערוך.</div>
+</div>
+
+<div class="row">
+  <div class="where">באג, ספארי בלבד</div>
+  <div class="gone">קיר הביקורות הופיע כ<b>שטח שחור ריק באייפון</b>. ספארי ופיירפוקס מודדים תמונה עצלה מול חלון הדף ומתעלמים מהגלילה של הקרוסלה עצמה, כך שקרוסלה שחונה באמצע לא טענה כלום. <b>ארבע תמונות מתוך 39 נטענו בספארי, שתיים בפיירפוקס.</b> עכשיו 39 מתוך 39 בשלושת המנועים.</div>
+</div>
+
+<div class="row">
+  <div class="where">באג, קרוסלת הנכסים</div>
+  <div class="gone">הקרוסלה <b>הגיבה לקפיצה של עצמה</b> ורצדה בטלפון. ההצמדה הקשיחה הוסרה מהקרוסלה המתגלגלת, והקפיצות שלנו מתעלמות מעצמן.</div>
+</div>
+
+<div class="row">
+  <div class="where">מובייל</div>
+  <div class="gone">גובה השוליים מעל <b>GIVATAYIM</b> קוצר בחצי, והכותרת השנייה נשברת לשלוש שורות. שתי מילים יתומות, "עצמו" ו"הנכס", הוצמדו למקומן, ונוסף <b>כלל אחד שמצמיד את שתי המילים האחרונות בכל פסקה</b>, גם בטקסטים שייכתבו בעתיד.</div>
+</div>
+
+<div class="row">
+  <div class="where">חדש</div>
+  <div class="gone">שני <b>קודי QR</b> מוכנים להדפסה בתיקייה של רז, אחד לפלאיירים ואחד לכרטיסי ביקור, כל אחד עם תיוג משלו. הדשבורד מציג ליד כל ליד מאיזה מהם הוא הגיע.</div>
+</div>
 
 <div class="end">
-  <p><b>שני קודי QR מוכנים להדפסה</b> נמצאים אצלך בתיקייה, בתיקיית משנה בשם QR. לכל אחד גרסה וקטורית לרקע בהיר, גרסה לרקע כהה, וקובץ PNG ברזולוציית דפוס.</p>
-  <p>פענחתי את שניהם בקורא QR אמיתי כדי לוודא שהם מובילים לכתובת הנכונה, ולא רק נראים נכון.</p>
   <p><b>מה שממתין לרז</b> כדי לסגור: הסרטון, הנוסח שכתב על עצמו, רשימת הביקורות האמיתיות, הנכסים שנמכרו עם התמונות ומספר הימים, ומספר העסקאות של הקבוצה אחרי שיישב עם תום.</p>
+  <p>הכל שנרשם כאן כבר באוויר ונבדק בשלושת מנועי הדפדפן.</p>
 </div>
 
 </div>
