@@ -273,6 +273,13 @@ function logout() {
 }
 
 // ── language for time and reading ───────────────────────────────────
+/* The printed QR codes each carry their own tag, so a lead can say which one
+   it walked in from. Anything else stays silent rather than guessing. */
+const ORIGINS = { flyer: "פלאייר", card: "כרטיס ביקור" };
+function origin(l) {
+  const t = ORIGINS[l.utm_campaign];
+  return t ? " · " + t : "";
+}
 function ago(iso) {
   if (!iso) return "";
   const m = Math.floor((Date.now() - new Date(iso)) / 60000);
@@ -377,7 +384,7 @@ function render() {
         "' data-id='" + l.id + "'>" +
       "<div class='top'><div class='nm'><b>" + esc(l.name) + "</b>" +
         "<span>" + esc(l.phone) + " · " + ago(l.created_at) +
-        (l.source === "manual" ? " · ידני" : "") + "</span></div>" +
+        (l.source === "manual" ? " · ידני" : "") + origin(l) + "</span></div>" +
         "<span class='pill" + (l.status === "נמכר" || l.status === "חתם בלעדיות" ? " good" :
           (DEAD.indexOf(l.status) !== -1 ? " dead" : "")) + "'>" + esc(l.status) + "</span></div>" +
 

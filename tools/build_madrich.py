@@ -1,4 +1,17 @@
 # -*- coding: utf-8 -*-
+"""RETIRED. Do not run.
+
+This script ported the printed guide from a source pair that lived in a
+session scratchpad, and that scratchpad is gone. madrich/index.html is now
+the source of truth for the guide and is edited directly, so running this
+would either fail or overwrite the live guide with a stale port.
+
+Kept only as the record of how the port was made.
+"""
+import sys
+sys.exit("build_madrich.py is retired. Edit madrich/index.html directly.")
+
+
 """Port the printed guide to a scrolling web page.
 
 The guide was authored as HTML at 720x1280 per page and only then printed to
