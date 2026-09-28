@@ -119,6 +119,13 @@ header .who span{font-size:11.5px;color:var(--faint)}
 .kpi span{display:block;font-size:11.5px;color:var(--faint);margin-bottom:6px}
 .kpi b{font-size:23px;font-weight:300}
 .kpi.wide{grid-column:1 / -1}
+.src{margin-top:14px;padding:16px 18px;border:1px solid var(--line);border-radius:14px}
+.src h4{margin:0 0 10px;font-size:13px;font-weight:500;color:var(--dim)}
+.srow{display:flex;align-items:baseline;gap:10px;padding:7px 0;border-top:1px solid var(--line)}
+.srow:first-of-type{border-top:none}
+.srow span:first-child{flex:1}
+.srow b{font-size:17px;font-weight:500}
+.srow .sm{font-size:12.5px;color:var(--dim);min-width:56px;text-align:left}
 .note{margin-top:14px;background:var(--ink2);border:1px solid var(--line);border-radius:14px;
   padding:14px 16px;font-size:13px;color:var(--muted);line-height:1.75}
 .note b{color:var(--stone);font-weight:500}
@@ -422,9 +429,27 @@ function renderPerf() {
   const sent = L.filter(l => l.guide_sent).length;
   const opened = L.filter(l => l.opens).length;
   const realRead = L.filter(l => l.read_seconds >= 240 && l.read_depth >= 50).length;
+  /* Booked and held are different numbers, and the gap between them is the one
+     a broker can act on this week. Held is sticky: a lead that has moved on to
+     בלעדיות or נמכר was obviously met. */
   const met = L.filter(l => l.status === "פגישה התקיימה" || l.exclusive_at || l.sold_at).length;
+  const noshow = L.filter(l => l.status === "פגישה לא התקיימה").length;
+  const booked = L.filter(l => l.status === "נקבעה פגישה").length + met + noshow;
   const excl = L.filter(l => l.exclusive_at).length;
   const sold = L.filter(l => l.sold_at).length;
+
+  /* Two QR codes went to print, one on the flyers and one on the cards, for
+     exactly this line. Without it they are decoration. */
+  const BUCKETS = [["flyer", "פלאייר"], ["card", "כרטיס ביקור"]];
+  const bySource = BUCKETS.map(([k, label]) => {
+    const rows = L.filter(l => l.utm_campaign === k);
+    return { label: label, n: rows.length,
+             met: rows.filter(r => r.status === "פגישה התקיימה" || r.exclusive_at || r.sold_at).length };
+  });
+  const tagged = bySource.reduce((a, b) => a + b.n, 0);
+  bySource.push({ label: "ישיר, בלי תיוג", n: n - tagged,
+    met: L.filter(l => !BUCKETS.some(([k]) => l.utm_campaign === k))
+          .filter(r => r.status === "פגישה התקיימה" || r.exclusive_at || r.sold_at).length });
   const revenue = L.reduce((a, l) => a + (parseFloat(l.commission) || 0), 0);
   const pct = (a, b) => b ? Math.round(a / b * 100) + "%" : "0%";
   const kpi = (label, val, wide) =>
@@ -436,10 +461,18 @@ function renderPerf() {
       kpi("קיבלו מדריך", sent + " · " + pct(sent, n)) +
       kpi("פתחו", opened + " · " + pct(opened, sent)) +
       kpi("קראו באמת", realRead + " · " + pct(realRead, opened)) +
-      kpi("פגישות שהתקיימו", met) +
+      kpi("פגישות שנקבעו", booked) +
+      kpi("פגישות שהתקיימו", met + (booked ? " · " + pct(met, booked) : "")) +
+      kpi("לא הגיעו", noshow + (booked ? " · " + pct(noshow, booked) : "")) +
       kpi("חתמו בלעדיות", excl) +
       kpi("נמכרו", sold) +
       kpi("הכנסה מדמי תיווך", revenue ? "₪" + revenue.toLocaleString("he-IL") : "0") +
+    "</div>" +
+    "<div class='src'><h4>מאיפה הגיעו הלידים</h4>" +
+      bySource.map(b =>
+        "<div class='srow'><span>" + b.label + "</span>" +
+        "<b>" + b.n + "</b><span class='sm'>" + pct(b.n, n) + "</span>" +
+        "<span class='sm'>" + b.met + " פגישות</span></div>").join("") +
     "</div>" +
     "<div class='note'><b>עלות לליד, עלות לפגישה ו־ROAS יופיעו כאן ברגע שתרוץ תנועה בתשלום.</b><br>" +
     "המדידה בנויה ומחכה. בלי הוצאה על פרסום המספרים האלה הם אפסים שרק מבלבלים, " +

@@ -110,7 +110,7 @@ br.mo{display:none}
 .rail{display:flex;gap:18px;overflow-x:auto;
   margin-top:38px;padding-bottom:8px;scrollbar-width:none}
 .rail::-webkit-scrollbar{display:none}
-.deal{flex:0 0 min(340px,82vw);scroll-snap-align:start;background:#fff;border:1px solid var(--line);
+.deal{flex:0 0 min(340px,62vw);scroll-snap-align:start;background:#fff;border:1px solid var(--line);
   border-radius:20px;overflow:hidden;box-shadow:0 2px 14px rgba(20,22,26,.05)}
 .deal .shot{padding:14px;position:relative}
 .deal .shot .ph{aspect-ratio:1/1;border-radius:999px 999px 0 0;background:var(--stone);
@@ -125,6 +125,11 @@ br.mo{display:none}
 .deal .nums .price{flex:1;font-size:14.5px;color:var(--muted);font-weight:300;line-height:1.5}
 .deal .nums .days{display:flex;align-items:baseline;gap:6px;color:var(--red)}
 .deal .nums .days b{font-size:34px;font-weight:300;line-height:1}
+.deal .nums .sold{display:inline-block;background:var(--red);color:#fff;
+  font-size:14.5px;font-weight:500;letter-spacing:.04em;
+  padding:9px 20px;border-radius:10px;line-height:1.2;
+  box-shadow:0 4px 12px rgba(194,21,28,.22)}
+
 .deal .nums .days span{font-size:13px;color:var(--muted)}
 .arrows{display:flex;gap:10px;margin-top:20px}
 .arrows button{width:46px;height:46px;border-radius:50%;border:1px solid var(--line);
@@ -179,6 +184,11 @@ br.mo{display:none}
   border:1px solid rgba(255,255,255,.12);border-radius:999px;padding:5px 11px 5px 9px;
   font-size:12px;font-weight:400;color:var(--faint);letter-spacing:.01em;white-space:nowrap;flex:none}
 .gbadge svg{width:13px;height:13px;flex:none;display:block}
+/* These three live outside .wrap, and .wrap is the only positioned box in
+   this section. A static element paints BELOW every positioned one in the
+   same stacking context, so the absolute marble .bg covered them whole.
+   They need their own layer, not a bigger z-index on the background. */
+.shots,.capline,.vids{position:relative;z-index:2}
 .shots{display:flex;gap:12px;overflow-x:auto;margin-top:18px;padding-bottom:8px;scrollbar-width:none}
 .shots::-webkit-scrollbar{display:none}
 .shots img{flex:none;width:min(300px,78vw);border-radius:12px;height:auto}
@@ -200,7 +210,10 @@ br.mo{display:none}
   display:flex;align-items:center;justify-content:center;padding:74px 16px 92px;
   opacity:0;pointer-events:none;transition:opacity .22s}
 .lb.on{opacity:1;pointer-events:auto}
-.lb .stage{max-width:min(94vw,540px);max-height:100%;display:flex;align-items:center;
+/* height, not just max-height: a percentage max-height on the media only
+   resolves when this box has a DEFINITE height, otherwise it computes to
+   none and a 9:16 video overflows the dialog and loses its subtitles. */
+.lb .stage{max-width:min(94vw,540px);height:100%;display:flex;align-items:center;
   justify-content:center;touch-action:pan-y}
 .lb .stage img,.lb .stage video{max-width:100%;max-height:100%;display:block;border-radius:14px;
   box-shadow:0 30px 80px rgba(0,0,0,.6)}
@@ -242,6 +255,13 @@ br.mo{display:none}
   background:rgba(255,255,255,.12)}
 .stats b{display:block;font-size:clamp(28px,7vw,40px);font-weight:200;line-height:1}
 .stats span{display:block;font-size:13px;color:var(--faint);margin-top:10px}
+/* The line the guide closes its group page with. Same words, and the same
+   job here: the section argues for a group, and this hands it back to one
+   person. */
+.gclose{margin-top:30px;padding:22px 24px;border-radius:18px;
+  background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.1)}
+.gclose p{font-size:17px;font-weight:300;line-height:1.65;color:var(--light)}
+.gclose b{font-weight:500;color:var(--bone)}
 .caps{margin-top:30px}
 .cap{padding:20px 0;border-top:1px solid rgba(255,255,255,.1)}
 .cap:first-child{border-top:0}
@@ -326,7 +346,10 @@ footer a{color:var(--faint);text-decoration:none}
   .tl::before,.tl .fill{right:22px}
   .step .node{width:44px;height:44px}
   .step .node svg{width:19px;height:19px}
-  .reviews{grid-template-columns:repeat(3,1fr)}
+  .reviews{grid-template-columns:repeat(3,1fr);align-items:start}
+  /* the one long review gets a wide box instead of a tall narrow one,
+     which also makes 8 cards fill three rows of three exactly. */
+  .reviews .wide{grid-column:span 2}
   .person{flex-direction:row;align-items:center;gap:70px}
   .person .frame{flex:0 0 380px;margin:0}
   .person .body{flex:1}
@@ -440,7 +463,7 @@ footer a{color:var(--faint);text-decoration:none}
       <span class="eyebrow">Recently Sold</span>
       <h2>מה נמכר לאחרונה.</h2>
       <div class="rule"></div>
-      <p class="lead">כל נכס כאן נוהל מהיום הראשון ועד המסירה. שווה לשים לב לזמן, לא רק למחיר.</p>
+      <p class="lead">כל נכס כאן נוהל מהיום הראשון ועד המסירה, בגבעתיים, ברמת גן ובתל אביב.</p>
     </div>
     <div class="rail rv" id="rail"></div>
     <div class="arrows rv">
@@ -527,20 +550,32 @@ footer a{color:var(--faint);text-decoration:none}
 
     <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><symbol id="gg" viewBox="0 0 24 24"><path fill="#4285F4" d="M23.49 12.27c0-.79-.07-1.54-.19-2.27H12v4.51h6.47a5.4 5.4 0 0 1-2.4 3.58v3h3.86c2.26-2.09 3.56-5.17 3.56-8.82z"/><path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.86-3c-1.08.72-2.45 1.16-4.07 1.16-3.13 0-5.78-2.11-6.73-4.96H1.28v3.09A11.99 11.99 0 0 0 12 24z"/><path fill="#FBBC05" d="M5.27 14.29a7.2 7.2 0 0 1 0-4.58V6.62H1.28a12 12 0 0 0 0 10.76l3.99-3.09z"/><path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.7 0 3.99 2.47 1.28 6.62l3.99 3.09C6.22 6.86 8.87 4.75 12 4.75z"/></symbol></svg>
     <div class="reviews">
-      </div>
       <div class="rev rv">
-        <p>רז נותן את הנשמה בעבודה. מתווך מסור, חרוץ ואמין. נהניתי מאוד לעבוד עם רז ויודעת שבעתיד
-           ככל שארצה שירותי תיווך אפנה אליו. ממליצה בחום רב!</p>
+        <p>רז סופר מקצועי הגון וזמין עושה את העסקה לקלה ונגישה<br>ממליץ בחום</p>
+        <div class="who"><b>חגי פולישוק</b><span class="gbadge"><svg viewBox="0 0 24 24"><use href="#gg"/></svg>ביקורת בגוגל</span></div></div>
+      <div class="rev rv">
+        <p>רז נותן את הנשמה בעבודה. מתווך מסור, חרוץ ואמין. נהניתי מאוד לעבוד עם רז ויודעת שבעתיד ככל שארצה שירותי תיווך אפנה אליו. ממליצה בחום רב!</p>
         <div class="who"><b>אפרת צורי</b><span class="gbadge"><svg viewBox="0 0 24 24"><use href="#gg"/></svg>ביקורת בגוגל</span></div></div>
       <div class="rev rv">
-        <p>לא חושב שתמצאו מתווך עם דירוג 5 בארץ, רז לחלוטין נוף חריג בעולם הזה. ליווה אותנו במסירות,
-           בסבלנות ובמקצועיות עד לסגירת העסקה. תודה רבה על הכול!</p>
+        <p>לא חושב שתמצאו מתווך עם דירוג 5 בארץ, רז לחלוטין נוף חריג בעולם הזה. ליווה אותנו במסירות, בסבלנות ובמקצועיות עד לסגירת העסקה. תודה רבה על הכול!</p>
         <div class="who"><b>עמית הוד</b><span class="gbadge"><svg viewBox="0 0 24 24"><use href="#gg"/></svg>ביקורת בגוגל</span></div></div>
+      <div class="rev rv wide">
+        <p>ממליץ בחום על רז, מהרגע הראשון היה מקצועי, אדיב וזמין, ונתן לנו תחושה שאנחנו בידיים טובות. הוא היה קשוב למה שחיפשנו, סבלני לאורך כל התהליך ועזר לנו להגיע לדירה שמתאימה בדיוק לצרכים שלנו.<br><br>הכי חשוב &#8211; אדם אמין, ישר ונעים לעבוד מולו. אין ספק שאפנה אליו שוב בעתיד ואמליץ עליו לכל מי שמחפש מתווך מקצועי ואמין. תודה רבה על כל העזרה!</p>
+        <div class="who"><b>מתן ואנה</b><span class="gbadge"><svg viewBox="0 0 24 24"><use href="#gg"/></svg>ביקורת בגוגל</span></div></div>
       <div class="rev rv">
         <p>רז שירותי וקשוב. חשוב לו לקוחות מרוצים, ונמצא בעת הצורך גם אחרי שהעסקה נחתמה. יישר כוח.</p>
         <div class="who"><b>גל נ</b><span class="gbadge"><svg viewBox="0 0 24 24"><use href="#gg"/></svg>ביקורת בגוגל</span></div></div>
-      </div>
+      <div class="rev rv">
+        <p>רז תותח על, מתווך שבאמת בא לעזור לך במה שאתה צריך, הוא קודם כל בן אדם והיה פשוט כיף לעבוד איתו</p>
+        <div class="who"><b>ארד ה</b><span class="gbadge"><svg viewBox="0 0 24 24"><use href="#gg"/></svg>ביקורת בגוגל</span></div></div>
+      <div class="rev rv">
+        <p>היה מאוד נחמד ואינפורמטיבי, השקיע את הזמן להסביר לנו כל מה שצריך ולתווך בינינו לבין הצד השני</p>
+        <div class="who"><b>לידור אלון</b><span class="gbadge"><svg viewBox="0 0 24 24"><use href="#gg"/></svg>ביקורת בגוגל</span></div></div>
+      <div class="rev rv">
+        <p>מקצוען רציני! עזר לנו מהרגע הראשון ולכל אורך המלחמה עד לקבלת המפתח גם אחרי, ממשיך לשאול ולהתעניין על מנת לוודא שהכל עובד כשורה<br>מלך אמיתי</p>
+        <div class="who"><b>אופיר שומרון</b><span class="gbadge"><svg viewBox="0 0 24 24"><use href="#gg"/></svg>ביקורת בגוגל</span></div></div>
     </div>
+  </div>
 
     <div class="shots rv" id="shots"></div>
 
@@ -571,8 +606,8 @@ footer a{color:var(--faint);text-decoration:none}
           <p>עד לפני שנתיים הייתי כדורגלן מקצועי. חתמתי חוזה ראשון בגיל תשע עשרה, ובמשך שנים חייתי
              בעולם שבו מודדים אותך מחדש כל שבוע, בלי תירוצים ובלי מקום להסתתר. משם הבאתי איתי שלושה
              דברים: דיוק, משמעת, ועמידה בלחץ.</p>
-          <p>היום אני גר בגבעתיים, אשתי גננת בעיר, ואותה משמעת עברה איתי לשוק אחר. מה שאני מביא
-             זו שיטה שלא משתנה מנכס לנכס, ודיווח שמגיע אליך בזמן, גם כשאין חדשות טובות.</p>
+          <p>אני גר בגבעתיים, אשתי גננת בעיר, ואני מכיר את גבעתיים לא רק כמתווך, אלא כתושב שחי את העיר בכל יום. אני מכיר את הרחובות, את הבניינים, את השכונות, ובעיקר את האנשים שמרכיבים את העיר.</p>
+          <p>וזה נותן לי יתרון משמעותי כשנכס מגיע אליי: אני יודע מי מחפש מה, באיזה אזור, באיזה תקציב ובאילו תנאים. לכן לא פעם, עוד לפני שהנכס עולה לפרסום, אני כבר יודע למי נכון להציג אותו ויכול להביא קונים פוטנציאליים מתוך הרשת המקומית שלי. כי בגבעתיים חיבור אמיתי לעיר הוא לא רק יתרון. הוא כוח.</p>
         </div>
         <p class="close">אני רואה בכל נכס אחריות אישית.<br>
           <b>השם שלי והאמינות שלי חשובים לי יותר מכל&nbsp;צ׳ק.</b></p>
@@ -599,9 +634,14 @@ footer a{color:var(--faint);text-decoration:none}
       <div><b>3</b><span>חברות בקבוצה</span></div>
     </div>
     <div class="caps rv">
+      <div class="cap"><b>חברת תיווך נכסי יד שנייה {{TICK}}</b><p>מבינים אנשים, מומחים בנדל״ן</p></div>
       <div class="cap"><b>חברת שיווק {{TICK}}</b><p>שמלווה גם נכסי יד שנייה, ולא רק פרויקטים חדשים.</p></div>
-      <div class="cap"><b>חברה להתחדשות עירונית {{TICK}}</b><p>שיודעת להעריך נכס ישן ולהסביר לקונה מה צפוי לו. בגבעתיים זה כמעט תמיד רלוונטי.</p></div>
+      <div class="cap"><b>חברה להתחדשות עירונית {{TICK}}</b><p>שיודעת להעריך נכס ישן ולהסביר לקונה מה צפוי לו בשנים הקרובות. בגבעתיים זה כמעט תמיד רלוונטי.</p></div>
       <div class="cap"><b>מאגר של אלפי לקוחות {{TICK}}</b><p>שנבנה לאורך שנים. זה המאגר שאליו פונים עוד לפני שהנכס עולה לפרסום.</p></div>
+    </div>
+    <div class="gclose rv">
+      <p>בעבודה איתי יש אדם אחד שמלווה אותך מההתחלה ועד המסירה,
+        <b>ומאחוריו</b> <b>קבוצה&nbsp;שלמה</b>.</p>
     </div>
   </div>
 </section>
@@ -643,7 +683,7 @@ footer a{color:var(--faint);text-decoration:none}
             <input type="checkbox" id="fok" required>
             <span>קראתי את <a href="https://land.tom-harush.co.il/privacy-kadima/" target="_blank" rel="noopener">מדיניות הפרטיות</a></span>
           </label>
-          <button class="cta full" type="submit" style="margin-top:16px">שלחו לי את המדריך {{ARROW}}</button>
+          <button class="cta full" type="submit" style="margin-top:16px">רז, שלח לי את המדריך {{ARROW}}</button>
           <div class="ferr" id="ferr"></div>
           <p class="promise">אני שולח לך את המדריך אישית בוואטסאפ.<br>הוא שלך גם אם לא נעבוד יחד.</p>
         </form>
@@ -690,14 +730,33 @@ const NEXT = "/raz-meir-cohen/thanks/";
 const HOLD = 1400, SAFETY = 2600;
 
 /* Sold properties live in one small array so Raz can add a deal without ever
-   touching the design. Until he sends the real ones, three honest placeholders. */
+   touching the design.
+
+   The order is the rhythm Raz asked for, adjusted to the real inventory:
+   two Givatayim to each Ramat Gan, Tel Aviv once. Seven, four and one over
+   twelve slots, and it joins back to itself, so the loop never shows a seam.
+   No two Ramat Gan sit together and the same street never repeats back to back.
+
+   One headline fact per card, and which one it is says what kind of deal it
+   was without a word of explanation: days for a second hand sale, a price for
+   a new project, whose price list is public anyway. Raz lives among these
+   neighbours, so a private seller's closing price never appears.
+   Street without a house number, by Gal 16/09/2026: it reads as presence on
+   the street rather than one building, and it keeps a sold home unidentified. */
 const DEALS = [
-  { street: "רחוב להשלמה, גבעתיים", spec: "4 חדרים · 95 מ״ר · קומה 3 · מעלית ומרפסת",
-    days: null, img: null },
-  { street: "רחוב להשלמה, גבעתיים", spec: "5 חדרים · 118 מ״ר · קומה 6 · מעלית וחניה",
-    days: null, img: null },
-  { street: "רחוב להשלמה, רמת גן", spec: "3 חדרים · 78 מ״ר · קומה 2 · חניה",
-    days: null, img: null }
+  { street: "שדה בוקר, גבעתיים",    spec: "4 חדרים · 106 מ״ר + 14 מרפסת · ממ״ד, חניה ומחסן",  img: "assets/img/deal-sdeboker-45.d23802e8.webp" },
+  { street: "שרה אהרונסון, רמת גן", spec: "3 חדרים · 75 מ״ר · קומה 5 · מעלית, חניה ומקלט",      days: 62,    img: "assets/img/deal-saraaronson.9bbb5b66.webp" },
+  { street: "המעיין, גבעתיים",      spec: "3 חדרים · 77 מ״ר + 14 מרפסת", img: "assets/img/deal-maayan-3.e5863ab1.webp" },
+  { street: "שדה בוקר, גבעתיים",    spec: "4 חדרים · 114 מ״ר + 14 מרפסת · ממ״ד, חניה ומחסן", img: "assets/img/deal-sdeboker-535.2d8191b2.webp" },
+  { street: "הרא״ה, רמת גן",        spec: "3 חדרים · 70 מ״ר + 14 מרפסת · קומה 3 · מעלית, חניה וממ״ד", days: 7, img: "assets/img/deal-haraa.74822204.webp" },
+  { street: "המעיין, גבעתיים",      spec: "4 חדרים · 103 מ״ר + 14 מרפסת · ממ״ד, חניה ומחסן",  img: "assets/img/deal-maayan-4.653b1b03.webp" },
+  { street: "שדה בוקר, גבעתיים",    spec: "דירת גן · 4 חדרים · 103 מ״ר + 172 מ״ר גינה · ממ״ד, חניה ומחסן",    img: "assets/img/deal-sdeboker-gan.5794b351.webp" },
+  { street: "מלכי צדק, רמת גן",     spec: "3 חדרים · 77 מ״ר + 10 מרפסת · קומה 10 · מעלית, חניה וממ״ד",
+    note: "נמכר עוד לפני שעלה לפרסום, לקונה מתוך המאגר", img: "assets/img/deal-malchizedek.5992a559.webp" },
+  { street: "בלפור, תל אביב",       spec: "2 חדרים · 55 מ״ר · קומה 2 · מעלית, חניה ומקלט",       days: 75,    img: "assets/img/deal-balfour.14888769.webp" },
+  { street: "המעיין, גבעתיים",      spec: "דירת גן · 4 חדרים · 103 מ״ר + 147 מ״ר גינה · ממ״ד, חניה ומחסן", img: "assets/img/deal-maayan-gan.41be9c56.webp" },
+  { street: "הפודים, רמת גן",       spec: "3 חדרים · 67 מ״ר + 7 מרפסת · קומה 6 · מעלית, חניה וממ״ד", bare: true, img: "assets/img/deal-hapodim.489f38f1.webp" },
+  { street: "המעיין, גבעתיים",      spec: "מיני פנטהאוז · 6 חדרים · 166 מ״ר + 46 מרפסת · ממ״ד, חניה ומחסן",    img: "assets/img/deal-maayan-pent.6dbcf0f7.webp" }
 ];
 
 /* ── no word left alone ────────────────────────────────────────────
@@ -730,8 +789,12 @@ const DEALS = [
    fetch. Verified in all three engines. */
 function wake(el) {
   el.querySelectorAll('img[loading="lazy"]').forEach(im => {
+    const src = im.getAttribute("src");
     im.removeAttribute("loading");
-    im.src = im.src;
+    /* Reassigning src restarts the fetch, which is the point for an image that
+       never began, and a blank frame for one that already arrived. So nudge
+       only what is actually missing. */
+    if (!im.complete || !im.naturalWidth) im.src = src;
   });
 }
 
@@ -747,7 +810,7 @@ function loopRail(el) {
      actually overflows: on a container that cannot scroll yet every value
      clamps to zero and the answer comes out backwards, which sends the whole
      loop the wrong way. So it is deferred until there is something to scroll. */
-  let neg = null, parked = false, selfMove = 0;
+  let neg = null, parked = false, selfMove = 0, reseed = () => {};
   const max  = () => el.scrollWidth - el.clientWidth;
   const setW = () => el.scrollWidth / 3;
   const at   = () => (neg ? -el.scrollLeft : max() - el.scrollLeft);
@@ -802,12 +865,59 @@ function loopRail(el) {
       /* Our own jump fires a scroll event too. Answering it re-enters this
          and the rail twitches on a phone, where momentum keeps it firing. */
       if (Date.now() - selfMove < 500) return;
+      reseed();                            // a hand moved the rail, so pick the position back up from it
       const w = setW(), d = at();
       if (d < w * 0.5) to(d + w);
       else if (d > w * 1.5) to(d - w);
     }, 260);
   }, { passive: true });
   window.addEventListener("resize", () => { if (parked) to(setW()); }, { passive: true });
+
+  /* Stepping through `to` stamps selfMove, so the re-park above never answers
+     our own motion. That means a drifting rail has to wrap itself, which is
+     what the modulo here does. */
+  /* The position is carried here rather than read back from the element every
+     frame. Firefox rounds scrollLeft to whole pixels, so a fifth of a pixel
+     per frame was written, rounded away, and read back unchanged: the rail sat
+     still while the maths said it was moving. Chromium kept the fraction and
+     ran fast for the mirror image of the same reason. Own the number. */
+  let pos = null;
+  reseed = () => { pos = null; };
+  return {
+    step(px) {
+      if (!parked) return;
+      const w = setW();
+      if (pos === null) pos = at();
+      pos += px;
+      if (pos > w * 2) pos -= w;
+      if (pos < 0) pos += w;
+      to(pos);
+    }
+  };
+}
+
+/* ── the rail moves on its own ──────────────────────────────────────
+   A conveyor, not a slideshow: slow enough to read a card in passing,
+   and it yields the moment anyone touches it. Honours reduced motion. */
+function driftRail(el, api, speed) {
+  if (!api || !el) return;
+  if (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  let last = 0, hold = 0;
+  const pause = ms => { hold = Date.now() + ms; };
+  ["pointerdown", "touchstart", "wheel"].forEach(t =>
+    el.addEventListener(t, () => pause(3500), { passive: true }));
+  el.addEventListener("mouseenter", () => pause(3600e3));
+  el.addEventListener("mouseleave", () => pause(600));
+  document.addEventListener("visibilitychange", () => { last = 0; });
+  requestAnimationFrame(function frame(now) {
+    requestAnimationFrame(frame);
+    if (!last) { last = now; return; }
+    const dt = Math.min(now - last, 64);   // a backgrounded tab must not lurch
+    last = now;
+    if (Date.now() < hold || document.hidden) return;
+    api.step(speed * dt / 1000);
+  });
+  return pause;
 }
 
 /* ── lightbox ──────────────────────────────────────────────────────
@@ -880,21 +990,40 @@ const LB = (function () {
   const rail = document.getElementById("rail");
   // only a card with a real photo becomes clickable, so the lightbox is never empty
   DEALS.forEach(d => { if (d.img) { d.lbi = LB.deals.length; LB.deals.push({ img: d.img }); } });
+  /* One fact per card. A card with neither, because Raz only represented the
+     buyer there, simply carries no rule and no number rather than an empty one. */
+  const fact = d =>
+      d.days ? '<div class="nums"><div class="days"><span>נמכר תוך</span><b>' + d.days + '</b><span>ימים</span></div></div>'
+    : d.note ? '<div class="nums"><div class="price">' + d.note + '</div></div>'
+    /* With the prices off at Raz's request these cards had nothing on the last
+       line, and an equal-height rail turned that into a hole. A quiet "נמכר"
+       is true, it is what the section is about, and it keeps every card one
+       family. The one card he only represented the buyer on stays blank. */
+    : d.bare ? ""
+    : '<div class="nums"><div class="sold">נמכר</div></div>';
   rail.innerHTML = DEALS.map(d =>
     '<div class="deal"><div class="shot"' +
       (d.img ? ' data-lb="deals" data-i="' + d.lbi + '"' : "") + '><div class="ph">' +
-      (d.img ? '<img src="' + d.img + '" alt="">' : "תמונת הנכס · להשלמה") +
+      /* The rail sits far down the page, and loopRail's observer un-lazies it
+         the moment the rail comes near, so nothing here is on the critical path. */
+      (d.img ? '<img src="' + d.img + '" alt="" loading="lazy" decoding="async" width="620" height="620">'
+             : "תמונת הנכס · להשלמה") +
     '</div><div class="sill"></div></div>' +
     '<div class="meta"><b>' + d.street + '</b><div class="spec">' + d.spec + '</div>' +
-    '<div class="nums">' +
-    '<div class="days"><span>נמכר תוך</span><b>' + (d.days || "··") + '</b><span>ימים</span></div>' +
-    '</div></div></div>').join("");
+    fact(d) + '</div></div>').join("");
 
   const step = () => rail.firstElementChild
     ? rail.firstElementChild.offsetWidth + 18 : 340;
-  document.getElementById("next").onclick = () => rail.scrollBy({ left: -step(), behavior: "smooth" });
-  document.getElementById("prev").onclick = () => rail.scrollBy({ left: step(), behavior: "smooth" });
-  loopRail(rail);
+  const api = loopRail(rail);
+  /* 20 px a second: a card crosses a phone in about twelve, which reads as
+     movement rather than as a thing that needs watching. */
+  const pause = driftRail(rail, api, 20);
+  const arrow = d => () => {
+    if (pause) pause(4000);                // a smooth scroll and a drift cannot share the rail
+    rail.scrollBy({ left: d * step(), behavior: "smooth" });
+  };
+  document.getElementById("next").onclick = arrow(-1);
+  document.getElementById("prev").onclick = arrow(1);
 })();
 
 /* ── the wall of real Google reviews ───────────────────────────── */
