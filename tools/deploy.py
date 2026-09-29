@@ -97,7 +97,12 @@ def walk_remote(ftp, path="."):
     for name, facts in entries:
         if name in (".", ".."):
             continue
-        p = posixpath.join(path, name).lstrip("./")
+        # lstrip takes a CHARACTER SET, not a prefix: ".htaccess" came back
+        # as "htaccess", so --prune saw a file we do not have locally and
+        # tried to delete the one thing holding the robots block.
+        p = posixpath.join(path, name)
+        if p.startswith("./"):
+            p = p[2:]
         if facts.get("type") == "dir":
             out.extend(walk_remote(ftp, p))
         elif facts.get("type") == "file":
