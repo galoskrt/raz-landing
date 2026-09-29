@@ -4,11 +4,6 @@ DirectoryIndex index.html
 Options -Indexes
 RewriteEngine Off
 
-# Not for Google until launch. Remove this block on the day we go live.
-<IfModule mod_headers.c>
-  Header set X-Robots-Tag "noindex, nofollow"
-</IfModule>
-
 <IfModule mod_expires.c>
   ExpiresActive On
   ExpiresByType application/json    "access plus 7 days"
