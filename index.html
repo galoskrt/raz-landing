@@ -519,7 +519,7 @@ footer a{color:var(--faint);text-decoration:none}
              אף אחד לא עובד בשביל למקסם לך את המחיר. תבחרו מתווך אחד, ותוודאו שהוא פותח את הדלת לכל השאר.</p></div>
       </div>
       <div class="obj rv">
-        <div class="think"><span class="lab">מחשבות נפוצות</span><b>&quot;עם מתווך אני אשאר עם פחות כסף ביד.&quot;</b></div>
+        <div class="think"><span class="lab">מחשבות נפוצות</span><b>&quot;עם מתווך אני אשאר עם פחות כסף ביד.&quot;</b></div>
         <div class="ans"><span class="lab"><i></i>הגישה שלי</span>
           <p>קונה שנרתע מדמי תיווך הוא בדיוק הקונה שינסה להוריד לך מאות אלפי שקלים מהמחיר.
              מי שלא מוכן לשלם לך על עסקה שטובה לו, לא ישלם לך גם את המחיר שביקשת.</p></div>
@@ -745,19 +745,19 @@ const HOLD = 1400, SAFETY = 2600;
    Street without a house number, by Gal 16/09/2026: it reads as presence on
    the street rather than one building, and it keeps a sold home unidentified. */
 const DEALS = [
-  { street: "שדה בוקר, גבעתיים",    spec: "4 חדרים · 106 מ״ר + 14 מרפסת · ממ״ד, חניה ומחסן",  img: "assets/img/deal-sdeboker-45.d23802e8.webp" },
+  { street: "שדה בוקר, גבעתיים",    spec: "4 חדרים · 106 מ״ר + 14 מרפסת · קומה 1 · ממ״ד, חניה ומחסן",  img: "assets/img/deal-sdeboker-45.d23802e8.webp" },
   { street: "שרה אהרונסון, רמת גן", spec: "3 חדרים · 75 מ״ר · קומה 5 · מעלית, חניה ומקלט",      days: 62,    img: "assets/img/deal-saraaronson.9bbb5b66.webp" },
-  { street: "המעיין, גבעתיים",      spec: "3 חדרים · 77 מ״ר + 14 מרפסת", img: "assets/img/deal-maayan-3.e5863ab1.webp" },
+  { street: "המעיין, גבעתיים",      spec: "3 חדרים · 77 מ״ר + 14 מרפסת · קומה 6", img: "assets/img/deal-maayan-3.e5863ab1.webp" },
   { street: "שדה בוקר, גבעתיים",    spec: "4 חדרים · 114 מ״ר + 14 מרפסת · ממ״ד, חניה ומחסן", img: "assets/img/deal-sdeboker-535.2d8191b2.webp" },
   { street: "הרא״ה, רמת גן",        spec: "3 חדרים · 70 מ״ר + 14 מרפסת · קומה 3 · מעלית, חניה וממ״ד", days: 7, img: "assets/img/deal-haraa.74822204.webp" },
-  { street: "המעיין, גבעתיים",      spec: "4 חדרים · 103 מ״ר + 14 מרפסת · ממ״ד, חניה ומחסן",  img: "assets/img/deal-maayan-4.653b1b03.webp" },
-  { street: "שדה בוקר, גבעתיים",    spec: "דירת גן · 4 חדרים · 103 מ״ר + 172 מ״ר גינה · ממ״ד, חניה ומחסן",    img: "assets/img/deal-sdeboker-gan.5794b351.webp" },
+  { street: "המעיין, גבעתיים",      spec: "4 חדרים · 103 מ״ר + 14 מרפסת · קומה 1 · ממ״ד, חניה ומחסן",  img: "assets/img/deal-maayan-4.653b1b03.webp" },
+  { street: "שדה בוקר, גבעתיים",    spec: "דירת גן · 4 חדרים · 103 מ״ר + 172 מ״ר גינה · קומת קרקע · ממ״ד, חניה ומחסן",    img: "assets/img/deal-sdeboker-gan.5794b351.webp" },
   { street: "מלכי צדק, רמת גן",     spec: "3 חדרים · 77 מ״ר + 10 מרפסת · קומה 10 · מעלית, חניה וממ״ד",
     note: "נמכר עוד לפני שעלה לפרסום, לקונה מתוך המאגר", img: "assets/img/deal-malchizedek.5992a559.webp" },
   { street: "בלפור, תל אביב",       spec: "2 חדרים · 55 מ״ר · קומה 2 · מעלית, חניה ומקלט",       days: 75,    img: "assets/img/deal-balfour.14888769.webp" },
-  { street: "המעיין, גבעתיים",      spec: "דירת גן · 4 חדרים · 103 מ״ר + 147 מ״ר גינה · ממ״ד, חניה ומחסן", img: "assets/img/deal-maayan-gan.41be9c56.webp" },
+  { street: "המעיין, גבעתיים",      spec: "דירת גן · 4 חדרים · 103 מ״ר + 147 מ״ר גינה · קומת קרקע · ממ״ד, חניה ומחסן", img: "assets/img/deal-maayan-gan.41be9c56.webp" },
   { street: "הפודים, רמת גן",       spec: "3 חדרים · 67 מ״ר + 7 מרפסת · קומה 6 · מעלית, חניה וממ״ד", bare: true, img: "assets/img/deal-hapodim.489f38f1.webp" },
-  { street: "המעיין, גבעתיים",      spec: "מיני פנטהאוז · 6 חדרים · 166 מ״ר + 46 מרפסת · ממ״ד, חניה ומחסן",    img: "assets/img/deal-maayan-pent.6dbcf0f7.webp" }
+  { street: "המעיין, גבעתיים",      spec: "מיני פנטהאוז · 6 חדרים · 166 מ״ר + 46 מרפסת · קומה 6 · ממ״ד, חניה ומחסן",    img: "assets/img/deal-maayan-pent.6dbcf0f7.webp" }
 ];
 
 /* ── no word left alone ────────────────────────────────────────────
@@ -1002,6 +1002,10 @@ const LB = (function () {
        family. The one card he only represented the buyer on stays blank. */
     : d.bare ? ""
     : '<div class="nums"><div class="sold">נמכר</div></div>';
+  /* No orphan word on the last line: the spec grew a floor and started
+     dropping its last word alone. Binding the final pair with a non-breaking
+     space is deterministic in every engine, unlike text-wrap:pretty. */
+  const noOrphan = t => t.replace(/ ([^ ]+)$/, " $1");
   rail.innerHTML = DEALS.map(d =>
     '<div class="deal"><div class="shot"' +
       (d.img ? ' data-lb="deals" data-i="' + d.lbi + '"' : "") + '><div class="ph">' +
@@ -1010,7 +1014,7 @@ const LB = (function () {
       (d.img ? '<img src="' + d.img + '" alt="" loading="lazy" decoding="async" width="620" height="620">'
              : "תמונת הנכס · להשלמה") +
     '</div><div class="sill"></div></div>' +
-    '<div class="meta"><b>' + d.street + '</b><div class="spec">' + d.spec + '</div>' +
+    '<div class="meta"><b>' + d.street + '</b><div class="spec">' + noOrphan(d.spec) + '</div>' +
     fact(d) + '</div></div>').join("");
 
   const step = () => rail.firstElementChild
