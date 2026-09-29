@@ -44,9 +44,10 @@ a{color:inherit}
 
 /* ── the calendar, black and red, seamless with the page ──────────── */
 .book{flex:1 1 auto;min-height:0;position:relative;background:var(--ink);
-  overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch}
+  overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;
+  display:flex;flex-direction:column}
 /* let Cal size its own iframe to its content, so no dead band above or below */
-#my-cal-inline-time{width:100%}
+#my-cal-inline-time{width:100%;margin-block:auto}
 /* clip on the wrapper, not the iframe: rounding the iframe itself leaves pale
    wedges in the corners on Chromium */
 #my-cal-inline-time{border-radius:0 0 20px 20px;overflow:hidden;background:var(--ink)}
@@ -89,6 +90,11 @@ a{color:inherit}
     margin-inline-start:auto}
   .foot{position:fixed;bottom:0;left:0;width:calc(100% - 366px);
     background:rgba(14,16,19,.86);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border-top:1px solid var(--line)}
+  /* The embed sizes itself to its content, which on a tall screen left the
+     calendar pinned to the top with a dead black band under it. Auto block
+     margins in a flex column absorb the free space and centre it, and they
+     collapse to nothing the moment the content is taller than the frame, so
+     a short window still scrolls to the last slot instead of clipping it. */
   #my-cal-inline-time{padding-bottom:44px}
 }
 @media (max-width:899px){.note{display:none}}
