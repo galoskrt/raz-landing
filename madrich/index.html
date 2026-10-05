@@ -16,7 +16,7 @@
   --w:#fff;
 }
 *{box-sizing:border-box;margin:0;padding:0}
-@page{size:190.5mm 338.6mm;margin:0}
+@page{size:190.5mm 338.667mm;margin:0}
 html{-webkit-print-color-adjust:exact;print-color-adjust:exact}
 body{font-family:Heebo,sans-serif;direction:rtl;background:var(--bone);color:var(--ink);
   font-weight:400;font-size:16.5px;line-height:1.72;-webkit-font-smoothing:antialiased}
@@ -268,6 +268,27 @@ img{max-width:100%}
   #hello h2{font-size:22px}
   #back h2{font-size:23px}
   #back a{min-width:0;width:100%}
+}
+
+/* ============ print ============
+   The web overrides above turn the guide into one continuous scroll, which is
+   right on a phone and wrong on paper. Printing restores the fixed page the
+   layout was designed around: 720x1280 is exactly the 190.5x338.6mm declared
+   in @page, so every .pg becomes one sheet with nothing reflowing.
+   Generate the PDF with tools/render_guide_pdf.py, never by hand. */
+@media print{
+  /* Web only furniture. #hello is personalised per lead and would print a
+     placeholder name, #rail is the reading progress bar, #back is a live
+     WhatsApp link that the guide's own closing page already covers. */
+  #rail,#hello,#back{display:none !important}
+  html,body{background:#fff}
+  body{font-size:16.5px}
+  .pg{width:190.5mm;height:338.667mm;min-height:338.667mm;margin:0;
+      page-break-after:always;break-after:page;justify-content:center}
+  .pg.top{justify-content:flex-start}
+  .pg:last-child{page-break-after:auto;break-after:auto}
+  .pad{max-width:none;margin:0;padding:74px 62px}
+  .grow{flex:1}
 }
 </style>
 </head>
