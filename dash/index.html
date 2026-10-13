@@ -126,6 +126,17 @@ header .who span{font-size:11.5px;color:var(--faint)}
 .srow span:first-child{flex:1}
 .srow b{font-size:17px;font-weight:500}
 .srow .sm{font-size:12.5px;color:var(--dim);min-width:56px;text-align:left}
+.srow .sm{min-width:52px}
+.srow.shead{padding-bottom:4px;border-top:none}
+.srow.shead span{font-size:11.5px;color:var(--faint)}
+.srow.shead span:first-child{flex:1}
+.srow b.sm{font-size:15px;font-weight:500;color:var(--stone)}
+.srow .hi{color:var(--stone);font-weight:500}
+.srow.tot2{border-top:1px solid var(--line2,var(--line));margin-top:2px}
+.srow.tot2 span:first-child{color:var(--dim);font-size:12.5px}
+.sfoot{margin-top:10px;padding-top:9px;border-top:1px solid var(--line);
+  font-size:12.5px;color:var(--dim)}
+.sfoot b{color:var(--stone);font-weight:500}
 .note{margin-top:14px;background:var(--ink2);border:1px solid var(--line);border-radius:14px;
   padding:14px 16px;font-size:13px;color:var(--muted);line-height:1.75}
 .note b{color:var(--stone);font-weight:500}
@@ -230,6 +241,7 @@ const DEAD = ["לא רלוונטי", "מספר לא תקין", "נמכר"];
 
 let TOKEN = localStorage.getItem("raz_tok") || "";
 let LEADS = [], STATUSES = [], UNDO = [], TAB = "leads", timer = null;
+let VIEWS = [];   // one row per source per day, the denominator of every rate below
 
 const $ = s => document.querySelector(s);
 const esc = s => String(s == null ? "" : s).replace(/[&<>"]/g, c =>
@@ -439,17 +451,33 @@ function renderPerf() {
   const sold = L.filter(l => l.sold_at).length;
 
   /* Two QR codes went to print, one on the flyers and one on the cards, for
-     exactly this line. Without it they are decoration. */
-  const BUCKETS = [["flyer", "פלאייר"], ["card", "כרטיס ביקור"]];
-  const bySource = BUCKETS.map(([k, label]) => {
-    const rows = L.filter(l => l.utm_campaign === k);
-    return { label: label, n: rows.length,
-             met: rows.filter(r => r.status === "פגישה התקיימה" || r.exclusive_at || r.sold_at).length };
+     exactly this panel. A scan that led nowhere is invisible to the leads
+     table, so until the landing page counted its own arrivals there was no
+     honest way to say whether the print run worked. Now both halves of the
+     ratio are counted by the same rule, on the same days. */
+  const SRC_HE = {
+    flyer: "פלאייר · QR", card: "כרטיס ביקור · QR", bio: "לינק בביו",
+    instagram: "אינסטגרם", facebook: "פייסבוק", google: "חיפוש בגוגל",
+    twitter: "טוויטר", site: "אתר הקבוצה", referral: "אתר אחר",
+    direct: "ישירה, בלי תיוג",
+  };
+  /* The leads list is filtered by date up in filtered(); the views have to be
+     cut on the same window or the percentage is drawn from two different
+     questions. */
+  const fd = parseInt($("#fd").value, 10);
+  const inWindow = v => !fd || days(v.day + "T12:00:00Z") < fd;
+  const agg = {};
+  VIEWS.filter(inWindow).forEach(v => {
+    const a = agg[v.src] || (agg[v.src] = { views: 0, leads: 0 });
+    a.views += v.views; a.leads += v.leads;
   });
-  const tagged = bySource.reduce((a, b) => a + b.n, 0);
-  bySource.push({ label: "ישיר, בלי תיוג", n: n - tagged,
-    met: L.filter(l => !BUCKETS.some(([k]) => l.utm_campaign === k))
-          .filter(r => r.status === "פגישה התקיימה" || r.exclusive_at || r.sold_at).length });
+  const bySource = Object.keys(agg)
+    .map(k => ({ key: k, label: SRC_HE[k] || k, views: agg[k].views, leads: agg[k].leads }))
+    .sort((a, b) => b.views - a.views);
+  const totalViews = bySource.reduce((a, b) => a + b.views, 0);
+  const totalFromPage = bySource.reduce((a, b) => a + b.leads, 0);
+  const manual = L.filter(l => l.source === "manual").length;
+
   const revenue = L.reduce((a, l) => a + (parseFloat(l.commission) || 0), 0);
   const pct = (a, b) => b ? Math.round(a / b * 100) + "%" : "0%";
   const kpi = (label, val, wide) =>
@@ -468,12 +496,26 @@ function renderPerf() {
       kpi("נמכרו", sold) +
       kpi("הכנסה מדמי תיווך", revenue ? "₪" + revenue.toLocaleString("he-IL") : "0") +
     "</div>" +
-    "<div class='src'><h4>מאיפה הגיעו הלידים</h4>" +
-      bySource.map(b =>
-        "<div class='srow'><span>" + b.label + "</span>" +
-        "<b>" + b.n + "</b><span class='sm'>" + pct(b.n, n) + "</span>" +
-        "<span class='sm'>" + b.met + " פגישות</span></div>").join("") +
+    "<div class='src'><h4>כניסות לדף, ומה יצא מהן</h4>" +
+      "<div class='srow shead'><span>מקור</span>" +
+        "<span class='sm'>כניסות</span><span class='sm'>הורידו</span><span class='sm'>אחוז</span></div>" +
+      (bySource.length ? bySource.map(b =>
+        "<div class='srow'><span>" + esc(b.label) + "</span>" +
+        "<b class='sm'>" + b.views + "</b>" +
+        "<b class='sm'>" + b.leads + "</b>" +
+        "<span class='sm hi'>" + pct(b.leads, b.views) + "</span></div>").join("")
+        : "<div class='srow'><span class='sm'>עוד לא נרשמו כניסות בטווח הזה.</span></div>") +
+      (totalViews ? "<div class='srow tot2'><span>סך הכל</span>" +
+        "<b class='sm'>" + totalViews + "</b><b class='sm'>" + totalFromPage + "</b>" +
+        "<span class='sm hi'>" + pct(totalFromPage, totalViews) + "</span></div>" : "") +
+      (manual ? "<div class='sfoot'>בנוסף <b>" + manual + "</b> " +
+        (manual === 1 ? "ליד הוזן" : "לידים הוזנו") + " ידנית בדשבורד, בלי לעבור דרך הדף.</div>" : "") +
     "</div>" +
+    "<div class='note'>כל קוד QR וכל קישור נושא תג משלו, ולכן אפשר לראות בנפרד " +
+    "כמה אנשים סרקו את הפלאייר, כמה סרקו את כרטיס הביקור, וכמה מכל אחד מהם " +
+    "באמת הורידו את המדריך. <b>העמודה שקובעת היא אחוז.</b> " +
+    "מאה כניסות עם אחוז נמוך אומרות שהדף לא שכנע. עשר כניסות עם אחוז גבוה אומרות " +
+    "שהדף עובד ושחסרה תנועה.</div>" +
     "<div class='note'><b>עלות לליד, עלות לפגישה ו־ROAS יופיעו כאן ברגע שתרוץ תנועה בתשלום.</b><br>" +
     "המדידה בנויה ומחכה. בלי הוצאה על פרסום המספרים האלה הם אפסים שרק מבלבלים, " +
     "ולכן הם מקופלים ולא מוצגים.</div>" +
@@ -486,6 +528,7 @@ async function load() {
   try {
     const d = await api("/leads");
     LEADS = d.leads || [];
+    VIEWS = d.views || [];
     if (d.statuses) STATUSES = d.statuses;
     if ($("#fs").options.length <= 1) {
       $("#fs").innerHTML = "<option value=''>כל הסטטוסים</option>" +

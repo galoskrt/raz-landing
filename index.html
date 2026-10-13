@@ -750,6 +750,57 @@ const API  = "https://raz-leads.tom-harush.workers.dev";
 const NEXT = "/raz-meir-cohen/thanks/";
 const HOLD = 1400, SAFETY = 2600;
 
+/* ── where this visit came from, and whether it converted ───────────────────
+ *
+ * Leads on their own answer "how many", never "out of how many". A QR code on
+ * a printed flyer is worth the print run only if the scans behind it become
+ * downloads, and that ratio needs the arrival counted, not just the form.
+ *
+ * The printed codes carry ?src=flyer and ?src=card. An ad carries its own utm.
+ * A link someone forwarded carries nothing, so an untagged arrival is named by
+ * the site that sent it instead of disappearing into one "direct" pile.
+ *
+ * The id lives in sessionStorage, not a cookie: it dies with the tab, it says
+ * nothing about who the person is, and it survives exactly the two things that
+ * would otherwise inflate the count, a refresh and the walk back from the
+ * thank-you page. */
+const SRCQ = new URLSearchParams(location.search);
+const REFHOST = (() => {
+  try { return document.referrer ? new URL(document.referrer).hostname.replace(/^www\./, "") : ""; }
+  catch (e) { return ""; }
+})();
+const SRC = (() => {
+  const tag = (SRCQ.get("src") || SRCQ.get("utm_campaign") || SRCQ.get("utm_source") || "")
+    .toLowerCase().replace(/[^a-z0-9_-]/g, "").slice(0, 24);
+  if (tag) return tag;
+  const h = REFHOST;
+  if (!h) return "direct";
+  if (/instagram/.test(h))            return "instagram";
+  if (/facebook|^fb\./.test(h))       return "facebook";
+  if (/google/.test(h))               return "google";
+  if (/t\.co$|twitter|^x\.com/.test(h)) return "twitter";
+  if (/tom-harush/.test(h))           return "site";
+  return "referral";
+})();
+const VIEW = (() => {
+  try {
+    const k = "rz_v";
+    let v = sessionStorage.getItem(k);
+    if (!v) { v = Math.random().toString(36).slice(2) + Date.now().toString(36); sessionStorage.setItem(k, v); }
+    return v;
+  } catch (e) { return Math.random().toString(36).slice(2) + Date.now().toString(36); }
+})();
+(() => {
+  /* Once per tab. A measurement row must never be the reason a page feels slow
+     or a form fails, so it is fire and forget in both directions. */
+  try { if (sessionStorage.getItem("rz_vs")) return; sessionStorage.setItem("rz_vs", "1"); } catch (e) {}
+  fetch(API + "/v", {
+    method: "POST", keepalive: true,
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify({ v: VIEW, src: SRC, detail: SRCQ.get("utm_content") || REFHOST || null }),
+  }).catch(() => {});
+})();
+
 /* Sold properties live in one small array so Raz can add a deal without ever
    touching the design.
 
@@ -1142,6 +1193,9 @@ const LB = (function () {
         email: document.getElementById("femail").value.trim(),
         address: document.getElementById("faddr").value.trim(),
         utm_campaign: q.get("utm_campaign"), utm_content: q.get("utm_content"),
+        /* Same visit, same bucket. Without this the two halves of every
+           conversion rate would be counted by different rules. */
+        src: SRC, view_id: VIEW,
       }),
     }).then(() => { sent = true; }, () => { sent = true; });
 

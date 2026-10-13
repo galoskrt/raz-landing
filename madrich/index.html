@@ -246,6 +246,22 @@ img{max-width:100%}
     box-shadow:0 12px 30px rgba(194,21,28,.32),0 2px 0 rgba(255,255,255,.16) inset}
 #back svg{flex:none}
 
+/* A question that comes up in chapter three should not have to survive until
+   the last page to get asked. The button waits until the guide has actually
+   started, and steps aside at the closing section, where the same offer is
+   already made at full width and two of them would just look careless.
+   Left, so it never sits under the thumb that is scrolling. */
+#wa{position:fixed;bottom:20px;left:16px;z-index:70;width:54px;height:54px;
+    border-radius:50%;display:grid;place-items:center;
+    background:linear-gradient(135deg,#D82127 0%,#C2151C 52%,#8F081B 100%);
+    box-shadow:0 10px 26px rgba(194,21,28,.34),0 2px 0 rgba(255,255,255,.16) inset;
+    opacity:0;visibility:hidden;transform:translateY(12px) scale(.9);
+    transition:opacity .3s ease,transform .3s ease,visibility .3s}
+#wa.on{opacity:1;visibility:visible;transform:none}
+#wa svg{width:26px;height:26px;display:block}
+#wa:focus-visible{outline:2px solid var(--bone);outline-offset:3px}
+@media (prefers-reduced-motion:reduce){#wa{transition:opacity .3s ease}#wa.on{transform:none}}
+
 @media (max-width:820px){
   body{font-size:16px}
   .pad{padding:56px 24px}
@@ -278,9 +294,10 @@ img{max-width:100%}
    Generate the PDF with tools/render_guide_pdf.py, never by hand. */
 @media print{
   /* Web only furniture. #hello is personalised per lead and would print a
-     placeholder name, #rail is the reading progress bar, #back is a live
-     WhatsApp link that the guide's own closing page already covers. */
-  #rail,#hello,#back{display:none !important}
+     placeholder name, #rail is the reading progress bar, and #back and #wa are
+     live WhatsApp links that mean nothing on paper. Anything added here has to
+     be added to this list too, or the PDF grows a page: that has happened. */
+  #rail,#hello,#back,#wa{display:none !important}
   html,body{background:#fff}
   body{font-size:16.5px}
   .pg{width:190.5mm;height:338.667mm;min-height:338.667mm;margin:0;
@@ -943,6 +960,11 @@ img{max-width:100%}
             stroke-linecap="round" stroke-linejoin="round"/></svg>
   </a>
 </section>
+
+<a id="wa" href="https://wa.me/972544263355?text=%D7%94%D7%99%D7%99%20%D7%A8%D7%96%2C%20%D7%A2%D7%9C%D7%AA%D7%94%20%D7%9C%D7%99%20%D7%A9%D7%90%D7%9C%D7%94%20%D7%AA%D7%95%D7%9A%20%D7%9B%D7%93%D7%99%20%D7%A7%D7%A8%D7%99%D7%90%D7%AA%20%D7%94%D7%9E%D7%93%D7%A8%D7%99%D7%9A"
+   target="_blank" rel="noopener" aria-label="לכתוב לרז בוואטסאפ">
+  <svg viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
 <script>
 (function () {
   var API   = "https://raz-leads.tom-harush.workers.dev";
@@ -962,6 +984,26 @@ img{max-width:100%}
   }
   window.addEventListener("scroll", onScroll, { passive: true });
   onScroll();
+
+  /* Reveal the WhatsApp button once the reader is past the cover, and pull it
+     back while the closing section is on screen so the page never shows the
+     same call to action twice. */
+  var wa = document.getElementById("wa");
+  var atEnd = false;
+  if (wa) {
+    var waToggle = function () {
+      wa.classList.toggle("on", window.scrollY > 600 && !atEnd);
+    };
+    var back = document.getElementById("back");
+    if (back && "IntersectionObserver" in window) {
+      new IntersectionObserver(function (e) {
+        atEnd = e[0].isIntersecting;
+        waToggle();
+      }, { threshold: 0.12 }).observe(back);
+    }
+    window.addEventListener("scroll", waToggle, { passive: true });
+    waToggle();
+  }
 
   // Greet by name. The link is personal, so the page should say so.
   if (TOKEN) {
