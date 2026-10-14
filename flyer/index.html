@@ -10,11 +10,13 @@
 <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@200;300;400;500;700;800&family=Cormorant+Garamond:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 /* ── the sheet ───────────────────────────────────────────────────────
-   100 x 300 mm, printed both sides, with a crease 60 mm from the top.
-   The strip slides into the letterbox and the folded tab catches on the
-   edge, so the tab is the only thing most people ever see. It is written
-   to stand on its own and say one thing.
-   Everything here is in mm, so what is on screen is what goes to press. */
+   100 x 300 mm, printed both sides, creased 60 mm from the top. The strip
+   goes into the letterbox and the folded tab catches on the edge, so the tab
+   is the only thing most people will ever see.
+
+   That one fact drives this round: the offer and the scan code both moved up
+   onto the tab, because a sheet nobody pulls out has no body. Everything is
+   in mm, so what is on screen is the press sheet. */
 :root{
   --ink:#14161A; --ink2:#33383F; --muted:#71757C; --faint:#9A9AA0;
   --bone:#FAF8F5; --stone:#F1EDE7; --line:#E2DCD3; --line2:#CFC7BC;
@@ -24,147 +26,170 @@
 *{box-sizing:border-box;margin:0;padding:0;-webkit-print-color-adjust:exact;print-color-adjust:exact}
 body{font-family:Heebo,Arial,sans-serif;direction:rtl;background:#6C6F74;color:var(--ink)}
 
-/* ── the preview shell, never part of the artwork ── */
-.shell{max-width:1180px;margin:0 auto;padding:46px 22px 90px}
+/* ── preview shell, never part of the artwork ── */
+.shell{max-width:1240px;margin:0 auto;padding:46px 22px 90px}
 .shell h1{font-weight:200;font-size:30px;color:#fff;letter-spacing:-.01em}
 .shell h1 b{font-weight:500}
-.shell .sub{color:#DDD8D1;font-size:14.5px;font-weight:300;margin-top:9px;line-height:1.75;max-width:720px}
+.shell .sub{color:#DDD8D1;font-size:14.5px;font-weight:300;margin-top:9px;line-height:1.75;max-width:760px}
+.shell .sub b{color:#fff;font-weight:500}
 .shell h2{color:#fff;font-weight:300;font-size:22px;margin:52px 0 4px}
 .shell h2 b{font-weight:600}
-.shell .note{color:#D7D2CB;font-size:13.5px;font-weight:300;line-height:1.8;max-width:720px;margin-bottom:20px}
+.shell .note{color:#D7D2CB;font-size:13.5px;font-weight:300;line-height:1.8;max-width:760px;margin-bottom:20px}
 .shell .note b{color:#fff;font-weight:500}
 .pair{display:flex;gap:26px;flex-wrap:wrap;align-items:flex-start}
 .one{display:flex;flex-direction:column;gap:9px}
 .cap{color:#E6E2DC;font-size:12px;font-weight:400;letter-spacing:.04em}
-.spec{color:#fff;font-size:11.5px;font-weight:300;opacity:.72;margin-top:40px;border-top:1px solid rgba(255,255,255,.22);padding-top:16px;line-height:1.9}
+.spec{color:#fff;font-size:11.5px;font-weight:300;opacity:.72;margin-top:40px;
+  border-top:1px solid rgba(255,255,255,.22);padding-top:16px;line-height:1.9}
 
 /* ── one printed face ── */
 .panel{width:var(--W);height:var(--H);position:relative;overflow:hidden;
   background:var(--bone);box-shadow:0 18px 46px rgba(0,0,0,.34);flex:none}
-/* the crease, shown on screen only so the fold is unmistakable */
 .panel::after{content:"";position:absolute;top:var(--TAB);left:0;right:0;height:0;
   border-top:1px dashed rgba(0,0,0,.33);z-index:9}
 .panel.onink::after{border-top-color:rgba(255,255,255,.34)}
-.tab{height:var(--TAB);padding:var(--PAD);display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden}
+.tab{height:var(--TAB);padding:var(--PAD);display:flex;flex-direction:column;
+  justify-content:space-between;position:relative;overflow:hidden}
 .body{height:calc(var(--H) - var(--TAB));padding:var(--PAD);display:flex;flex-direction:column}
 
 /* ── type ── */
-.k{font-family:"Cormorant Garamond",Georgia,serif;direction:ltr;text-align:right;
-  font-size:3.4mm;letter-spacing:.3em;font-weight:400;text-transform:uppercase}
-h3{font-size:8.2mm;line-height:1.16;font-weight:200;letter-spacing:-.02em}
+.k{font-size:3.1mm;letter-spacing:.14em;font-weight:500}
+h3{font-size:8mm;line-height:1.14;font-weight:200;letter-spacing:-.022em}
 h3 b{font-weight:600}
 h3 .r{color:var(--red)}
-.p{font-size:3.5mm;line-height:1.62;font-weight:300;color:var(--ink2)}
+.p{font-size:3.5mm;line-height:1.6;font-weight:300;color:var(--ink2)}
 .p b{font-weight:500;color:var(--ink)}
 .sm{font-size:2.9mm;line-height:1.55;font-weight:300;color:var(--muted)}
 .grow{flex:1;min-height:0}
+.rule{height:.25mm;background:var(--line);margin:3.4mm 0}
+.rule.on{background:rgba(255,255,255,.2)}
+.logo{height:11mm;display:block}
 
-/* ── proof rows: the streets, which is the only claim nobody can argue with ── */
-.deals{display:flex;flex-direction:column;gap:0}
-.deal{display:flex;align-items:center;gap:2.4mm;padding:2.5mm 0;border-top:.25mm solid var(--line)}
-.deal:first-child{border-top:none}
-.deal .st{flex:1;min-width:0}
-.deal .st b{display:block;font-size:3.9mm;font-weight:500;line-height:1.2}
-.deal .st span{display:block;font-size:2.75mm;font-weight:300;color:var(--muted);margin-top:.7mm}
-.sold{flex:none;background:var(--red);color:#fff;font-size:2.7mm;font-weight:500;
-  letter-spacing:.05em;padding:1.3mm 3mm;border-radius:1.6mm;line-height:1}
+/* ── the scan block on the tab: the one thing a letterbox glance can act on ── */
+.tabcta{display:flex;align-items:center;gap:3.2mm}
+.tabcta .qr{flex:none;width:17mm;height:17mm;background:#fff;border-radius:2mm;padding:1.1mm}
+.tabcta .qr img{width:100%;height:100%;display:block}
+.tabcta .t{flex:1;min-width:0;font-size:3.3mm;line-height:1.4;font-weight:500}
+.tabcta .t span{display:block;font-weight:300;font-size:2.8mm;margin-top:.8mm}
 
-/* ── the offer, the only action on the sheet ── */
-.offer{background:var(--ink);color:var(--bone);border-radius:3.4mm;padding:5mm;
-  display:flex;gap:4mm;align-items:center}
+/* ── sold recently: the real cards from the landing page, arch and sill ── */
+.cards{display:grid;grid-template-columns:1fr 1fr;gap:2.4mm}
+.card{background:#fff;border:.25mm solid var(--line);border-radius:4mm;overflow:hidden}
+.card .ph{margin:1.8mm 1.8mm 0;aspect-ratio:1/.78;border-radius:999px 999px 0 0;
+  overflow:hidden;background:var(--stone)}
+.card .ph img{width:100%;height:100%;object-fit:cover;display:block}
+.card .sill{height:.7mm;background:var(--red);margin:0 1.8mm}
+.card .cm{padding:1.6mm 2.6mm 2.2mm}
+.card .cm b{display:block;font-size:3.1mm;font-weight:500;line-height:1.25}
+.card .cm span{display:block;font-size:2.5mm;font-weight:300;color:var(--muted);margin-top:.5mm}
+
+/* ── the same proof as a list, so the two faces of one sheet never repeat ── */
+.rows{display:flex;flex-direction:column;gap:2.4mm}
+.row{display:flex;align-items:center;gap:3mm;background:#fff;border:.25mm solid var(--line);
+  border-radius:3.4mm;padding:2mm}
+.row .ph{flex:none;width:19mm;height:15mm;border-radius:999px 999px 1mm 1mm;overflow:hidden;
+  border-bottom:.7mm solid var(--red);background:var(--stone)}
+.row .ph img{width:100%;height:100%;object-fit:cover;display:block}
+.row .cm b{display:block;font-size:3.3mm;font-weight:500;line-height:1.25}
+.row .cm span{display:block;font-size:2.7mm;font-weight:300;color:var(--muted);margin-top:.6mm}
+
+/* ── the offer, the only action in the body ── */
+.offer{background:var(--ink);color:var(--bone);border-radius:3.4mm;padding:4.2mm;
+  display:flex;gap:3.6mm;align-items:center}
 .offer.red{background:linear-gradient(135deg,#D82127 0%,var(--red) 52%,#8F081B 100%)}
 .offer .qr{flex:none;width:21mm;height:21mm;background:#fff;border-radius:2.2mm;padding:1.4mm}
 .offer .qr img{width:100%;height:100%;display:block}
 .offer .t{flex:1;min-width:0}
-.offer .t b{display:block;font-size:4.2mm;font-weight:600;line-height:1.22;color:#fff}
-.offer .t span{display:block;font-size:2.9mm;font-weight:300;color:#CFCAC4;margin-top:1.4mm;line-height:1.5}
+.offer .t b{display:block;font-size:4mm;font-weight:600;line-height:1.24;color:#fff}
+.offer .t span{display:block;font-size:2.85mm;font-weight:300;color:#CFCAC4;margin-top:1.4mm;line-height:1.5}
 .offer.red .t span{color:#F4DADA}
-.scan{display:flex;align-items:center;gap:1.6mm;margin-top:2.2mm;font-size:2.9mm;font-weight:500;color:#fff}
-.scan svg{flex:none}
 
 /* ── who ── */
 .who{display:flex;align-items:flex-end;gap:3mm}
-.who img.face{width:26mm;display:block;filter:drop-shadow(0 2mm 4mm rgba(0,0,0,.18))}
+.who img.face{width:23mm;display:block;filter:drop-shadow(0 2mm 4mm rgba(0,0,0,.18))}
 .who .n{flex:1;padding-bottom:2mm}
 .who .n b{display:block;font-size:4.4mm;font-weight:500;line-height:1.2}
 .who .n span{display:block;font-size:2.8mm;font-weight:300;color:var(--muted);margin-top:1mm;line-height:1.5}
-.who .n .tel{display:block;font-size:4.2mm;font-weight:600;margin-top:2mm;direction:ltr;text-align:right;letter-spacing:.01em}
-.logo{height:9mm;display:block}
-.logo.sm{height:6.2mm}
-.rule{height:.25mm;background:var(--line);margin:4mm 0}
-.rule.on{background:rgba(255,255,255,.2)}
+.who .n .tel{display:block;font-size:4.2mm;font-weight:600;margin-top:1.4mm;direction:ltr;
+  text-align:right;letter-spacing:.01em}
 
-/* ── chapter list on the back ── */
-.ch{display:flex;align-items:baseline;gap:2.4mm;padding:2.3mm 0;border-top:.25mm solid var(--line)}
+/* ── chapter list ── */
+.ch{display:flex;align-items:baseline;gap:2.4mm;padding:1.8mm 0;border-top:.25mm solid rgba(255,255,255,.14)}
 .ch:first-child{border-top:none}
 .ch i{font-family:"Cormorant Garamond",Georgia,serif;font-style:normal;direction:ltr;
-  font-size:3.4mm;color:var(--red);font-weight:500;flex:none;width:5mm}
-.ch .c{flex:1}
-.ch .c b{display:block;font-size:3.6mm;font-weight:500;line-height:1.25}
-.ch .c span{display:block;font-size:2.7mm;font-weight:300;color:var(--muted);margin-top:.5mm}
+  font-size:3.4mm;color:#FF5A60;font-weight:500;flex:none;width:5mm}
+.ch .c b{display:block;font-size:3.5mm;font-weight:500;line-height:1.25;color:var(--bone)}
+.ch .c span{display:block;font-size:2.6mm;font-weight:300;color:var(--faint);margin-top:.4mm}
 
-.quote{background:var(--stone);border-radius:3mm;padding:4.4mm;font-size:3.5mm;
-  line-height:1.6;font-weight:300;color:var(--ink2)}
+.quote{background:var(--stone);border-radius:3mm;padding:3.6mm;font-size:3.2mm;
+  line-height:1.54;font-weight:300;color:var(--ink2)}
 .quote b{font-weight:600;color:var(--ink)}
-.cover{width:40mm;display:block;margin:0 auto;border-radius:1.4mm;
+.quote.on{background:#1E2126;color:#CFCAC4}
+.quote.on b{color:var(--bone)}
+.cover{width:31mm;display:block;margin:0 auto;border-radius:1.4mm;
   box-shadow:0 3mm 9mm rgba(0,0,0,.45)}
 
-/* ── concept B front, the idea carries the page ── */
-.big{font-size:13mm;line-height:1.02;font-weight:200;letter-spacing:-.035em}
+/* ── concept B front ── */
+.big{font-size:12.4mm;line-height:1.03;font-weight:200;letter-spacing:-.035em}
 .big b{font-weight:600}
-.statnum{font-size:26mm;line-height:.86;font-weight:200;letter-spacing:-.05em;color:var(--red)}
-.statlab{font-size:3.6mm;font-weight:400;color:var(--ink2);line-height:1.5;margin-top:2mm}
+.statnum{font-size:24mm;line-height:.86;font-weight:200;letter-spacing:-.05em;color:var(--red)}
+.statlab{font-size:3.4mm;font-weight:400;color:var(--ink2);line-height:1.5;margin-top:2mm}
 </style>
 </head>
 <body>
 <div class="shell">
-  <h1>רז מאיר כהן · <b>שתי סקיצות פלאייר</b></h1>
-  <p class="sub">רצועה אנכית 100 על 300 מילימטר, דו צדדית, קיפול 60 מילימטר מהראש.
-  הלשונית היא מה שבולט מתיבת הדואר, ולכן היא נכתבה כך שתעמוד לבד.
-  קוד ה-QR זהה בשני הצדדים ובשני הכיוונים, ומוביל לדף הנחיתה עם תיוג פלאייר, כך שכל סריקה נספרת.</p>
+  <h1>רז מאיר כהן · <b>פלאייר, סבב שני</b></h1>
+  <p class="sub">רצועה אנכית 100 על 300 מילימטר, דו צדדית, קיפול 60 מילימטר מהראש, 5,000 יחידות.
+  <b>השינוי הגדול בסבב הזה: ההצעה וקוד הסריקה עלו אל הלשונית.</b>
+  אם הלשונית היא מה שבולט מתיבת הדואר, היא הדבר היחיד שרוב האנשים יראו, ולכן היא חייבת
+  להיות ניתנת לפעולה בלי שמוציאים את הדף. הכותרת בלשונית נכתבה מתוך מסמך האוואטר, מהרגע
+  שבו הנכס לא זז ואף אחד לא מסביר למה.</p>
 
   <h2>כיוון א · <b>הרחוב</b></h2>
-  <p class="note">פותח בהוכחה. מי שמקבל את זה בתיבה גר ברחוב שבו רז כבר מכר, וזו הטענה היחידה
-  שאי אפשר להתווכח איתה. הלשונית אומרת את זה במשפט אחד, הגוף מראה את העסקאות, וההצעה סוגרת.
-  <b>היתרון:</b> מיידי ומקומי. <b>הסיכון:</b> מדבר קודם על רז ורק אחר כך על הקורא.</p>
+  <p class="note">פותח בכאב ומיד נותן את ההצעה. הגוף מוכר את המדריך בכותרת עצמה, ואז מביא
+  את הכרטיסיות האמיתיות מדף הנחיתה, בלי באנרים ובלי ספירת עסקאות.</p>
   <div class="pair">
 
     <div class="one"><span class="cap">כיוון א · צד קדמי</span>
     <div class="panel">
       <div class="tab" style="background:linear-gradient(150deg,#D82127 0%,#C2151C 48%,#7F0224 100%);color:#fff">
         <div>
-          <div class="k" style="color:#F6C9CB">GIVATAYIM</div>
-          <h3 style="margin-top:3mm;color:#fff;font-weight:300">ברחוב שלכם<br><b>כבר נמכרה דירה.</b></h3>
+          <div class="k" style="color:#F6C9CB">גבעתיים · רמת גן</div>
+          <h3 style="margin-top:2.6mm;color:#fff;font-weight:300;font-size:7.4mm">הנכס שלך בשוק ולא&nbsp;זז,<br><b>ואף אחד לא מסביר לך&nbsp;למה.</b></h3>
         </div>
-        <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:3mm">
-          <div class="sm" style="color:#F2D3D4;font-weight:400">שדה בוקר · המעיין · גבעתיים</div>
+        <div class="tabcta">
+          <div class="qr"><img src="assets/qr.png" alt="סריקה לקבלת המדריך"></div>
+          <div class="t">סרקו וקבלו את ההסבר
+            <span>מדריך בלי עלות, נשלח אליך&nbsp;מיד</span></div>
           <img class="logo" src="assets/logo-light.png" alt="רז מאיר כהן">
         </div>
       </div>
 
       <div class="body">
-        <h3 style="font-size:6.8mm">בגבעתיים לא חסרים&nbsp;מתווכים.<br><b class="r">חסר אחד שינהל לכם את&nbsp;המכירה.</b></h3>
-        <p class="p" style="margin-top:3.2mm">כל מתווך טוב יפרסם, יביא צלם ויכתוב טקסט.
-        ההבדל מתחיל אחרי זה, כשמגיע&nbsp;הקונה.</p>
+        <h3 style="font-size:6.4mm">מה קורה לנכס שלך בשלושת החודשים הראשונים&nbsp;בשוק,<br><b class="r">ואיך לא לבזבז&nbsp;אותם.</b></h3>
+        <p class="p" style="margin-top:3.2mm"><b>7 פרקים ממוקדים, בלי עלות.</b> מה קובע את המחיר בכל שלב,
+        ובסוף צ'קליסט מעשי לבדיקת הנכס&nbsp;שלך.</p>
 
         <div class="rule"></div>
-        <div class="k" style="color:var(--muted)">RECENT · GIVATAYIM</div>
-        <div class="deals" style="margin-top:3mm">
-          <div class="deal"><div class="st"><b>שדה בוקר</b><span>4 חדרים · 106 מ״ר · ממ״ד, חניה ומחסן</span></div><span class="sold">נמכר</span></div>
-          <div class="deal"><div class="st"><b>המעיין</b><span>מיני פנטהאוז · 6 חדרים · 166 מ״ר</span></div><span class="sold">נמכר</span></div>
-          <div class="deal"><div class="st"><b>שדה בוקר</b><span>דירת גן · 4 חדרים · 103 מ״ר + 172 גינה</span></div><span class="sold">נמכר</span></div>
-          <div class="deal"><div class="st"><b>המעיין</b><span>4 חדרים · 103 מ״ר · ממ״ד, חניה ומחסן</span></div><span class="sold">נמכר</span></div>
+        <div class="k" style="color:var(--red)">נמכרו לאחרונה</div>
+        <div class="cards" style="margin-top:3mm">
+          <div class="card"><div class="ph"><img src="assets/d-sdeboker-45.jpg" alt=""></div><div class="sill"></div>
+            <div class="cm"><b>שדה בוקר</b><span>גבעתיים · 4 חדרים, 106 מ״ר</span></div></div>
+          <div class="card"><div class="ph"><img src="assets/d-maayan-pent.jpg" alt=""></div><div class="sill"></div>
+            <div class="cm"><b>המעיין</b><span>גבעתיים · מיני פנטהאוז</span></div></div>
+          <div class="card"><div class="ph"><img src="assets/d-sdeboker-gan.jpg" alt=""></div><div class="sill"></div>
+            <div class="cm"><b>שדה בוקר</b><span>גבעתיים · דירת גן</span></div></div>
+          <div class="card"><div class="ph"><img src="assets/d-maayan-4.jpg" alt=""></div><div class="sill"></div>
+            <div class="cm"><b>המעיין</b><span>גבעתיים · 4 חדרים, 103 מ״ר</span></div></div>
         </div>
-        <p class="sm" style="margin-top:2.6mm">7 עסקאות בגבעתיים, ועוד 5 ברמת גן ובתל&nbsp;אביב.</p>
 
         <div class="grow"></div>
 
         <div class="offer">
-          <div class="qr"><img src="assets/qr.png" alt="סריקה לדף המדריך"></div>
+          <div class="qr"><img src="assets/qr.png" alt="סריקה לקבלת המדריך"></div>
           <div class="t">
-            <b>המדריך למכירת נכס בגבעתיים</b>
-            <span>22 עמודים, בלי עלות. מה קובע את המחיר הסופי, ולמה זה נסגר בשבוע&nbsp;הראשון.</span>
-            <span class="scan"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7V5a2 2 0 0 1 2-2h2M17 3h2a2 2 0 0 1 2 2v2M21 17v2a2 2 0 0 1-2 2h-2M7 21H5a2 2 0 0 1-2-2v-2M3 12h18"/></svg>סרקו את&nbsp;הקוד</span>
+            <b>סרקו וקבלו את מה שאף אחד לא אומר&nbsp;לך</b>
+            <span>על המחיר שביקשת, על מי שמגיע לראות, ועל מה שבאמת עוצר את&nbsp;המכירה.</span>
           </div>
         </div>
 
@@ -173,7 +198,7 @@ h3 .r{color:var(--red)}
           <img class="face" src="assets/raz.png" alt="רז מאיר כהן">
           <div class="n">
             <b>רז מאיר כהן</b>
-            <span>מתווך בגבעתיים וברמת&nbsp;גן<br>מקבוצת תום&nbsp;הרוש</span>
+            <span>מתווך נדל״ן בגבעתיים וברמת&nbsp;גן<br>מקבוצת תום&nbsp;הרוש</span>
             <span class="tel">054-426-3355</span>
           </div>
         </div>
@@ -184,25 +209,27 @@ h3 .r{color:var(--red)}
     <div class="panel onink" style="background:var(--ink)">
       <div class="tab" style="color:#fff">
         <div>
-          <div class="k" style="color:#9A9AA0">THE FIRST 90 DAYS</div>
-          <h3 style="margin-top:3mm;color:var(--bone);font-weight:200">המדריך שרוב בעלי הנכסים<br><b>היו רוצים לקרוא קודם.</b></h3>
+          <div class="k" style="color:#FF5A60">90 הימים הראשונים</div>
+          <h3 style="margin-top:2.6mm;color:var(--bone);font-weight:200;font-size:7.2mm">המדריך שרוב בעלי הנכסים היו&nbsp;רוצים<br><b style="color:#FF5A60">לקרוא לפני שמוציאים נכס&nbsp;לשוק.</b></h3>
         </div>
-        <div class="sm" style="color:#9A9AA0">נכתב על ידי רז מאיר כהן · 22&nbsp;עמודים</div>
+        <div class="sm" style="color:#9A9AA0">נכתב על ידי רז מאיר כהן · 7 פרקים פרקטיים&nbsp;וממוקדים</div>
       </div>
 
       <div class="body" style="color:var(--bone)">
-        <div class="k" style="color:#9A9AA0">INSIDE</div>
-        <div style="margin-top:3mm">
-          <div class="ch" style="border-color:rgba(255,255,255,.14)"><i>01</i><div class="c"><b style="color:var(--bone)">החלון</b><span style="color:#9A9AA0">למה המחיר הסופי נקבע בשבוע הראשון</span></div></div>
-          <div class="ch" style="border-color:rgba(255,255,255,.14)"><i>02</i><div class="c"><b style="color:var(--bone)">המחיר</b><span style="color:#9A9AA0">שלושה מספרים על השולחן, ורק אחד קובע</span></div></div>
-          <div class="ch" style="border-color:rgba(255,255,255,.14)"><i>03</i><div class="c"><b style="color:var(--bone)">החשיפה</b><span style="color:#9A9AA0">למה חמישה מתווכים זה לא חמש הזדמנויות</span></div></div>
-          <div class="ch" style="border-color:rgba(255,255,255,.14)"><i>04</i><div class="c"><b style="color:var(--bone)">הסינון</b><span style="color:#9A9AA0">מי בכלל נכנס אליכם הביתה</span></div></div>
-          <div class="ch" style="border-color:rgba(255,255,255,.14)"><i>05</i><div class="c"><b style="color:var(--bone)">אחרי 90 יום</b><span style="color:#9A9AA0">איך מאבחנים נכס שנתקע, ומה עושים</span></div></div>
+        <div class="k" style="color:#FF5A60">מה מחכה לך בפנים</div>
+        <div style="margin-top:2.6mm">
+          <div class="ch"><i>01</i><div class="c"><b>החלון</b><span>למה המחיר הסופי נקבע בשבוע הראשון</span></div></div>
+          <div class="ch"><i>02</i><div class="c"><b>המחיר</b><span>שלושה מספרים על השולחן, ורק אחד קובע</span></div></div>
+          <div class="ch"><i>03</i><div class="c"><b>החשיפה</b><span>למה חמישה מתווכים זה לא חמש הזדמנויות</span></div></div>
+          <div class="ch"><i>04</i><div class="c"><b>הסינון</b><span>מי בכלל נכנס אליך הביתה</span></div></div>
+          <div class="ch"><i>05</i><div class="c"><b>המשא ומתן</b><span>השלב שבו המחיר באמת נסגר</span></div></div>
+          <div class="ch"><i>06</i><div class="c"><b>אחרי 90 יום</b><span>איך מאבחנים נכס שנתקע, ומה עושים</span></div></div>
+          <div class="ch"><i>07</i><div class="c"><b>הצ'קליסט</b><span>שמונה שאלות לבדיקת הנכס שלך, למילוי בבית</span></div></div>
         </div>
 
-        <div class="quote" style="background:#1E2126;color:#CFCAC4;margin-top:4.5mm">
-          בשבועיים הראשונים הנכס שלכם מקבל את מירב תשומת הלב שיקבל אי&nbsp;פעם.
-          <b style="color:var(--bone)">מה שקורה בתוך החלון הזה קובע כמעט&nbsp;הכול.</b>
+        <div class="quote on" style="margin-top:3.6mm">
+          ב-90 הימים הראשונים הנכס שלך מקבל את מירב תשומת הלב שיקבל אי&nbsp;פעם.
+          <b>מה שקורה בתוך החלון הזה קובע כמעט&nbsp;הכול.</b>
         </div>
 
         <div class="grow"></div>
@@ -210,10 +237,10 @@ h3 .r{color:var(--red)}
         <div class="grow"></div>
 
         <div class="offer red">
-          <div class="qr"><img src="assets/qr.png" alt="סריקה לדף המדריך"></div>
+          <div class="qr"><img src="assets/qr.png" alt="סריקה לקבלת המדריך"></div>
           <div class="t">
-            <b>סרקו וקבלו את המדריך</b>
-            <span>נשלח אליכם מיד, בלי עלות ובלי&nbsp;התחייבות.</span>
+            <b>סרקו וקבלו את מה שאף אחד לא אומר&nbsp;לך</b>
+            <span>נשלח אליך באופן אישי, בלי עלות ובלי&nbsp;התחייבות.</span>
           </div>
         </div>
 
@@ -221,9 +248,9 @@ h3 .r{color:var(--red)}
         <div style="display:flex;align-items:center;justify-content:space-between;gap:3mm">
           <div>
             <b style="font-size:4.2mm;font-weight:500">רז מאיר כהן</b>
-            <span class="tel" style="display:block;font-size:4.2mm;font-weight:600;direction:ltr;text-align:right;margin-top:1.4mm">054-426-3355</span>
+            <span style="display:block;font-size:4.2mm;font-weight:600;direction:ltr;text-align:right;margin-top:1.4mm">054-426-3355</span>
           </div>
-          <img class="logo" src="assets/logo-group-light.png" alt="מקבוצת תום הרוש">
+          <img class="logo" style="height:13mm" src="assets/logo-group-light.png" alt="מקבוצת תום הרוש">
         </div>
       </div>
     </div></div>
@@ -231,20 +258,22 @@ h3 .r{color:var(--red)}
   </div>
 
   <h2>כיוון ב · <b>החלון</b></h2>
-  <p class="note">פותח ברעיון, לא ברז. הלשונית אומרת משפט שבעל נכס לא שמע קודם, והוא מרגיש
-  כמו מידע ולא כמו פרסומת. זה גם התחליף האמיתי לפומו: לא הנחה שנגמרת, אלא שעון שכבר&nbsp;רץ.
-  <b>היתרון:</b> סקרנות אמיתית. <b>הסיכון:</b> דורש קריאה של שתי שניות ולא של אחת.</p>
+  <p class="note">פותח ברעיון. הלשונית קושרת את גורל המכירה לתשעים הימים ומיד מציעה את
+  המדריך כדרך לא לפספס אותם. הצד האחורי עבר מרז אל הקורא: הכותרת מדברת על התוצאה ועל
+  הזמן, והציטוט הוא המענה להתנגדות מתוך דף הנחיתה.</p>
   <div class="pair">
 
     <div class="one"><span class="cap">כיוון ב · צד קדמי</span>
     <div class="panel onink">
       <div class="tab" style="background:var(--ink);color:#fff">
         <div>
-          <div class="k" style="color:#E08A8E">THE WINDOW</div>
-          <h3 style="margin-top:3mm;color:var(--bone);font-weight:200">המחיר שלכם נקבע<br><b class="r" style="color:#FF5A60">בשבוע הראשון.</b></h3>
+          <div class="k" style="color:#FF5A60">לבעלי נכסים בגבעתיים וברמת גן</div>
+          <h3 style="margin-top:2.6mm;color:var(--bone);font-weight:200;font-size:7.4mm">גורל מכירת הנכס&nbsp;שלך<br><b style="color:#FF5A60">נקבע ב-90 הימים&nbsp;הראשונים.</b></h3>
         </div>
-        <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:3mm">
-          <div class="sm" style="color:#9A9AA0;font-weight:400">לא ביום שחתמתם.</div>
+        <div class="tabcta">
+          <div class="qr"><img src="assets/qr.png" alt="סריקה לקבלת המדריך"></div>
+          <div class="t">איך לא לפספס את 90 הימים&nbsp;שלך
+            <span>סרקו וקבלו את המדריך, בלי&nbsp;עלות</span></div>
           <img class="logo" src="assets/logo-light.png" alt="רז מאיר כהן">
         </div>
       </div>
@@ -252,8 +281,8 @@ h3 .r{color:var(--red)}
       <div class="body">
         <p class="big">רוב בעלי הנכסים<br>מגלים את זה<br><b>מאוחר&nbsp;מדי.</b></p>
 
-        <p class="p" style="margin-top:5mm">מהרגע שהנכס עולה לאוויר מתחיל שעון.
-        בשבועיים הראשונים כל מי שמחפש נכס כמו שלכם בגבעתיים רואה&nbsp;אותו.
+        <p class="p" style="margin-top:4.6mm">מהרגע שהנכס עולה לאוויר מתחיל שעון.
+        בשבועיים הראשונים כל מי שמחפש נכס כמו שלך בגבעתיים רואה&nbsp;אותו.
         <b>זה החלון.</b> מה שקורה בתוכו קובע את המחיר שתקבלו בסוף, גם אם העסקה
         תיסגר רק עוד שלושה&nbsp;חודשים.</p>
 
@@ -265,17 +294,16 @@ h3 .r{color:var(--red)}
         </div>
         <div class="rule"></div>
 
-        <p class="p">במדריך של 22 העמודים אני מפרק את תשעים הימים הראשונים
-        לשלבים, ומראה מה קובע את המחיר בכל אחד&nbsp;מהם.</p>
+        <p class="p">במדריך ממוקד עם 7 פרקים פרקטיים אני מפרק את תשעים הימים הראשונים
+        לשלבים, ומראה מה קובע את גורל המכירה בכל אחד&nbsp;מהם.</p>
 
         <div class="grow"></div>
 
         <div class="offer red">
-          <div class="qr"><img src="assets/qr.png" alt="סריקה לדף המדריך"></div>
+          <div class="qr"><img src="assets/qr.png" alt="סריקה לקבלת המדריך"></div>
           <div class="t">
-            <b>90 הימים הראשונים</b>
-            <span>המדריך למכירת נכס בגבעתיים. בלי&nbsp;עלות.</span>
-            <span class="scan"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7V5a2 2 0 0 1 2-2h2M17 3h2a2 2 0 0 1 2 2v2M21 17v2a2 2 0 0 1-2 2h-2M7 21H5a2 2 0 0 1-2-2v-2M3 12h18"/></svg>סרקו את&nbsp;הקוד</span>
+            <b>סרקו וקבלו את מה שאף אחד לא אומר&nbsp;לך</b>
+            <span>90 הימים הראשונים. 7 פרקים ממוקדים וצ'קליסט לנכס&nbsp;שלך.</span>
           </div>
         </div>
 
@@ -284,7 +312,7 @@ h3 .r{color:var(--red)}
           <img class="face" src="assets/raz.png" alt="רז מאיר כהן">
           <div class="n">
             <b>רז מאיר כהן</b>
-            <span>מתווך בגבעתיים וברמת&nbsp;גן<br>מקבוצת תום&nbsp;הרוש</span>
+            <span>מתווך נדל״ן בגבעתיים וברמת&nbsp;גן<br>מקבוצת תום&nbsp;הרוש</span>
             <span class="tel">054-426-3355</span>
           </div>
         </div>
@@ -295,46 +323,49 @@ h3 .r{color:var(--red)}
     <div class="panel">
       <div class="tab" style="background:var(--stone)">
         <div>
-          <div class="k" style="color:var(--red)">GIVATAYIM · RAMAT GAN</div>
-          <h3 style="margin-top:3mm;font-weight:200">12 דירות נמכרו.<br><b>7 מהן כאן&nbsp;בשכונה.</b></h3>
+          <div class="k" style="color:var(--red)">גבעתיים · רמת גן</div>
+          <h3 style="margin-top:2.6mm;font-weight:200;font-size:7.4mm">השאלה היא לא רק אם&nbsp;תמכרו.<br><b>אלא באיזה מחיר, ותוך כמה&nbsp;זמן.</b></h3>
         </div>
         <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:3mm">
-          <div class="sm" style="font-weight:400">שדה בוקר · המעיין · גבעתיים</div>
+          <div class="sm" style="font-weight:400">ההבדל מתחיל אחרי שמגיע&nbsp;הקונה.</div>
           <img class="logo" src="assets/logo-dark.png" alt="רז מאיר כהן">
         </div>
       </div>
 
       <div class="body">
-        <div class="deals">
-          <div class="deal"><div class="st"><b>שדה בוקר, גבעתיים</b><span>4 חדרים · 106 מ״ר · קומה 1</span></div><span class="sold">נמכר</span></div>
-          <div class="deal"><div class="st"><b>המעיין, גבעתיים</b><span>מיני פנטהאוז · 166 מ״ר + 46 מרפסת</span></div><span class="sold">נמכר</span></div>
-          <div class="deal"><div class="st"><b>שדה בוקר, גבעתיים</b><span>דירת גן · 103 מ״ר + 172 גינה</span></div><span class="sold">נמכר</span></div>
-          <div class="deal"><div class="st"><b>המעיין, גבעתיים</b><span>4 חדרים · 103 מ״ר · קומה 1</span></div><span class="sold">נמכר</span></div>
-          <div class="deal"><div class="st"><b>הרא״ה, רמת גן</b><span>3 חדרים · 70 מ״ר · נמכר תוך 7 ימים</span></div><span class="sold">נמכר</span></div>
+        <div class="k" style="color:var(--red)">נמכרו לאחרונה</div>
+        <div class="rows" style="margin-top:3mm">
+          <div class="row"><div class="ph"><img src="assets/d-maayan-3.jpg" alt=""></div>
+            <div class="cm"><b>המעיין, גבעתיים</b><span>3 חדרים · 77 מ״ר + מרפסת</span></div></div>
+          <div class="row"><div class="ph"><img src="assets/d-sdeboker-535.jpg" alt=""></div>
+            <div class="cm"><b>שדה בוקר, גבעתיים</b><span>4 חדרים · 114 מ״ר + מרפסת</span></div></div>
+          <div class="row"><div class="ph"><img src="assets/d-maayan-gan.jpg" alt=""></div>
+            <div class="cm"><b>המעיין, גבעתיים</b><span>דירת גן · 103 מ״ר + 147 גינה</span></div></div>
         </div>
 
-        <div class="quote" style="margin-top:4.5mm">
-          <b>אני לא מנהל עשרה נכסים במקביל.</b> כשאני לוקח נכס, אני יושב מול בעלי הנכס
-          ומנהל את המכירה מהיום הראשון ועד&nbsp;החתימה.
+        <div class="quote" style="margin-top:3.6mm">
+          <b>יש שאלות שלא תמיד נוח לבעל נכס לשאול קונה&nbsp;ישירות.</b>
+          אני כן שואל אותן, מבין עד כמה הקונה רציני ומה יגרום לו להתקדם,
+          ומשתמש במידע הזה כדי לנהל נכון יותר את המכירה והמשא&nbsp;ומתן.
         </div>
 
         <div class="grow"></div>
 
         <div class="who" style="align-items:flex-end">
-          <img class="face" src="assets/raz.png" alt="רז מאיר כהן" style="width:31mm">
+          <img class="face" src="assets/raz.png" alt="רז מאיר כהן" style="width:26mm">
           <div class="n">
-            <b style="font-size:5mm">רז מאיר כהן</b>
-            <span>מתווך בגבעתיים וברמת&nbsp;גן<br>מקבוצת תום הרוש, קבוצה בת 16&nbsp;שנה</span>
+            <b style="font-size:4.8mm">רז מאיר כהן</b>
+            <span>מתווך נדל״ן בגבעתיים וברמת&nbsp;גן<br>מקבוצת תום הרוש, קבוצה בת 16&nbsp;שנה</span>
           </div>
         </div>
 
         <div class="rule"></div>
         <div class="offer">
-          <div class="qr"><img src="assets/qr.png" alt="סריקה לדף המדריך"></div>
+          <div class="qr"><img src="assets/qr.png" alt="סריקה לקבלת המדריך"></div>
           <div class="t">
-            <b>סרקו וקבלו את המדריך</b>
+            <b>סרקו וקבלו את מה שאף אחד לא אומר&nbsp;לך</b>
             <span>או התקשרו ישירות</span>
-            <span class="tel" style="display:block;color:#fff;font-size:4.6mm;font-weight:600;direction:ltr;text-align:right;margin-top:1.2mm">054-426-3355</span>
+            <span style="display:block;color:#fff;font-size:4.4mm;font-weight:600;direction:ltr;text-align:right;margin-top:1mm">054-426-3355</span>
           </div>
         </div>
       </div>
@@ -345,7 +376,7 @@ h3 .r{color:var(--red)}
   <p class="spec"><b>מפרט לבית הדפוס.</b>
   גיליון 100 על 300 מילימטר, הדפסה דו צדדית, קיפול אחד 60 מילימטר מהראש.
   שוליים פנימיים 9 מילימטר. בלידים 3 מילימטר מעבר לקו החיתוך בכל צד.
-  הקוד בשני הצדדים זהה ומוביל ל-tom-harush.co.il/raz-meir-cohen עם תיוג פלאייר.
+  הקוד זהה בכל המופעים ומוביל ל-tom-harush.co.il/raz-meir-cohen עם תיוג פלאייר.
   כמות 5,000.</p>
 </div>
 </body>
