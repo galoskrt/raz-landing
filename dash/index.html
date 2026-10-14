@@ -134,6 +134,8 @@ header .who span{font-size:11.5px;color:var(--faint)}
 .srow .hi{color:var(--stone);font-weight:500}
 .srow.tot2{border-top:1px solid var(--line2,var(--line));margin-top:2px}
 .srow.tot2 span:first-child{color:var(--dim);font-size:12.5px}
+.srow.waiting{opacity:.52}
+.srow.waiting .hi{font-size:11.5px;font-weight:400;color:var(--faint)}
 .sfoot{margin-top:10px;padding-top:9px;border-top:1px solid var(--line);
   font-size:12.5px;color:var(--dim)}
 .sfoot b{color:var(--stone);font-weight:500}
@@ -471,9 +473,19 @@ function renderPerf() {
     const a = agg[v.src] || (agg[v.src] = { views: 0, leads: 0 });
     a.views += v.views; a.leads += v.leads;
   });
+  /* The two printed codes are always listed, even at zero. They went to press
+     against this table, and a channel that is missing from it reads as a
+     measurement that was never connected rather than one that is waiting. The
+     rest of the rows appear the moment a visit arrives from them. */
+  const PINNED = ["flyer", "card"];
+  PINNED.forEach(k => { if (!agg[k]) agg[k] = { views: 0, leads: 0 }; });
   const bySource = Object.keys(agg)
     .map(k => ({ key: k, label: SRC_HE[k] || k, views: agg[k].views, leads: agg[k].leads }))
-    .sort((a, b) => b.views - a.views);
+    .sort((a, b) => b.views - a.views ||
+      /* among the ones still at zero, keep the order they were pinned in: the
+         flyer is the campaign that is actually about to run. */
+      (PINNED.indexOf(a.key) + 1 || 99) - (PINNED.indexOf(b.key) + 1 || 99) ||
+      a.label.localeCompare(b.label, "he"));
   const totalViews = bySource.reduce((a, b) => a + b.views, 0);
   const totalFromPage = bySource.reduce((a, b) => a + b.leads, 0);
   const manual = L.filter(l => l.source === "manual").length;
@@ -499,19 +511,21 @@ function renderPerf() {
     "<div class='src'><h4>כניסות לדף, ומה יצא מהן</h4>" +
       "<div class='srow shead'><span>מקור</span>" +
         "<span class='sm'>כניסות</span><span class='sm'>הורידו</span><span class='sm'>אחוז</span></div>" +
-      (bySource.length ? bySource.map(b =>
-        "<div class='srow'><span>" + esc(b.label) + "</span>" +
+      bySource.map(b =>
+        "<div class='srow" + (b.views ? "" : " waiting") + "'><span>" + esc(b.label) + "</span>" +
         "<b class='sm'>" + b.views + "</b>" +
         "<b class='sm'>" + b.leads + "</b>" +
-        "<span class='sm hi'>" + pct(b.leads, b.views) + "</span></div>").join("")
-        : "<div class='srow'><span class='sm'>עוד לא נרשמו כניסות בטווח הזה.</span></div>") +
+        "<span class='sm hi'>" + (b.views ? pct(b.leads, b.views) : "ממתין") +
+        "</span></div>").join("") +
       (totalViews ? "<div class='srow tot2'><span>סך הכל</span>" +
         "<b class='sm'>" + totalViews + "</b><b class='sm'>" + totalFromPage + "</b>" +
         "<span class='sm hi'>" + pct(totalFromPage, totalViews) + "</span></div>" : "") +
       (manual ? "<div class='sfoot'>בנוסף <b>" + manual + "</b> " +
         (manual === 1 ? "ליד הוזן" : "לידים הוזנו") + " ידנית בדשבורד, בלי לעבור דרך הדף.</div>" : "") +
     "</div>" +
-    "<div class='note'>כל קוד QR וכל קישור נושא תג משלו, ולכן אפשר לראות בנפרד " +
+    "<div class='note'><b>שתי שורות ה-QR מופיעות כאן תמיד, גם לפני הסריקה הראשונה.</b> " +
+    "הן מסומנות ממתין עד שתגיע אליהן כניסה, כדי שיהיה ברור שהמדידה מחוברת ולא חסרה.<br>" +
+    "כל קוד QR וכל קישור נושא תג משלו, ולכן אפשר לראות בנפרד " +
     "כמה אנשים סרקו את הפלאייר, כמה סרקו את כרטיס הביקור, וכמה מכל אחד מהם " +
     "באמת הורידו את המדריך. <b>העמודה שקובעת היא אחוז.</b> " +
     "מאה כניסות עם אחוז נמוך אומרות שהדף לא שכנע. עשר כניסות עם אחוז גבוה אומרות " +
