@@ -13,7 +13,7 @@ Credentials live in tools/.ftp.json and are gitignored:
 
     {"host": "...", "user": "...", "password": "...", "dir": "/"}
 """
-import io, os, sys, json, ftplib, hashlib, posixpath
+import io, os, sys, json, ftplib, hashlib, posixpath, datetime
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CONF = os.path.join(ROOT, "tools", ".ftp.json")
@@ -162,20 +162,43 @@ def main():
             ftp.cwd(part)
         except ftplib.error_perm:
             ftp.mkd(part); ftp.cwd(part); print("  created remote %s" % part)
-    for name in sorted(os.listdir(os.path.join(ROOT, DASH_LOCAL))):
+    """The host caches the directory URL and will not be told otherwise.
+
+    /raz-leads/ keeps serving a previous build for an unknown time while
+    /raz-leads/?v=... is current, and the directory URL is the one Raz and Gal
+    actually open, so they were the only two people seeing a stale dashboard,
+    with nothing on screen to say so. Neither .htaccess nor a request header
+    reaches that cache.
+
+    So the build stamp travels with the page. Every dashboard file gets the
+    same stamp substituted into its bytes on the way up, and build.txt carries
+    it alone. The page fetches build.txt with a query string, which is the one
+    shape that always bypasses the cache, and reloads itself once if it is
+    looking at an older build than the server has.
+
+    Substituting at upload time keeps the stamp out of the source file, so a
+    deploy never shows up as a diff.
+    """
+    stamp = datetime.datetime.utcnow().strftime("%Y%m%d%H%M%S")
+    names = [n for n in sorted(os.listdir(os.path.join(ROOT, DASH_LOCAL)))
+             if os.path.isfile(os.path.join(ROOT, DASH_LOCAL, n))]
+    for name in names:
         full = os.path.join(ROOT, DASH_LOCAL, name)
-        if not os.path.isfile(full):
-            continue
         key = "dash/" + name
         digest = sha1(full)
         fresh[key] = digest
         if manifest.get(key) == digest:
             skipped += 1
             continue
-        with open(full, "rb") as fh:
-            ftp.storbinary("STOR " + name, fh)
+        raw = open(full, "rb").read().replace(b"{{BUILD}}", stamp.encode())
+        ftp.storbinary("STOR " + name, io.BytesIO(raw))
         print("  up  %-34s %6.1f KB  -> /raz-leads/" % (key, os.path.getsize(full) / 1024.0))
         sent += 1
+
+    # the stamp on its own, always written, so a page that was served from the
+    # cache can find out what the current build is
+    ftp.storbinary("STOR build.txt", io.BytesIO(stamp.encode()))
+    print("  up  %-34s        -> /raz-leads/ (build %s)" % ("dash/build.txt", stamp))
 
     ftp.quit()
     io.open(MANIFEST, "w", encoding="utf-8").write(json.dumps(fresh, indent=1, sort_keys=True))

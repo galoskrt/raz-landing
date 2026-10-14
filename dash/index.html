@@ -2,6 +2,7 @@
 <html dir="rtl" lang="he">
 <head>
 <meta charset="utf-8">
+<meta name="build" content="{{BUILD}}">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#14161A">
@@ -56,7 +57,10 @@ header .who span{font-size:11.5px;color:var(--faint)}
 .ghost:disabled{opacity:.3}
 .ghost.on{border-color:var(--stone);color:var(--bone)}
 
-.tabs{display:flex;gap:6px;padding:12px 16px 0}
+.tabs{display:flex;gap:6px;padding:12px 16px 0;align-items:center}
+.tabs select{flex:none;height:38px;max-width:118px;border-radius:11px;padding:0 10px;
+  font-size:13px;background:var(--ink2);border:1px solid var(--line);color:var(--bone)}
+.tabs select:focus{outline:none;border-color:var(--line2)}
 .tabs button{flex:1;height:38px;border-radius:11px;font-size:13.5px;color:var(--muted);
   border:1px solid var(--line)}
 .tabs button.on{background:var(--ink2);color:var(--bone);border-color:var(--line2)}
@@ -120,7 +124,10 @@ header .who span{font-size:11.5px;color:var(--faint)}
 .kpi b{font-size:23px;font-weight:300}
 .kpi.wide{grid-column:1 / -1}
 .src{margin-top:14px;padding:16px 18px;border:1px solid var(--line);border-radius:14px}
-.src h4{margin:0 0 10px;font-size:13px;font-weight:500;color:var(--dim)}
+.src h4{margin:0 0 10px;font-size:13px;font-weight:500;color:var(--dim);
+  display:flex;align-items:baseline;gap:7px}
+.src h4 .win{font-size:11.5px;color:var(--bone);background:var(--ink2);
+  border:1px solid var(--line2);border-radius:999px;padding:2px 9px}
 .srow{display:flex;align-items:baseline;gap:10px;padding:7px 0;border-top:1px solid var(--line)}
 .srow:first-of-type{border-top:none}
 .srow span:first-child{flex:1}
@@ -211,18 +218,18 @@ header .who span{font-size:11.5px;color:var(--faint)}
   <div class="tabs">
     <button id="t_leads" class="on">לידים</button>
     <button id="t_perf">ביצועים</button>
+    <select id="fd" aria-label="טווח תאריכים">
+      <option value="0">כל הזמן</option>
+      <option value="1">היום</option>
+      <option value="7">שבעה ימים</option>
+      <option value="30">שלושים יום</option>
+    </select>
   </div>
 
   <div id="leadsView">
     <div class="bar">
       <input id="q" placeholder="חיפוש לפי שם או טלפון">
       <select id="fs"><option value="">כל הסטטוסים</option></select>
-      <select id="fd">
-        <option value="0">כל הזמן</option>
-        <option value="1">היום</option>
-        <option value="7">שבעה ימים</option>
-        <option value="30">שלושים יום</option>
-      </select>
     </div>
     <div class="tot" id="tot"></div>
     <div id="list"></div>
@@ -240,6 +247,33 @@ const SITE = "https://tom-harush.co.il/raz-meir-cohen";
 const LIVE_WINDOW = 45000;   // a heartbeat this fresh means they are reading right now
 const POLL = 10000;
 const DEAD = ["לא רלוונטי", "מספר לא תקין", "נמכר"];
+
+/* ── am I the current build? ──────────────────────────────────────────
+   The host caches this page under its directory URL and serves a previous
+   build from it, sometimes for hours, while the same file with a query string
+   is current. That URL is the one actually opened, so the stale copy is the
+   one people see, and a dashboard that quietly shows yesterday is worse than
+   one that is slow.
+
+   A query string is the single request shape that always reaches the real
+   file, so that is how build.txt is fetched. If the server is on a newer
+   build than this page, reload once through a URL the cache cannot answer.
+   Once per tab, and never without a stamp to compare against, so a failed
+   fetch or a missing file can never put the page in a loop. */
+(function () {
+  var mine = (document.querySelector('meta[name="build"]') || {}).content || "";
+  if (!mine || mine.indexOf("{{") === 0) return;        // running from source
+  try { if (sessionStorage.getItem("raz_reload")) return; } catch (e) {}
+  fetch("build.txt?t=" + Date.now(), { cache: "no-store" })
+    .then(function (r) { return r.ok ? r.text() : ""; })
+    .then(function (live) {
+      live = (live || "").trim();
+      if (!live || live === mine) return;
+      try { sessionStorage.setItem("raz_reload", "1"); } catch (e) {}
+      location.replace(location.pathname + "?v=" + live);
+    })
+    .catch(function () {});
+})();
 
 let TOKEN = localStorage.getItem("raz_tok") || "";
 let LEADS = [], STATUSES = [], UNDO = [], TAB = "leads", timer = null;
@@ -508,7 +542,9 @@ function renderPerf() {
       kpi("נמכרו", sold) +
       kpi("הכנסה מדמי תיווך", revenue ? "₪" + revenue.toLocaleString("he-IL") : "0") +
     "</div>" +
-    "<div class='src'><h4>כניסות לדף, ומה יצא מהן</h4>" +
+    "<div class='src'><h4>כניסות לדף, ומה יצא מהן" +
+      (fd ? "<span class='win'>" + ($("#fd").selectedOptions[0].textContent) + "</span>" : "") +
+      "</h4>" +
       "<div class='srow shead'><span>מקור</span>" +
         "<span class='sm'>כניסות</span><span class='sm'>הורידו</span><span class='sm'>אחוז</span></div>" +
       bySource.map(b =>

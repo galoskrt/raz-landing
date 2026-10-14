@@ -5,4 +5,18 @@ Options -Indexes
 RewriteEngine Off
 <IfModule mod_headers.c>
   Header set X-Robots-Tag "noindex, nofollow, noarchive"
+
+  # A dashboard is a live tool, not a page. The server was caching the
+  # directory URL and serving yesterday's build from it, while the explicit
+  # /index.html stayed current: Raz and Gal open the directory URL, so they
+  # were the only two people seeing the stale copy, with nothing on screen
+  # saying so. Never cache this.
+  Header set Cache-Control "no-store, no-cache, must-revalidate, max-age=0"
+  Header set Pragma "no-cache"
+</IfModule>
+
+# LiteSpeed and the nginx layer in front read their own directives, not
+# Cache-Control alone.
+<IfModule LiteSpeed>
+  CacheDisable public /
 </IfModule>
