@@ -82,6 +82,10 @@ h3 .r{color:var(--red)}
 .tabcta .qr img{width:100%;height:100%;display:block}
 .tabcta .t{flex:1;min-width:0;font-size:3.1mm;line-height:1.35;font-weight:500}
 .tabcta .t span{display:block;font-weight:300;font-size:2.8mm;margin-top:.8mm}
+.tablogos{flex:none;display:flex;flex-direction:column;align-items:center;gap:1.3mm}
+.tablogos .logo{height:6.4mm}
+.tablogos .th{background:#fff;border-radius:1.1mm;padding:.8mm 1.4mm;display:block}
+.tablogos .th img{height:5mm;display:block}
 
 /* ── sold recently ───────────────────────────────────────────────────
    The same card as the landing page, arch and red sill and all, only small
@@ -122,6 +126,9 @@ h3 .r{color:var(--red)}
 .who .n span{display:block;font-size:2.8mm;font-weight:300;color:var(--muted);margin-top:1mm;line-height:1.5}
 .who .n .tel{display:block;font-size:4.2mm;font-weight:600;margin-top:1.4mm;direction:ltr;
   text-align:right;letter-spacing:.01em}
+.bio{margin-top:2.6mm;font-size:2.85mm;line-height:1.55;font-weight:300;color:var(--ink2)}
+.bio[data-placeholder]{color:var(--muted);background:var(--stone);border-radius:2mm;
+  padding:2.4mm 2.8mm;border:.25mm dashed var(--line2)}
 
 /* ── chapter list ── */
 .ch{display:flex;align-items:baseline;gap:2.4mm;padding:1.8mm 0;border-top:.25mm solid rgba(255,255,255,.14)}
@@ -178,14 +185,17 @@ h3 .r{color:var(--red)}
     <div class="panel">
       <div class="tab" style="background:linear-gradient(150deg,#D82127 0%,#C2151C 48%,#7F0224 100%);color:#fff">
         <div>
-          <div class="k" style="color:#F6C9CB">גבעתיים · רמת גן</div>
-          <h3 style="margin-top:2.6mm;color:#fff;font-weight:300;font-size:6.8mm">הנכס שלך בשוק ולא&nbsp;זז,<br><b>ואף אחד לא מסביר לך&nbsp;למה.</b></h3>
+          <div class="k" style="color:#F6C9CB">90 הימים הראשונים</div>
+          <h3 style="margin-top:2mm;color:#fff;font-weight:300;font-size:5.6mm">המדריך שרוב בעלי הנכסים היו&nbsp;רוצים<br><b>לקרוא לפני שמוציאים נכס&nbsp;לשוק.</b></h3>
         </div>
         <div class="tabcta">
           <div class="qr"><img src="assets/qr.svg" alt="סריקה לקבלת המדריך"></div>
           <div class="t">סרקו וקבלו את ההסבר
             <span>מדריך בלי עלות. אני שולח לך אותו&nbsp;אישית</span></div>
-          <img class="logo" src="assets/logo-light.png" alt="רז מאיר כהן">
+          <div class="tablogos">
+            <img class="logo" src="assets/logo-light.png" alt="רז מאיר כהן">
+            <span class="th"><img src="assets/logo-th.png" alt="קבוצת תום הרוש"></span>
+          </div>
         </div>
       </div>
 
@@ -226,6 +236,8 @@ h3 .r{color:var(--red)}
             <span class="tel">054-426-3355</span>
           </div>
         </div>
+        <p class="bio" data-placeholder>כאן ייכנס הטקסט שרז יכתוב על עצמו, שלוש עד שבע
+        שורות. המקום שמור והעיצוב מוכן, והטקסט הזה יוחלף במילים שלו ברגע שהוא ישלח&nbsp;אותן.</p>
         <div class="lock">
           <img class="rz" src="assets/logo-dark.png" alt="רז מאיר כהן">
           <div class="sep"></div>
@@ -238,8 +250,8 @@ h3 .r{color:var(--red)}
     <div class="panel onink" style="background:var(--ink)">
       <div class="tab" style="color:#fff">
         <div>
-          <div class="k" style="color:#FF5A60">90 הימים הראשונים</div>
-          <h3 style="margin-top:2.6mm;color:var(--bone);font-weight:200;font-size:6.7mm">המדריך שרוב בעלי הנכסים היו&nbsp;רוצים<br><b style="color:#FF5A60">לקרוא לפני שמוציאים נכס&nbsp;לשוק.</b></h3>
+          <div class="k" style="color:#FF5A60">גבעתיים · רמת גן</div>
+          <h3 style="margin-top:2.6mm;color:var(--bone);font-weight:200;font-size:6.7mm">הנכס שלך בשוק ולא&nbsp;זז,<br><b style="color:#FF5A60">ואף אחד לא מסביר לך&nbsp;למה.</b></h3>
         </div>
         <div class="sm" style="color:#9A9AA0">נכתב על ידי רז מאיר כהן · 7 פרקים&nbsp;פרקטיים.<br>
           <b style="color:var(--bone);font-weight:500">כל אחד מהם עלה למישהו כסף לפני&nbsp;שנכתב.</b></div>

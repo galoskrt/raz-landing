@@ -39,6 +39,11 @@ NAMES = [u"א-קדמי", u"א-אחורי",
          u"ב-קדמי", u"ב-אחורי"]
 
 TRIM_W, TRIM_H, BLEED, MARK = 100.0, 300.0, 3.0, 3.0
+# The finished flyer is folded at the crease, so the tab hangs the other way up.
+# Printed as drawn it would read upside down in the hand; printed rotated it
+# reads correctly folded and upside down flat, which is how press sheets for
+# folded work normally look. Pass "flat" to export the unfolded reading order.
+FOLD = "flat" not in sys.argv
 PAGE_W = TRIM_W + 2 * (BLEED + MARK)      # 112
 PAGE_H = TRIM_H + 2 * (BLEED + MARK)      # 312
 
@@ -54,6 +59,7 @@ html,body{background:#fff;margin:0;padding:0}
   box-shadow:none !important}
 .sheet .panel::after{display:none !important}   /* the fold guide is screen only */
 .sheet .panel .body{padding:9mm %(pad)smm %(pad)smm}
+.sheet .panel .tab{transform:rotate(180deg)}   /* set FOLD=False to disable */
 /* crop marks: hairlines in the mark zone, never touching the bleed.
    The class is deliberately not ".cm": that is the card's own text block in
    the artwork, and the collision gave every card a black absolute box. */
@@ -61,6 +67,8 @@ html,body{background:#fff;margin:0;padding:0}
 """ % {"pw": PAGE_W, "ph": PAGE_H, "mark": MARK,
        "bw": TRIM_W + 2 * BLEED, "bh": TRIM_H + 2 * BLEED,
        "tab": 60 + BLEED, "pad": 9 + BLEED}
+if not FOLD:
+    PRINT_CSS = PRINT_CSS.replace(".sheet .panel .tab{transform:rotate(180deg)}", "")
 
 
 def marks():
@@ -184,10 +192,12 @@ def verify(out):
 
 
 def main():
-    out = os.path.join(OUT_DIR, u"פלאייר-לדפוס.pdf")
+    out = os.path.join(OUT_DIR, u"פלאייר-לדפוס.pdf"
+                       if FOLD else u"פלאייר-שטוח.pdf")
     os.makedirs(OUT_DIR, exist_ok=True)
     print("trim %gx%g mm, bleed %g, marks %g, page %gx%g"
           % (TRIM_W, TRIM_H, BLEED, MARK, PAGE_W, PAGE_H))
+    print("tab: %s" % ("rotated 180 for the fold" if FOLD else "flat, reading order"))
     tmp = build()
     render(tmp, out)
     os.remove(tmp)
