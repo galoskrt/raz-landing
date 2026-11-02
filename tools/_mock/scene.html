@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<style>
+/* A lobby bank of letterboxes, drawn rather than photographed so nothing here
+   belongs to anybody else.
+
+   Everything is built on one scale so the answer is honest: --cm is one
+   centimetre. A box is 30 by 11 cm, the slot 21 cm, and the flyer is the real
+   10 cm wide with a 6 cm head. If the headline cannot be read at that size on
+   this picture, it cannot be read in the lobby either. */
+:root{--cm:15px}
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1640px;height:880px;overflow:hidden;font-family:Arial,sans-serif;
+  background:radial-gradient(130% 100% at 50% -10%, #EDEAE4 0%, #DAD5CC 55%, #C6C0B6 100%)}
+.wall{position:absolute;inset:0;background-image:repeating-linear-gradient(90deg,
+  rgba(0,0,0,.012) 0 2px, rgba(255,255,255,.012) 2px 4px)}
+
+.stage{position:absolute;inset:0;display:flex;align-items:center;
+  justify-content:center;gap:86px;padding:0 70px 54px}
+
+.bank{display:grid;grid-template-columns:repeat(2,calc(30*var(--cm)));
+  grid-template-rows:repeat(3,calc(11*var(--cm)));gap:7px;padding:12px;border-radius:5px;
+  background:linear-gradient(160deg,#9AA0A6 0%,#7E858C 42%,#6B7178 100%);
+  box-shadow:0 44px 96px rgba(20,22,26,.42),0 3px 0 rgba(255,255,255,.18) inset;
+  --cm:9.5px}
+
+.box{position:relative;border-radius:3px;
+  background:linear-gradient(170deg,#C9CDD2 0%,#AFB5BB 45%,#9BA1A8 100%);
+  box-shadow:0 1px 0 rgba(255,255,255,.55) inset,0 -2px 5px rgba(0,0,0,.16) inset,
+             0 3px 7px rgba(0,0,0,.2)}
+.box::before{content:"";position:absolute;inset:0;border-radius:3px;pointer-events:none;
+  background:repeating-linear-gradient(92deg,rgba(255,255,255,.055) 0 1px,
+    rgba(0,0,0,.035) 1px 3px)}
+.slot{position:absolute;top:calc(1.6*var(--cm));left:50%;transform:translateX(-50%);
+  width:calc(21*var(--cm));height:calc(.75*var(--cm));border-radius:calc(.4*var(--cm));
+  background:linear-gradient(180deg,#2B2F34 0%,#15181B 62%,#3A3F45 100%);
+  box-shadow:0 2px 0 rgba(255,255,255,.42),0 -1px 3px rgba(0,0,0,.5) inset;z-index:4}
+.plate{position:absolute;bottom:calc(1.2*var(--cm));left:50%;transform:translateX(-50%);
+  width:calc(11*var(--cm));height:calc(2*var(--cm));border-radius:2px;background:#EFECE6;
+  border:1px solid rgba(0,0,0,.22);display:grid;place-items:center;
+  font-size:calc(.95*var(--cm));color:#6E737A;letter-spacing:.03em}
+.lock{position:absolute;bottom:calc(1.6*var(--cm));left:calc(1.6*var(--cm));
+  width:calc(1.3*var(--cm));height:calc(1.3*var(--cm));border-radius:50%;
+  background:radial-gradient(circle at 36% 32%,#E3E6E9,#8E949B 60%,#5E646B);
+  box-shadow:0 1px 2px rgba(0,0,0,.4)}
+
+/* the flyer: body inside, the folded head hanging down the door */
+.flyer{position:absolute;width:calc(10*var(--cm));
+  top:calc(2.25*var(--cm));           /* immediately under the slot */
+  left:50%;transform:translateX(-50%);z-index:3}
+.flyer img{width:100%;display:block;box-shadow:0 calc(.5*var(--cm)) calc(1*var(--cm))
+  rgba(16,18,20,.38)}
+.flyer .crease{position:absolute;top:calc(-.25*var(--cm));left:0;right:0;
+  height:calc(.3*var(--cm));z-index:5;
+  background:linear-gradient(180deg,rgba(255,255,255,.8),rgba(0,0,0,.4))}
+/* the slot casts a line onto the paper, which is what sells the fold */
+.flyer .shade{position:absolute;top:0;left:0;right:0;height:calc(1.2*var(--cm));
+  background:linear-gradient(180deg,rgba(0,0,0,.34),rgba(0,0,0,0));z-index:4}
+
+/* the close view */
+.zoom{position:relative;flex:none;--cm:24px}
+.zoom .inner{position:relative;border-radius:5px;overflow:hidden;
+  box-shadow:0 36px 80px rgba(20,22,26,.4)}
+.zoom .inner .box{width:calc(30*var(--cm));height:calc(11*var(--cm));border-radius:5px}
+.zoom .lbl{margin-top:20px;color:#3A3F46;font-size:19px;text-align:center}
+.zoom .lbl b{color:#14161A}
+
+.cap{position:absolute;right:70px;bottom:40px;color:#3A3F46;font-size:20px;text-align:right}
+.cap b{display:block;font-size:30px;color:#14161A;margin-bottom:6px}
+.scalebar{position:absolute;left:70px;bottom:46px;--cm:24px;color:#5B6168;font-size:15px}
+.scalebar i{display:block;width:calc(10*var(--cm));height:3px;background:#5B6168;
+  margin-bottom:7px;position:relative}
+.scalebar i::before,.scalebar i::after{content:"";position:absolute;top:-5px;width:2px;
+  height:13px;background:#5B6168}
+.scalebar i::before{right:0}.scalebar i::after{left:0}
+</style>
+</head>
+<body>
+<div class="wall"></div>
+<div class="stage">
+
+  <div class="bank">
+    <div class="box"><div class="slot"></div><div class="lock"></div><div class="plate">קומה 2</div></div>
+    <div class="box"><div class="slot"></div><div class="lock"></div><div class="plate">קומה 2</div></div>
+    <div class="box"><div class="slot"></div><div class="lock"></div><div class="plate">קומה 1</div>
+      <div class="flyer"><div class="crease"></div><div class="shade"></div><img src="tab.png" alt=""></div>
+    </div>
+    <div class="box"><div class="slot"></div><div class="lock"></div><div class="plate">קומה 1</div></div>
+    <div class="box"><div class="slot"></div><div class="lock"></div><div class="plate">קרקע</div></div>
+    <div class="box"><div class="slot"></div><div class="lock"></div><div class="plate">קרקע</div></div>
+  </div>
+
+  <div class="zoom">
+    <div class="inner">
+      <div class="box"><div class="slot"></div><div class="lock"></div><div class="plate">קומה 1</div>
+        <div class="flyer"><div class="crease"></div><div class="shade"></div><img src="tab.png" alt=""></div>
+      </div>
+    </div>
+    <div class="lbl"><b>מקרוב.</b> זה מה שרואים מבלי לפתוח את התיבה</div>
+  </div>
+
+</div>
+
+<div class="cap"><b>כך זה נראה בתיבת דואר</b>הגוף בפנים, הלשונית בחוץ וקוראת נכון</div>
+<div class="scalebar"><i></i>10 סנטימטר, רוחב הפלאייר</div>
+</body>
+</html>

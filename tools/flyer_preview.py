@@ -62,6 +62,10 @@ header p b{font-weight:700;color:var(--ink)}
 .how p{font-size:14.5px;color:var(--ink2)}
 .how p b{color:var(--ink);font-weight:700}
 
+.mock{margin:22px 0 0}
+.mock img{width:100%;display:block;border-radius:14px;border:1px solid var(--line);
+  box-shadow:0 2px 6px rgba(20,22,26,.06),0 14px 34px rgba(20,22,26,.1)}
+.mock figcaption{font-size:12.5px;color:var(--muted);text-align:center;margin-top:9px}
 .faces{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:30px}
 figure{margin:0;display:flex;flex-direction:column;gap:7px}
 figure button{padding:0;border:0;background:none;cursor:zoom-in;display:block;border-radius:10px}
@@ -113,6 +117,8 @@ figcaption{font-size:12.5px;color:var(--muted);text-align:center}
     <p><b>הפלאייר מקופל בראש.</b> הגוף נכנס לתיבת הדואר והראש המקופל נתפס על השפה
     ובולט החוצה, כך שרואים אותו בלי לפתוח את התיבה. לכן ההצעה וקוד הסריקה יושבים&nbsp;שם.</p>
   </div>
+  <figure class="mock"><img src="img/mailbox.jpg" alt="הפלאייר בתוך תיבת דואר" loading="lazy">
+    <figcaption>הדמיה בגודל אמיתי. הפלאייר ברוחב 10 סנטימטר, התיבה&nbsp;ב-30.</figcaption></figure>
 </header>
 
 <div class="faces"><!--FACES--></div>
