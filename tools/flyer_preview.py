@@ -1,25 +1,32 @@
 # -*- coding: utf-8 -*-
-"""Build the preview Raz opens, on Gal's own domain.
+"""Build the page Raz opens: the chosen flyer, and the file his print shop asked for.
 
     python tools/flyer_preview.py
 
-The sketch page `flyer/index.html` is for us: it carries the reasoning behind
-each direction, what each one risks, and the press spec. A client opens a page
-to look at his flyer, not to read our strategy, so this page is generated from
-the same four faces with all of that stripped out.
+The sketch page `flyer/index.html` is ours. It carries why each direction
+exists, what each one risks, and the press spec. A client opens a page to look
+at his flyer and to hand something to his printer, not to read our strategy,
+so this page is generated from the chosen faces with all of that stripped out.
 
-Generated rather than written, so the preview cannot drift from the artwork.
-It is built mobile first, because he will open it on his phone, and each face
-opens full screen on a tap for reading the small print.
+Generated rather than written, so it cannot drift from the artwork. Direction A
+only, because that is what was chosen and a shop handed four faces can print
+the wrong two. Built phone first, because that is where he opens it.
+
+His printer asked him for "a PDF with bleed and crop marks" and he had to ask
+what that meant, so the page also hands him that sentence ready to forward.
 """
-import io, os, re
+import io, os
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SRC = os.path.join(ROOT, "flyer", "index.html")
 OUT = os.path.join(ROOT, "flyer", "preview")
 IMG = os.path.join(OUT, "img")
-FACES = [("a-front", u"כיוון א", u"צד קדמי"), ("a-back", u"כיוון א", u"צד אחורי"),
-         ("b-front", u"כיוון ב", u"צד קדמי"), ("b-back", u"כיוון ב", u"צד אחורי")]
+FACES = [("a-front", u"צד קדמי"), ("a-back", u"צד אחורי")]
+
+SPEC = (u"פלאייר, רצועה אנכית 10 על 30 סנטימטר. הדפסה בשני הצדדים, "
+        u"קיפול אחד 6 סנטימטר מהראש. 5,000 יחידות. "
+        u"הקובץ PDF עם גלישת רקע של 3 מילימטר בכל צד וצלבי חיתוך, "
+        u"והלשונית כבר מסובבת לכיוון הקיפול.")
 
 PAGE = u"""<!doctype html>
 <html lang="he" dir="rtl">
@@ -29,7 +36,7 @@ PAGE = u"""<!doctype html>
 <meta name="robots" content="noindex,nofollow">
 <title>הפלאייר שלך · רז מאיר כהן</title>
 <meta property="og:title" content="הפלאייר שלך · רז מאיר כהן">
-<meta property="og:description" content="שני כיוונים לפלאייר, שני צדדים לכל אחד.">
+<meta property="og:description" content="הפלאייר המוכן, והקובץ לבית הדפוס.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@200;300;400;500;700&display=swap" rel="stylesheet">
@@ -39,73 +46,94 @@ PAGE = u"""<!doctype html>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:Heebo,Arial,sans-serif;direction:rtl;background:var(--stone);
   color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased}
-.wrap{max-width:1000px;margin:0 auto;padding:0 18px 70px}
-header{padding:38px 0 6px}
-header h1{font-size:clamp(25px,6.4vw,34px);font-weight:700;letter-spacing:-.015em;text-wrap:balance}
-header p{color:var(--ink2);margin-top:11px;font-size:16px;max-width:58ch}
+.wrap{max-width:960px;margin:0 auto;padding:0 18px 60px}
+header{padding:38px 0 4px}
+header h1{font-size:clamp(25px,6.4vw,34px);font-weight:700;letter-spacing:-.015em;
+  text-wrap:balance}
+header p{color:var(--ink2);margin-top:11px;font-size:16px;max-width:56ch}
 header p b{font-weight:700;color:var(--ink)}
 
-.how{display:flex;gap:16px;align-items:center;margin-top:24px;padding:16px 18px;
+.how{display:flex;gap:16px;align-items:center;margin-top:22px;padding:15px 17px;
   background:#fff;border:1px solid var(--line);border-radius:14px}
-.how .dia{flex:none;width:46px}
-.how .strip{width:38px;margin:0 auto;border:2px solid var(--ink2);border-radius:4px;overflow:hidden}
-.how .tabp{height:22px;background:var(--red)}
-.how .bodyp{height:60px;background:var(--bone);border-top:2px dashed var(--ink2)}
+.how .dia{flex:none;width:44px}
+.how .strip{width:36px;margin:0 auto;border:2px solid var(--ink2);border-radius:4px;overflow:hidden}
+.how .tabp{height:21px;background:var(--red)}
+.how .bodyp{height:58px;background:var(--bone);border-top:2px dashed var(--ink2)}
 .how p{font-size:14.5px;color:var(--ink2)}
 .how p b{color:var(--ink);font-weight:700}
 
-h2{font-size:21px;font-weight:700;margin:38px 0 14px;padding-top:22px;
-  border-top:1px solid var(--line2);display:flex;align-items:center;gap:9px}
-.dot{width:12px;height:12px;border-radius:4px;flex:none}
-.dot.a{background:linear-gradient(135deg,#D82127,#7F0224)}
-.dot.b{background:#14161A}
-.faces{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.faces{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:30px}
 figure{margin:0;display:flex;flex-direction:column;gap:7px}
 figure button{padding:0;border:0;background:none;cursor:zoom-in;display:block;border-radius:10px}
 figure img{width:100%;display:block;border-radius:10px;background:#fff;
   box-shadow:0 2px 6px rgba(20,22,26,.07),0 14px 34px rgba(20,22,26,.12)}
 figcaption{font-size:12.5px;color:var(--muted);text-align:center}
+.tapnote{text-align:center;font-size:13px;color:var(--muted);margin-top:14px}
 
-.foot{margin-top:40px;padding:18px;background:#fff;border:1px solid var(--line);
-  border-radius:14px;font-size:14.5px;color:var(--ink2)}
-.foot b{color:var(--ink);font-weight:700}
-.foot a{display:inline-flex;align-items:center;gap:8px;margin-top:12px;
-  color:var(--red);font-weight:500;text-decoration:none;border-bottom:1px solid currentColor;
-  padding-bottom:1px}
+.press{margin-top:34px;padding:22px;background:#fff;border:1px solid var(--line);
+  border-radius:16px;box-shadow:0 2px 6px rgba(20,22,26,.05)}
+.press h2{font-size:19px;font-weight:700}
+.press p{font-size:14.5px;color:var(--ink2);margin-top:8px;max-width:52ch}
+.get{display:inline-flex;align-items:center;gap:10px;margin-top:16px;
+  background:linear-gradient(135deg,#D82127 0%,#C2151C 52%,#8F081B 100%);color:#fff;
+  font-size:16px;font-weight:700;text-decoration:none;padding:14px 24px;border-radius:12px;
+  box-shadow:0 6px 18px rgba(194,21,28,.3);transition:transform .16s,box-shadow .16s}
+.get:hover{transform:translateY(-1px);box-shadow:0 10px 26px rgba(194,21,28,.38)}
+.get:hover svg{transform:translateX(-3px)}
+.get svg{transition:transform .16s}
 
-/* tap to read the small print */
+.tell{margin-top:20px;padding-top:18px;border-top:1px solid var(--line)}
+.tell h3{font-size:14.5px;font-weight:700}
+.tell .box{margin-top:9px;background:var(--stone);border:1px solid var(--line);
+  border-radius:11px;padding:13px 15px;font-size:14.5px;color:var(--ink2);line-height:1.7}
+.copy{font-family:inherit;margin-top:11px;font-size:14px;font-weight:500;cursor:pointer;
+  background:transparent;border:1px solid var(--line2);color:var(--ink);
+  padding:10px 18px;border-radius:10px;transition:border-color .16s}
+.copy:hover{border-color:var(--ink)}
+.copy:focus-visible{outline:2px solid var(--red);outline-offset:2px}
+
 #lb{position:fixed;inset:0;z-index:50;background:rgba(10,11,13,.92);display:none;
   align-items:center;justify-content:center;padding:16px;cursor:zoom-out}
 #lb.on{display:flex}
-#lb img{max-width:100%;max-height:100%;height:100%;width:auto;object-fit:contain;
-  border-radius:6px}
+#lb img{max-width:100%;max-height:100%;height:100%;width:auto;object-fit:contain;border-radius:6px}
 #lb .x{position:absolute;top:14px;left:16px;width:40px;height:40px;border-radius:50%;
   border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.1);color:#fff;
   font-size:20px;line-height:1;cursor:pointer}
-@media (max-width:620px){
-  .faces{grid-template-columns:1fr 1fr;gap:11px}
-  header{padding-top:28px}
-}
 @media (prefers-reduced-motion:reduce){*{transition:none !important}}
 </style>
 </head>
 <body>
 <div class="wrap">
 <header>
-  <h1>הפלאייר שלך</h1>
-  <p>שני כיוונים, לכל אחד שני צדדים. <b>אפשר ללחוץ על כל תמונה כדי לפתוח אותה גדול</b>
-  ולקרוא את הטקסט הקטן. הטקסטים עדיין פתוחים לשינוי.</p>
+  <h1>הפלאייר שלך, מוכן</h1>
+  <p>זה הפלאייר הסופי, שני הצדדים. <b>אפשר ללחוץ על כל תמונה כדי לפתוח אותה גדול</b>
+  ולקרוא את הטקסט הקטן. למטה נמצא הקובץ לבית הדפוס, בדיוק בפורמט שביקשו&nbsp;ממך.</p>
   <div class="how">
     <div class="dia"><div class="strip"><div class="tabp"></div><div class="bodyp"></div></div></div>
     <p><b>הפלאייר מקופל בראש.</b> הגוף נכנס לתיבת הדואר והראש המקופל נתפס על השפה
-    ובולט החוצה, כך שרואים אותו בלי לפתוח את התיבה. לכן ההצעה וקוד הסריקה יושבים שם.</p>
+    ובולט החוצה, כך שרואים אותו בלי לפתוח את התיבה. לכן ההצעה וקוד הסריקה יושבים&nbsp;שם.</p>
   </div>
 </header>
-<!--FACES-->
-<div class="foot">
-  <b>מידות:</b> 10 על 30 סנטימטר, הדפסה בשני הצדדים, קיפול אחד 6 סנטימטר מהראש.
-  קוד הסריקה זהה בכל המופעים ומוביל לדף שלך.
-  <br><a href="flyer-print.pdf" download>הקובץ המוכן לבית הדפוס</a>
+
+<div class="faces"><!--FACES--></div>
+<p class="tapnote">לחיצה על תמונה פותחת אותה במסך מלא</p>
+
+<div class="press">
+  <h2>הקובץ לבית הדפוס</h2>
+  <p>קובץ PDF אחד, שני הצדדים, <b>עם גלישת רקע וצלבי חיתוך</b> כמו שביקשו.
+  אפשר להוריד אותו כאן ולהעביר להם כמו שהוא.</p>
+  <a class="get" href="flyer-print.pdf" download>
+    הורדת הקובץ לבית הדפוס
+    <svg width="22" height="10" viewBox="0 0 26 10" fill="none" aria-hidden="true">
+      <path d="M25 5H2M2 5l4-4M2 5l4 4" stroke="currentColor" stroke-width="1.6"
+            stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </a>
+
+  <div class="tell">
+    <h3>ומה להגיד להם</h3>
+    <div class="box" id="spec">SPEC_TEXT</div>
+    <button type="button" class="copy" id="cp">העתקת הטקסט</button>
+  </div>
 </div>
 </div>
 
@@ -116,17 +144,26 @@ figcaption{font-size:12.5px;color:var(--muted);text-align:center}
 <script>
 (function(){
   var lb=document.getElementById("lb"), im=document.getElementById("lbi");
-  function open(src,alt){ im.src=src; im.alt=alt; lb.classList.add("on");
-    document.body.style.overflow="hidden"; }
   function shut(){ lb.classList.remove("on"); im.src=""; document.body.style.overflow=""; }
   [].slice.call(document.querySelectorAll("figure button")).forEach(function(b){
     b.addEventListener("click", function(){
-      var i=b.querySelector("img"); open(i.src, i.alt);
+      var i=b.querySelector("img");
+      im.src=i.src; im.alt=i.alt; lb.classList.add("on");
+      document.body.style.overflow="hidden";
     });
   });
   lb.addEventListener("click", shut);
   document.getElementById("lbx").addEventListener("click", shut);
   document.addEventListener("keydown", function(e){ if(e.key==="Escape") shut(); });
+
+  var cp=document.getElementById("cp");
+  cp.addEventListener("click", function(){
+    var t=document.getElementById("spec").textContent.trim();
+    (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject())
+      .then(function(){ cp.textContent="הועתק";
+        setTimeout(function(){ cp.textContent="העתקת הטקסט"; }, 1800); })
+      .catch(function(){ window.prompt("העתקה ידנית", t); });
+  });
 })();
 </script>
 </body>
@@ -148,29 +185,30 @@ def main():
         pg.add_style_tag(content=".panel::after{display:none !important}")
         pg.wait_for_timeout(300)
         panels = pg.query_selector_all(".panel")
-        assert len(panels) == 4, "expected four faces, found %d" % len(panels)
-        for el, (slug, _, _) in zip(panels, FACES):
+        assert len(panels) >= 2, "expected the chosen direction's two faces"
+        for el, (slug, _) in zip(panels[:2], FACES):
             el.screenshot(path=os.path.join(IMG, slug + ".png"))
         br.close()
-    for slug, _, _ in FACES:
-        p_ = os.path.join(IMG, slug + ".png")
-        im = Image.open(p_).convert("RGB")
+    for slug, _ in FACES:
+        raw = os.path.join(IMG, slug + ".png")
+        im = Image.open(raw).convert("RGB")
         im = im.resize((900, int(900 * im.height / im.width)), Image.LANCZOS)
         im.save(os.path.join(IMG, slug + ".jpg"), "JPEG", quality=86,
                 optimize=True, progressive=True)
-        os.remove(p_)
+        os.remove(raw)
         print("  %-9s %sx%s  %.0f KB" % (slug, im.width, im.height,
               os.path.getsize(os.path.join(IMG, slug + ".jpg")) / 1024.0))
+    for stale in ("b-front", "b-back"):
+        f = os.path.join(IMG, stale + ".jpg")
+        if os.path.exists(f):
+            os.remove(f)
+            print("  removed the unchosen %s" % stale)
 
-    body = []
-    for con, dot in ((u"כיוון א", "a"), (u"כיוון ב", "b")):
-        rows = "".join(
-            u'<figure><button type="button"><img src="img/%s.jpg" alt="%s %s" loading="lazy">'
-            u'</button><figcaption>%s</figcaption></figure>' % (s, c, side, side)
-            for s, c, side in FACES if c == con)
-        body.append(u'<h2><span class="dot %s"></span>%s</h2><div class="faces">%s</div>'
-                    % (dot, con, rows))
-    html = PAGE.replace("<!--FACES-->", chr(10).join(body))
+    body = u"".join(
+        u'<figure><button type="button"><img src="img/%s.jpg" alt="הפלאייר, %s" '
+        u'loading="lazy"></button><figcaption>%s</figcaption></figure>' % (s, c, c)
+        for s, c in FACES)
+    html = PAGE.replace("<!--FACES-->", body).replace("SPEC_TEXT", SPEC)
     io.open(os.path.join(OUT, "index.html"), "w", encoding="utf-8").write(html)
     print("  page written, %d chars" % len(html))
 
