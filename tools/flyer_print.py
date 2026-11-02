@@ -63,7 +63,7 @@ html,body{background:#fff;margin:0;padding:0}
   box-shadow:none !important}
 .sheet .panel::after{display:none !important}   /* the fold guide is screen only */
 .sheet .panel .body{padding:9mm %(pad)smm %(pad)smm}
-.sheet .panel .tab{transform:rotate(180deg)}   /* set FOLD=False to disable */
+.sheet.outward .panel .tab{transform:rotate(180deg)}
 /* crop marks: hairlines in the mark zone, never touching the bleed.
    The class is deliberately not ".cm": that is the card's own text block in
    the artwork, and the collision gave every card a black absolute box. */
@@ -72,7 +72,7 @@ html,body{background:#fff;margin:0;padding:0}
        "bw": TRIM_W + 2 * BLEED, "bh": TRIM_H + 2 * BLEED,
        "tab": 60 + BLEED, "pad": 9 + BLEED}
 if not FOLD:
-    PRINT_CSS = PRINT_CSS.replace(".sheet .panel .tab{transform:rotate(180deg)}", "")
+    PRINT_CSS = PRINT_CSS.replace(".sheet.outward .panel .tab{transform:rotate(180deg)}", "")
 
 
 def marks():
@@ -108,7 +108,9 @@ def build():
     assert len(panels) == 4, "expected four faces, found %d" % len(panels)
     if ONLY_A:
         panels = panels[:2]
-    body = "".join('<div class="sheet">%s%s</div>' % (marks(), html) for html in panels)
+    body = "".join('<div class="sheet%s">%s%s</div>'
+                   % (" outward" if i % 2 == 0 else "", marks(), html)
+                   for i, html in enumerate(panels))
     doc = (u'<!doctype html><html lang="he" dir="rtl"><head><meta charset="utf-8">'
            + head + u"<style>" + style + PRINT_CSS + u"</style></head><body>"
            + body + u"</body></html>")

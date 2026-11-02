@@ -192,8 +192,8 @@ def main():
     for slug, _ in FACES:
         raw = os.path.join(IMG, slug + ".png")
         im = Image.open(raw).convert("RGB")
-        im = im.resize((900, int(900 * im.height / im.width)), Image.LANCZOS)
-        im.save(os.path.join(IMG, slug + ".jpg"), "JPEG", quality=86,
+        im = im.resize((1500, int(1500 * im.height / im.width)), Image.LANCZOS)
+        im.save(os.path.join(IMG, slug + ".jpg"), "JPEG", quality=90,
                 optimize=True, progressive=True)
         os.remove(raw)
         print("  %-9s %sx%s  %.0f KB" % (slug, im.width, im.height,
