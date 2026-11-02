@@ -44,6 +44,10 @@ TRIM_W, TRIM_H, BLEED, MARK = 100.0, 300.0, 3.0, 3.0
 # reads correctly folded and upside down flat, which is how press sheets for
 # folded work normally look. Pass "flat" to export the unfolded reading order.
 FOLD = "flat" not in sys.argv
+# Raz chose direction A. The four-page file still exists for the record, but the
+# one that goes to a print shop must carry only what was chosen: a shop handed
+# four faces can print the wrong two, and 5,000 units do not come back.
+ONLY_A = "a" in sys.argv
 PAGE_W = TRIM_W + 2 * (BLEED + MARK)      # 112
 PAGE_H = TRIM_H + 2 * (BLEED + MARK)      # 312
 
@@ -102,6 +106,8 @@ def build():
         br.close()
 
     assert len(panels) == 4, "expected four faces, found %d" % len(panels)
+    if ONLY_A:
+        panels = panels[:2]
     body = "".join('<div class="sheet">%s%s</div>' % (marks(), html) for html in panels)
     doc = (u'<!doctype html><html lang="he" dir="rtl"><head><meta charset="utf-8">'
            + head + u"<style>" + style + PRINT_CSS + u"</style></head><body>"
@@ -157,9 +163,10 @@ def verify(out):
     import fitz
     ok = True
     doc = fitz.open(out)
+    want = 2 if ONLY_A else 4
     print("  pages: %d" % doc.page_count)
-    if doc.page_count != 4:
-        print("  FAIL  expected 4 pages"); ok = False
+    if doc.page_count != want:
+        print("  FAIL  expected %d pages" % want); ok = False
     for i, page in enumerate(doc):
         w, h = page.rect.width / 72 * 25.4, page.rect.height / 72 * 25.4
         size_ok = abs(w - PAGE_W) < .6 and abs(h - PAGE_H) < .6
@@ -192,7 +199,8 @@ def verify(out):
 
 
 def main():
-    out = os.path.join(OUT_DIR, u"פלאייר-לדפוס.pdf"
+    out = os.path.join(OUT_DIR, (u"פלאייר-א-לדפוס.pdf" if ONLY_A else
+                        u"פלאייר-לדפוס.pdf")
                        if FOLD else u"פלאייר-שטוח.pdf")
     os.makedirs(OUT_DIR, exist_ok=True)
     print("trim %gx%g mm, bleed %g, marks %g, page %gx%g"
